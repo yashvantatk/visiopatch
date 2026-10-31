@@ -4,10 +4,10 @@
   "url": "http://localhost:8905/",
   "duration_s": 5.0,
   "record_s": 5.5,
-  "load_offset_s": 0.016,
+  "load_offset_s": 0.017,
   "fps": 15,
   "width": 1280,
   "height": 720,
   "frames": 83,
-  "sha256": "ffeef3f9cb059b47d71c64a9ee62a902cd5f643736d798a2d404d46629e5c1c3"
+  "sha256": "87677d189a5fc7abf91d0d5176a49addcbfd71c004c894b8bec0061df2cc26d8"
 }

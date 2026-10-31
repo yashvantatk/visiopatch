@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "carousel cards remain aligned side-by-side throughout; no progressive misalignment persists across samples",
+  "expected": "cards would show growing offset or gaps if misaligning",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "reported",
+  "cost_usd": 0.00883725,
+  "cached": false,
+  "usage": {
+    "input_tokens": 2371,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1382,
+    "output_tokens_details": {
+      "reasoning_tokens": 1302
+    },
+    "total_tokens": 3753
+  },
+  "case_id": "d2-carousel-drift",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 1
+}

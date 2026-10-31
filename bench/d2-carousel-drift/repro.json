@@ -1,1 +1,16 @@
-{"actions": [], "buggy_sha": "3a531b108a8557811d1e309a3797ae45bec119e5", "duration_s": 5, "fix_sha": "81848b4bab1ffe5c9dd447254ca90da7d2a0ff00", "noun_phrases": ["card"], "url": "http://localhost:8906/", "noun_fallbacks": {"card": ["rectangle"]}}
+{
+  "actions": [],
+  "buggy_sha": "a977c41b89d987bb1e0b24e2e9978cacb8a007c8",
+  "duration_s": 5,
+  "fix_sha": "fa7acf52e03e392acc7662a6b03dbde405f42351",
+  "noun_phrases": [
+    "card"
+  ],
+  "url": "http://localhost:8906/",
+  "noun_fallbacks": {
+    "card": [
+      "rectangle"
+    ]
+  },
+  "report": "the carousel cards gradually stop lining up"
+}

@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "Static orange and white text on black background with no persistent abnormal motion",
+  "expected": "Static text remains stable",
+  "confidence": 0.95,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.009408,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1590,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1746,
+    "output_tokens_details": {
+      "reasoning_tokens": 1675
+    },
+    "total_tokens": 3336
+  },
+  "case_id": "k950",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

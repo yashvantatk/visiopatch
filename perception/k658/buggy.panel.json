@@ -3,9 +3,9 @@
   "noun": "rectangle",
   "requested_noun": "panel",
   "mp4": "buggy.mp4",
-  "sha256": "c0571d50ebebb4d060ab1563eea51cb04c3871c32d03cd08e056b0cb4402aef5",
+  "sha256": "994b620352fb43c465489d7748c94b44babaddaa21aed041ce4b822d69b57d2b",
   "frame_count": 80,
-  "track_count": 3,
+  "track_count": 4,
   "tracks": [
     {
       "object_id": "0",
@@ -15,14 +15,20 @@
     },
     {
       "object_id": "1",
-      "visible_frames": 80,
-      "first_frame": 3,
+      "visible_frames": 79,
+      "first_frame": 4,
       "last_frame": 82
     },
     {
       "object_id": "2",
-      "visible_frames": 80,
-      "first_frame": 3,
+      "visible_frames": 79,
+      "first_frame": 4,
+      "last_frame": 82
+    },
+    {
+      "object_id": "3",
+      "visible_frames": 76,
+      "first_frame": 7,
       "last_frame": 82
     }
   ],
@@ -31,914 +37,1145 @@
       "frame": 3,
       "track_id": "0",
       "bbox": [
-        939,
-        281,
-        972,
-        503
+        983,
+        255,
+        1016,
+        529
       ],
-      "mask_area": 6771
-    },
-    {
-      "frame": 3,
-      "track_id": "1",
-      "bbox": [
-        530,
-        281,
-        814,
-        503
-      ],
-      "mask_area": 62323
-    },
-    {
-      "frame": 3,
-      "track_id": "2",
-      "bbox": [
-        530,
-        599,
-        814,
-        629
-      ],
-      "mask_area": 8371
+      "mask_area": 8570
     },
     {
       "frame": 4,
       "track_id": "0",
       "bbox": [
-        894,
-        306,
-        929,
-        478
+        880,
+        313,
+        913,
+        471
       ],
-      "mask_area": 5681
+      "mask_area": 4908
     },
     {
       "frame": 4,
       "track_id": "1",
       "bbox": [
-        551,
-        307,
-        791,
-        477
-      ],
-      "mask_area": 40325
-    },
-    {
-      "frame": 4,
-      "track_id": "2",
-      "bbox": [
-        550,
-        545,
-        792,
-        577
-      ],
-      "mask_area": 7422
-    },
-    {
-      "frame": 5,
-      "track_id": "0",
-      "bbox": [
-        887,
-        310,
-        920,
-        473
-      ],
-      "mask_area": 5053
-    },
-    {
-      "frame": 5,
-      "track_id": "1",
-      "bbox": [
-        555,
-        311,
-        788,
-        473
-      ],
-      "mask_area": 37453
-    },
-    {
-      "frame": 5,
-      "track_id": "2",
-      "bbox": [
-        554,
-        540,
-        789,
-        572
-      ],
-      "mask_area": 7154
-    },
-    {
-      "frame": 6,
-      "track_id": "0",
-      "bbox": [
-        868,
-        320,
-        902,
-        464
-      ],
-      "mask_area": 4524
-    },
-    {
-      "frame": 6,
-      "track_id": "1",
-      "bbox": [
-        564,
-        320,
-        779,
-        464
-      ],
-      "mask_area": 30701
-    },
-    {
-      "frame": 6,
-      "track_id": "2",
-      "bbox": [
-        563,
-        519,
-        780,
-        551
-      ],
-      "mask_area": 6606
-    },
-    {
-      "frame": 7,
-      "track_id": "0",
-      "bbox": [
-        844,
+        559,
         314,
-        879,
+        785,
         470
       ],
-      "mask_area": 4998
+      "mask_area": 34873
+    },
+    {
+      "frame": 4,
+      "track_id": "2",
+      "bbox": [
+        558,
+        531,
+        786,
+        562
+      ],
+      "mask_area": 6569
+    },
+    {
+      "frame": 5,
+      "track_id": "0",
+      "bbox": [
+        874,
+        317,
+        906,
+        467
+      ],
+      "mask_area": 4509
+    },
+    {
+      "frame": 5,
+      "track_id": "1",
+      "bbox": [
+        562,
+        318,
+        783,
+        466
+      ],
+      "mask_area": 32448
+    },
+    {
+      "frame": 5,
+      "track_id": "2",
+      "bbox": [
+        561,
+        525,
+        783,
+        557
+      ],
+      "mask_area": 6739
+    },
+    {
+      "frame": 6,
+      "track_id": "0",
+      "bbox": [
+        849,
+        317,
+        882,
+        468
+      ],
+      "mask_area": 4690
+    },
+    {
+      "frame": 6,
+      "track_id": "1",
+      "bbox": [
+        575,
+        317,
+        769,
+        467
+      ],
+      "mask_area": 28978
+    },
+    {
+      "frame": 6,
+      "track_id": "2",
+      "bbox": [
+        574,
+        525,
+        770,
+        557
+      ],
+      "mask_area": 5954
+    },
+    {
+      "frame": 7,
+      "track_id": "0",
+      "bbox": [
+        830,
+        308,
+        863,
+        477
+      ],
+      "mask_area": 5307
     },
     {
       "frame": 7,
       "track_id": "1",
       "bbox": [
-        577,
-        315,
-        767,
-        469
+        584,
+        308,
+        760,
+        476
       ],
-      "mask_area": 29053
+      "mask_area": 29146
     },
     {
       "frame": 7,
       "track_id": "2",
       "bbox": [
-        577,
-        531,
-        768,
-        563
+        584,
+        544,
+        762,
+        577
       ],
-      "mask_area": 5862
+      "mask_area": 5475
+    },
+    {
+      "frame": 7,
+      "track_id": "3",
+      "bbox": [
+        830,
+        544,
+        865,
+        578
+      ],
+      "mask_area": 1115
     },
     {
       "frame": 8,
       "track_id": "0",
+      "bbox": [
+        810,
+        297,
+        843,
+        486
+      ],
+      "mask_area": 5895
+    },
+    {
+      "frame": 8,
+      "track_id": "1",
+      "bbox": [
+        594,
+        298,
+        750,
+        486
+      ],
+      "mask_area": 29093
+    },
+    {
+      "frame": 8,
+      "track_id": "2",
+      "bbox": [
+        593,
+        563,
+        752,
+        595
+      ],
+      "mask_area": 4960
+    },
+    {
+      "frame": 8,
+      "track_id": "3",
+      "bbox": [
+        809,
+        563,
+        844,
+        596
+      ],
+      "mask_area": 1052
+    },
+    {
+      "frame": 9,
+      "track_id": "0",
+      "bbox": [
+        804,
+        284,
+        838,
+        501
+      ],
+      "mask_area": 6830
+    },
+    {
+      "frame": 9,
+      "track_id": "1",
+      "bbox": [
+        596,
+        284,
+        747,
+        500
+      ],
+      "mask_area": 32269
+    },
+    {
+      "frame": 9,
+      "track_id": "2",
+      "bbox": [
+        595,
+        592,
+        748,
+        624
+      ],
+      "mask_area": 4769
+    },
+    {
+      "frame": 9,
+      "track_id": "3",
+      "bbox": [
+        804,
+        592,
+        838,
+        625
+      ],
+      "mask_area": 1044
+    },
+    {
+      "frame": 10,
+      "track_id": "0",
+      "bbox": [
+        825,
+        275,
+        858,
+        509
+      ],
+      "mask_area": 7033
+    },
+    {
+      "frame": 10,
+      "track_id": "1",
+      "bbox": [
+        586,
+        276,
+        757,
+        508
+      ],
+      "mask_area": 39275
+    },
+    {
+      "frame": 10,
+      "track_id": "2",
+      "bbox": [
+        586,
+        609,
+        758,
+        641
+      ],
+      "mask_area": 5217
+    },
+    {
+      "frame": 10,
+      "track_id": "3",
       "bbox": [
         824,
-        304,
-        858,
-        479
+        608,
+        859,
+        641
       ],
-      "mask_area": 5541
-    },
-    {
-      "frame": 8,
-      "track_id": "1",
-      "bbox": [
-        586,
-        305,
-        757,
-        480
-      ],
-      "mask_area": 29426
-    },
-    {
-      "frame": 8,
-      "track_id": "2",
-      "bbox": [
-        585,
-        549,
-        758,
-        582
-      ],
-      "mask_area": 5447
-    },
-    {
-      "frame": 9,
-      "track_id": "0",
-      "bbox": [
-        798,
-        287,
-        834,
-        497
-      ],
-      "mask_area": 6965
-    },
-    {
-      "frame": 9,
-      "track_id": "1",
-      "bbox": [
-        600,
-        287,
-        743,
-        497
-      ],
-      "mask_area": 29726
-    },
-    {
-      "frame": 9,
-      "track_id": "2",
-      "bbox": [
-        599,
-        586,
-        744,
-        619
-      ],
-      "mask_area": 4537
-    },
-    {
-      "frame": 10,
-      "track_id": "0",
-      "bbox": [
-        818,
-        278,
-        853,
-        505
-      ],
-      "mask_area": 7210
-    },
-    {
-      "frame": 10,
-      "track_id": "1",
-      "bbox": [
-        590,
-        279,
-        753,
-        505
-      ],
-      "mask_area": 36467
-    },
-    {
-      "frame": 10,
-      "track_id": "2",
-      "bbox": [
-        590,
-        602,
-        755,
-        635
-      ],
-      "mask_area": 5137
+      "mask_area": 1083
     },
     {
       "frame": 11,
       "track_id": "0",
       "bbox": [
-        836,
-        272,
-        871,
-        512
+        851,
+        266,
+        885,
+        518
       ],
-      "mask_area": 7775
+      "mask_area": 7889
     },
     {
       "frame": 11,
       "track_id": "1",
       "bbox": [
-        581,
-        272,
-        764,
-        512
+        574,
+        267,
+        770,
+        517
       ],
-      "mask_area": 43505
+      "mask_area": 48400
     },
     {
       "frame": 11,
       "track_id": "2",
       "bbox": [
-        579,
-        617,
-        765,
-        649
+        573,
+        626,
+        771,
+        658
       ],
-      "mask_area": 5587
+      "mask_area": 5966
+    },
+    {
+      "frame": 11,
+      "track_id": "3",
+      "bbox": [
+        850,
+        626,
+        884,
+        659
+      ],
+      "mask_area": 1056
     },
     {
       "frame": 12,
       "track_id": "0",
       "bbox": [
-        867,
-        260,
-        903,
-        523
-      ],
-      "mask_area": 8744
-    },
-    {
-      "frame": 12,
-      "track_id": "1",
-      "bbox": [
-        565,
-        261,
-        779,
-        523
-      ],
-      "mask_area": 55528
-    },
-    {
-      "frame": 12,
-      "track_id": "2",
-      "bbox": [
-        564,
-        637,
-        780,
-        670
-      ],
-      "mask_area": 6722
-    },
-    {
-      "frame": 13,
-      "track_id": "0",
-      "bbox": [
-        894,
-        255,
-        929,
-        529
-      ],
-      "mask_area": 9064
-    },
-    {
-      "frame": 13,
-      "track_id": "1",
-      "bbox": [
-        552,
-        255,
-        791,
-        529
-      ],
-      "mask_area": 64608
-    },
-    {
-      "frame": 13,
-      "track_id": "2",
-      "bbox": [
-        551,
-        650,
-        792,
-        682
-      ],
-      "mask_area": 7528
-    },
-    {
-      "frame": 14,
-      "track_id": "0",
-      "bbox": [
-        909,
-        252,
-        944,
-        532
-      ],
-      "mask_area": 8964
-    },
-    {
-      "frame": 14,
-      "track_id": "1",
-      "bbox": [
-        545,
-        252,
-        800,
-        531
-      ],
-      "mask_area": 70796
-    },
-    {
-      "frame": 14,
-      "track_id": "2",
-      "bbox": [
-        544,
-        657,
-        800,
-        688
-      ],
-      "mask_area": 7431
-    },
-    {
-      "frame": 15,
-      "track_id": "0",
-      "bbox": [
-        934,
-        248,
-        968,
-        535
-      ],
-      "mask_area": 9100
-    },
-    {
-      "frame": 15,
-      "track_id": "1",
-      "bbox": [
-        532,
-        250,
-        812,
-        535
-      ],
-      "mask_area": 79006
-    },
-    {
-      "frame": 15,
-      "track_id": "2",
-      "bbox": [
-        530,
-        662,
-        813,
-        694
-      ],
-      "mask_area": 8657
-    },
-    {
-      "frame": 16,
-      "track_id": "0",
-      "bbox": [
-        953,
-        249,
-        985,
-        535
-      ],
-      "mask_area": 8828
-    },
-    {
-      "frame": 16,
-      "track_id": "1",
-      "bbox": [
-        524,
-        249,
-        820,
-        535
-      ],
-      "mask_area": 83739
-    },
-    {
-      "frame": 16,
-      "track_id": "2",
-      "bbox": [
-        523,
-        662,
-        822,
-        693
-      ],
-      "mask_area": 8880
-    },
-    {
-      "frame": 17,
-      "track_id": "0",
-      "bbox": [
-        962,
-        251,
-        995,
-        533
-      ],
-      "mask_area": 8741
-    },
-    {
-      "frame": 17,
-      "track_id": "1",
-      "bbox": [
-        518,
-        251,
-        825,
-        532
-      ],
-      "mask_area": 85631
-    },
-    {
-      "frame": 17,
-      "track_id": "2",
-      "bbox": [
-        517,
-        659,
-        827,
-        690
-      ],
-      "mask_area": 9354
-    },
-    {
-      "frame": 18,
-      "track_id": "0",
-      "bbox": [
-        978,
-        256,
-        1011,
+        882,
+        257,
+        915,
         527
       ],
-      "mask_area": 8481
+      "mask_area": 8428
     },
     {
-      "frame": 18,
+      "frame": 12,
       "track_id": "1",
       "bbox": [
-        511,
-        256,
-        834,
+        559,
+        257,
+        786,
         526
       ],
-      "mask_area": 86300
+      "mask_area": 60177
+    },
+    {
+      "frame": 12,
+      "track_id": "2",
+      "bbox": [
+        558,
+        644,
+        786,
+        677
+      ],
+      "mask_area": 7262
+    },
+    {
+      "frame": 12,
+      "track_id": "3",
+      "bbox": [
+        882,
+        644,
+        916,
+        678
+      ],
+      "mask_area": 1107
+    },
+    {
+      "frame": 13,
+      "track_id": "0",
+      "bbox": [
+        904,
+        253,
+        938,
+        532
+      ],
+      "mask_area": 8866
+    },
+    {
+      "frame": 13,
+      "track_id": "1",
+      "bbox": [
+        546,
+        253,
+        798,
+        531
+      ],
+      "mask_area": 69401
+    },
+    {
+      "frame": 13,
+      "track_id": "2",
+      "bbox": [
+        545,
+        655,
+        799,
+        687
+      ],
+      "mask_area": 7840
+    },
+    {
+      "frame": 13,
+      "track_id": "3",
+      "bbox": [
+        904,
+        655,
+        938,
+        687
+      ],
+      "mask_area": 1037
+    },
+    {
+      "frame": 14,
+      "track_id": "0",
+      "bbox": [
+        921,
+        250,
+        954,
+        534
+      ],
+      "mask_area": 8758
+    },
+    {
+      "frame": 14,
+      "track_id": "1",
+      "bbox": [
+        539,
+        250,
+        805,
+        534
+      ],
+      "mask_area": 74761
+    },
+    {
+      "frame": 14,
+      "track_id": "2",
+      "bbox": [
+        538,
+        659,
+        806,
+        691
+      ],
+      "mask_area": 8111
+    },
+    {
+      "frame": 14,
+      "track_id": "3",
+      "bbox": [
+        921,
+        659,
+        955,
+        691
+      ],
+      "mask_area": 1025
+    },
+    {
+      "frame": 15,
+      "track_id": "0",
+      "bbox": [
+        944,
+        248,
+        978,
+        536
+      ],
+      "mask_area": 9146
+    },
+    {
+      "frame": 15,
+      "track_id": "1",
+      "bbox": [
+        527,
+        249,
+        818,
+        535
+      ],
+      "mask_area": 82480
+    },
+    {
+      "frame": 15,
+      "track_id": "2",
+      "bbox": [
+        526,
+        662,
+        819,
+        694
+      ],
+      "mask_area": 9065
+    },
+    {
+      "frame": 15,
+      "track_id": "3",
+      "bbox": [
+        944,
+        662,
+        978,
+        694
+      ],
+      "mask_area": 1039
+    },
+    {
+      "frame": 16,
+      "track_id": "0",
+      "bbox": [
+        960,
+        250,
+        994,
+        534
+      ],
+      "mask_area": 8834
+    },
+    {
+      "frame": 16,
+      "track_id": "1",
+      "bbox": [
+        519,
+        251,
+        824,
+        533
+      ],
+      "mask_area": 85259
+    },
+    {
+      "frame": 16,
+      "track_id": "2",
+      "bbox": [
+        519,
+        659,
+        826,
+        691
+      ],
+      "mask_area": 9299
+    },
+    {
+      "frame": 16,
+      "track_id": "3",
+      "bbox": [
+        961,
+        660,
+        994,
+        692
+      ],
+      "mask_area": 1011
+    },
+    {
+      "frame": 17,
+      "track_id": "0",
+      "bbox": [
+        970,
+        252,
+        1002,
+        532
+      ],
+      "mask_area": 8517
+    },
+    {
+      "frame": 17,
+      "track_id": "1",
+      "bbox": [
+        514,
+        253,
+        830,
+        531
+      ],
+      "mask_area": 86887
+    },
+    {
+      "frame": 17,
+      "track_id": "2",
+      "bbox": [
+        513,
+        654,
+        830,
+        686
+      ],
+      "mask_area": 9762
+    },
+    {
+      "frame": 17,
+      "track_id": "3",
+      "bbox": [
+        969,
+        653,
+        1004,
+        686
+      ],
+      "mask_area": 1070
+    },
+    {
+      "frame": 18,
+      "track_id": "0",
+      "bbox": [
+        982,
+        259,
+        1016,
+        525
+      ],
+      "mask_area": 8296
+    },
+    {
+      "frame": 18,
+      "track_id": "1",
+      "bbox": [
+        508,
+        259,
+        837,
+        524
+      ],
+      "mask_area": 86055
     },
     {
       "frame": 18,
       "track_id": "2",
       "bbox": [
-        510,
-        646,
-        834,
-        679
+        507,
+        640,
+        837,
+        674
       ],
-      "mask_area": 10095
+      "mask_area": 10505
+    },
+    {
+      "frame": 18,
+      "track_id": "3",
+      "bbox": [
+        982,
+        640,
+        1016,
+        673
+      ],
+      "mask_area": 1076
     },
     {
       "frame": 19,
       "track_id": "0",
       "bbox": [
-        986,
-        264,
-        1019,
-        520
+        988,
+        267,
+        1024,
+        517
       ],
-      "mask_area": 7895
+      "mask_area": 8129
     },
     {
       "frame": 19,
-      "track_id": "1",
-      "bbox": [
-        507,
-        264,
-        837,
-        520
-      ],
-      "mask_area": 83549
-    },
-    {
-      "frame": 19,
-      "track_id": "2",
-      "bbox": [
-        507,
-        634,
-        837,
-        665
-      ],
-      "mask_area": 10007
-    },
-    {
-      "frame": 20,
-      "track_id": "0",
-      "bbox": [
-        991,
-        270,
-        1025,
-        514
-      ],
-      "mask_area": 7869
-    },
-    {
-      "frame": 20,
       "track_id": "1",
       "bbox": [
         506,
-        270,
+        268,
         839,
-        513
+        516
       ],
-      "mask_area": 80427
+      "mask_area": 82080
+    },
+    {
+      "frame": 19,
+      "track_id": "2",
+      "bbox": [
+        505,
+        624,
+        840,
+        656
+      ],
+      "mask_area": 10200
+    },
+    {
+      "frame": 19,
+      "track_id": "3",
+      "bbox": [
+        988,
+        624,
+        1024,
+        656
+      ],
+      "mask_area": 1084
+    },
+    {
+      "frame": 20,
+      "track_id": "0",
+      "bbox": [
+        992,
+        274,
+        1025,
+        511
+      ],
+      "mask_area": 7587
+    },
+    {
+      "frame": 20,
+      "track_id": "1",
+      "bbox": [
+        504,
+        275,
+        840,
+        510
+      ],
+      "mask_area": 78128
     },
     {
       "frame": 20,
       "track_id": "2",
       "bbox": [
         504,
-        620,
+        610,
         840,
-        652
+        642
       ],
-      "mask_area": 10265
+      "mask_area": 10466
     },
     {
-      "frame": 21,
-      "track_id": "0",
+      "frame": 20,
+      "track_id": "3",
       "bbox": [
         992,
-        282,
+        610,
+        1026,
+        643
+      ],
+      "mask_area": 1069
+    },
+    {
+      "frame": 21,
+      "track_id": "0",
+      "bbox": [
+        990,
+        287,
         1025,
-        503
+        497
       ],
-      "mask_area": 7086
+      "mask_area": 6891
     },
     {
       "frame": 21,
       "track_id": "1",
       "bbox": [
         505,
-        282,
+        287,
         839,
-        502
+        496
       ],
-      "mask_area": 72743
+      "mask_area": 69028
     },
     {
       "frame": 21,
       "track_id": "2",
       "bbox": [
-        503,
-        597,
-        841,
-        628
-      ],
-      "mask_area": 10092
-    },
-    {
-      "frame": 22,
-      "track_id": "0",
-      "bbox": [
-        989,
-        291,
-        1023,
-        491
-      ],
-      "mask_area": 6333
-    },
-    {
-      "frame": 22,
-      "track_id": "1",
-      "bbox": [
-        506,
-        293,
-        838,
-        490
-      ],
-      "mask_area": 64907
-    },
-    {
-      "frame": 22,
-      "track_id": "2",
-      "bbox": [
         505,
-        574,
+        584,
         840,
-        607
+        616
       ],
-      "mask_area": 10177
+      "mask_area": 10240
     },
     {
-      "frame": 23,
+      "frame": 21,
+      "track_id": "3",
+      "bbox": [
+        991,
+        584,
+        1025,
+        617
+      ],
+      "mask_area": 1096
+    },
+    {
+      "frame": 22,
       "track_id": "0",
       "bbox": [
-        984,
-        302,
-        1018,
-        481
+        986,
+        299,
+        1021,
+        485
       ],
-      "mask_area": 5642
+      "mask_area": 5874
     },
     {
-      "frame": 23,
+      "frame": 22,
       "track_id": "1",
       "bbox": [
         507,
-        303,
-        836,
-        481
+        300,
+        837,
+        483
       ],
-      "mask_area": 57746
+      "mask_area": 59858
+    },
+    {
+      "frame": 22,
+      "track_id": "2",
+      "bbox": [
+        506,
+        560,
+        838,
+        592
+      ],
+      "mask_area": 9911
+    },
+    {
+      "frame": 22,
+      "track_id": "3",
+      "bbox": [
+        986,
+        560,
+        1022,
+        592
+      ],
+      "mask_area": 1088
+    },
+    {
+      "frame": 23,
+      "track_id": "0",
+      "bbox": [
+        980,
+        308,
+        1014,
+        476
+      ],
+      "mask_area": 5258
+    },
+    {
+      "frame": 23,
+      "track_id": "1",
+      "bbox": [
+        510,
+        309,
+        835,
+        475
+      ],
+      "mask_area": 53423
     },
     {
       "frame": 23,
       "track_id": "2",
       "bbox": [
-        506,
-        555,
-        837,
-        587
+        509,
+        542,
+        835,
+        576
       ],
-      "mask_area": 9897
+      "mask_area": 10069
+    },
+    {
+      "frame": 23,
+      "track_id": "3",
+      "bbox": [
+        980,
+        541,
+        1016,
+        574
+      ],
+      "mask_area": 1100
     },
     {
       "frame": 24,
       "track_id": "0",
       "bbox": [
-        973,
-        319,
-        1006,
-        466
+        970,
+        321,
+        1003,
+        463
       ],
-      "mask_area": 4583
+      "mask_area": 4621
     },
     {
       "frame": 24,
       "track_id": "1",
+      "bbox": [
+        514,
+        322,
+        830,
+        462
+      ],
+      "mask_area": 43889
+    },
+    {
+      "frame": 24,
+      "track_id": "2",
       "bbox": [
         512,
-        319,
-        831,
-        465
+        515,
+        830,
+        547
       ],
-      "mask_area": 45981
+      "mask_area": 9835
     },
     {
       "frame": 24,
-      "track_id": "2",
+      "track_id": "3",
       "bbox": [
-        511,
-        524,
-        831,
-        555
+        968,
+        514,
+        1004,
+        547
       ],
-      "mask_area": 9525
+      "mask_area": 1098
     },
     {
       "frame": 25,
       "track_id": "0",
       "bbox": [
-        961,
-        315,
-        995,
-        469
+        957,
+        313,
+        992,
+        472
       ],
-      "mask_area": 4895
+      "mask_area": 5319
     },
     {
       "frame": 25,
       "track_id": "1",
       "bbox": [
-        518,
-        316,
-        825,
-        468
+        521,
+        313,
+        823,
+        471
       ],
-      "mask_area": 46116
+      "mask_area": 47032
     },
     {
       "frame": 25,
       "track_id": "2",
       "bbox": [
-        518,
-        528,
-        826,
-        559
-      ],
-      "mask_area": 9179
-    },
-    {
-      "frame": 26,
-      "track_id": "0",
-      "bbox": [
-        950,
-        306,
-        984,
-        478
-      ],
-      "mask_area": 5450
-    },
-    {
-      "frame": 26,
-      "track_id": "1",
-      "bbox": [
-        524,
-        307,
-        819,
-        477
-      ],
-      "mask_area": 49577
-    },
-    {
-      "frame": 26,
-      "track_id": "2",
-      "bbox": [
-        524,
-        546,
-        820,
-        578
-      ],
-      "mask_area": 8926
-    },
-    {
-      "frame": 27,
-      "track_id": "0",
-      "bbox": [
-        927,
-        289,
-        962,
-        493
-      ],
-      "mask_area": 6640
-    },
-    {
-      "frame": 27,
-      "track_id": "1",
-      "bbox": [
+        520,
         535,
-        290,
-        808,
-        493
+        824,
+        567
       ],
-      "mask_area": 54439
+      "mask_area": 9248
     },
     {
-      "frame": 27,
-      "track_id": "2",
+      "frame": 25,
+      "track_id": "3",
       "bbox": [
+        956,
         535,
-        578,
-        808,
-        609
+        991,
+        568
       ],
-      "mask_area": 8374
+      "mask_area": 1062
     },
     {
-      "frame": 28,
+      "frame": 26,
       "track_id": "0",
       "bbox": [
-        905,
-        280,
         939,
-        504
+        299,
+        973,
+        484
       ],
-      "mask_area": 7099
+      "mask_area": 5976
+    },
+    {
+      "frame": 26,
+      "track_id": "1",
+      "bbox": [
+        530,
+        300,
+        814,
+        483
+      ],
+      "mask_area": 51753
+    },
+    {
+      "frame": 26,
+      "track_id": "2",
+      "bbox": [
+        528,
+        561,
+        815,
+        592
+      ],
+      "mask_area": 8586
+    },
+    {
+      "frame": 26,
+      "track_id": "3",
+      "bbox": [
+        939,
+        560,
+        974,
+        592
+      ],
+      "mask_area": 1060
+    },
+    {
+      "frame": 27,
+      "track_id": "0",
+      "bbox": [
+        915,
+        284,
+        947,
+        500
+      ],
+      "mask_area": 6590
+    },
+    {
+      "frame": 27,
+      "track_id": "1",
+      "bbox": [
+        542,
+        285,
+        802,
+        500
+      ],
+      "mask_area": 55322
+    },
+    {
+      "frame": 27,
+      "track_id": "2",
+      "bbox": [
+        541,
+        589,
+        803,
+        621
+      ],
+      "mask_area": 7791
+    },
+    {
+      "frame": 27,
+      "track_id": "3",
+      "bbox": [
+        915,
+        589,
+        950,
+        621
+      ],
+      "mask_area": 1039
+    },
+    {
+      "frame": 28,
+      "track_id": "0",
+      "bbox": [
+        898,
+        276,
+        932,
+        508
+      ],
+      "mask_area": 7391
     },
     {
       "frame": 28,
       "track_id": "1",
       "bbox": [
-        546,
-        280,
-        798,
-        503
+        550,
+        277,
+        794,
+        507
       ],
-      "mask_area": 55587
+      "mask_area": 55572
     },
     {
       "frame": 28,
       "track_id": "2",
       "bbox": [
-        545,
-        600,
-        799,
-        631
+        548,
+        605,
+        795,
+        638
       ],
-      "mask_area": 7739
+      "mask_area": 7662
+    },
+    {
+      "frame": 28,
+      "track_id": "3",
+      "bbox": [
+        898,
+        605,
+        932,
+        638
+      ],
+      "mask_area": 1072
     },
     {
       "frame": 29,
       "track_id": "0",
       "bbox": [
-        888,
-        272,
-        923,
-        511
+        881,
+        270,
+        914,
+        514
       ],
-      "mask_area": 7564
+      "mask_area": 7641
     },
     {
       "frame": 29,
       "track_id": "1",
       "bbox": [
-        554,
-        273,
-        789,
-        511
+        559,
+        270,
+        785,
+        513
       ],
-      "mask_area": 55134
+      "mask_area": 54559
     },
     {
       "frame": 29,
       "track_id": "2",
       "bbox": [
-        553,
-        614,
-        790,
-        646
+        557,
+        620,
+        786,
+        652
       ],
-      "mask_area": 7317
+      "mask_area": 7070
+    },
+    {
+      "frame": 29,
+      "track_id": "3",
+      "bbox": [
+        882,
+        620,
+        916,
+        652
+      ],
+      "mask_area": 1037
     },
     {
       "frame": 30,
       "track_id": "0",
       "bbox": [
-        852,
+        851,
         259,
-        887,
+        885,
         524
       ],
-      "mask_area": 8507
+      "mask_area": 8299
     },
     {
       "frame": 30,
       "track_id": "1",
       "bbox": [
         574,
-        260,
+        259,
         770,
         524
       ],
-      "mask_area": 51127
+      "mask_area": 51355
     },
     {
       "frame": 30,
@@ -949,29 +1186,40 @@
         771,
         674
       ],
-      "mask_area": 6470
+      "mask_area": 6353
+    },
+    {
+      "frame": 30,
+      "track_id": "3",
+      "bbox": [
+        851,
+        640,
+        885,
+        674
+      ],
+      "mask_area": 1097
     },
     {
       "frame": 31,
       "track_id": "0",
       "bbox": [
-        827,
+        826,
         254,
-        861,
-        529
+        859,
+        530
       ],
-      "mask_area": 8735
+      "mask_area": 8435
     },
     {
       "frame": 31,
       "track_id": "1",
       "bbox": [
         586,
-        255,
-        757,
-        529
+        254,
+        758,
+        530
       ],
-      "mask_area": 46190
+      "mask_area": 46557
     },
     {
       "frame": 31,
@@ -980,31 +1228,42 @@
         585,
         651,
         758,
-        683
+        684
       ],
-      "mask_area": 5362
+      "mask_area": 5341
+    },
+    {
+      "frame": 31,
+      "track_id": "3",
+      "bbox": [
+        825,
+        650,
+        861,
+        684
+      ],
+      "mask_area": 1117
     },
     {
       "frame": 32,
       "track_id": "0",
       "bbox": [
-        805,
+        804,
         251,
-        839,
+        838,
         533
       ],
-      "mask_area": 8919
+      "mask_area": 8900
     },
     {
       "frame": 32,
       "track_id": "1",
       "bbox": [
-        595,
+        597,
         251,
-        748,
+        747,
         533
       ],
-      "mask_area": 42394
+      "mask_area": 41992
     },
     {
       "frame": 32,
@@ -1012,87 +1271,120 @@
       "bbox": [
         595,
         657,
-        749,
+        748,
         689
       ],
-      "mask_area": 4692
+      "mask_area": 4701
+    },
+    {
+      "frame": 32,
+      "track_id": "3",
+      "bbox": [
+        804,
+        657,
+        838,
+        689
+      ],
+      "mask_area": 1058
     },
     {
       "frame": 33,
       "track_id": "0",
       "bbox": [
-        809,
-        249,
-        842,
+        818,
+        248,
+        851,
         535
       ],
-      "mask_area": 8874
+      "mask_area": 8680
     },
     {
       "frame": 33,
       "track_id": "1",
       "bbox": [
-        594,
+        590,
         249,
-        749,
+        753,
         535
       ],
-      "mask_area": 43534
+      "mask_area": 46065
     },
     {
       "frame": 33,
       "track_id": "2",
       "bbox": [
-        594,
+        590,
         662,
-        750,
+        754,
         695
       ],
-      "mask_area": 4822
+      "mask_area": 5134
+    },
+    {
+      "frame": 33,
+      "track_id": "3",
+      "bbox": [
+        817,
+        662,
+        850,
+        695
+      ],
+      "mask_area": 996
     },
     {
       "frame": 34,
       "track_id": "0",
       "bbox": [
-        835,
+        843,
         250,
-        869,
-        534
+        876,
+        535
       ],
-      "mask_area": 9052
+      "mask_area": 8720
     },
     {
       "frame": 34,
       "track_id": "1",
       "bbox": [
-        581,
+        577,
         250,
-        763,
+        767,
         534
       ],
-      "mask_area": 50883
+      "mask_area": 53150
     },
     {
       "frame": 34,
       "track_id": "2",
       "bbox": [
-        579,
-        661,
-        764,
-        693
+        576,
+        659,
+        767,
+        691
       ],
-      "mask_area": 5586
+      "mask_area": 5823
+    },
+    {
+      "frame": 34,
+      "track_id": "3",
+      "bbox": [
+        842,
+        659,
+        876,
+        692
+      ],
+      "mask_area": 1043
     },
     {
       "frame": 35,
       "track_id": "0",
       "bbox": [
-        855,
-        252,
+        856,
+        251,
         889,
         532
       ],
-      "mask_area": 8769
+      "mask_area": 8685
     },
     {
       "frame": 35,
@@ -1103,513 +1395,689 @@
         772,
         532
       ],
-      "mask_area": 55265
+      "mask_area": 55491
     },
     {
       "frame": 35,
       "track_id": "2",
       "bbox": [
         571,
-        658,
+        657,
         773,
         689
       ],
-      "mask_area": 6153
+      "mask_area": 6305
+    },
+    {
+      "frame": 35,
+      "track_id": "3",
+      "bbox": [
+        856,
+        657,
+        890,
+        690
+      ],
+      "mask_area": 1008
     },
     {
       "frame": 36,
       "track_id": "0",
       "bbox": [
-        885,
+        893,
         257,
-        920,
-        527
+        927,
+        526
       ],
-      "mask_area": 8680
+      "mask_area": 8873
     },
     {
       "frame": 36,
       "track_id": "1",
       "bbox": [
-        557,
-        257,
-        787,
+        552,
+        258,
+        791,
         525
       ],
-      "mask_area": 61103
+      "mask_area": 62887
     },
     {
       "frame": 36,
       "track_id": "2",
       "bbox": [
-        556,
-        644,
-        788,
-        677
+        552,
+        641,
+        792,
+        674
       ],
-      "mask_area": 7283
+      "mask_area": 7506
+    },
+    {
+      "frame": 36,
+      "track_id": "3",
+      "bbox": [
+        892,
+        641,
+        928,
+        675
+      ],
+      "mask_area": 1104
     },
     {
       "frame": 37,
       "track_id": "0",
       "bbox": [
-        908,
-        264,
-        941,
-        520
+        914,
+        266,
+        947,
+        518
       ],
-      "mask_area": 8056
+      "mask_area": 7888
     },
     {
       "frame": 37,
       "track_id": "1",
       "bbox": [
-        546,
-        264,
-        799,
-        520
+        542,
+        267,
+        802,
+        517
       ],
-      "mask_area": 64108
+      "mask_area": 64511
     },
     {
       "frame": 37,
       "track_id": "2",
       "bbox": [
-        545,
-        632,
-        800,
-        664
+        541,
+        626,
+        803,
+        658
       ],
-      "mask_area": 7793
+      "mask_area": 8030
+    },
+    {
+      "frame": 37,
+      "track_id": "3",
+      "bbox": [
+        913,
+        626,
+        949,
+        658
+      ],
+      "mask_area": 1060
     },
     {
       "frame": 38,
       "track_id": "0",
       "bbox": [
-        919,
-        269,
-        952,
-        515
+        929,
+        274,
+        961,
+        511
       ],
-      "mask_area": 7838
+      "mask_area": 7291
     },
     {
       "frame": 38,
       "track_id": "1",
       "bbox": [
-        540,
-        269,
-        804,
-        514
+        535,
+        274,
+        809,
+        510
       ],
-      "mask_area": 63983
+      "mask_area": 64029
     },
     {
       "frame": 38,
       "track_id": "2",
       "bbox": [
-        539,
-        624,
-        805,
-        655
+        534,
+        613,
+        810,
+        645
       ],
-      "mask_area": 7951
+      "mask_area": 8543
+    },
+    {
+      "frame": 38,
+      "track_id": "3",
+      "bbox": [
+        929,
+        612,
+        962,
+        645
+      ],
+      "mask_area": 1012
     },
     {
       "frame": 39,
       "track_id": "0",
       "bbox": [
-        942,
-        281,
-        976,
-        503
+        951,
+        287,
+        984,
+        498
       ],
-      "mask_area": 7105
+      "mask_area": 6452
     },
     {
       "frame": 39,
       "track_id": "1",
       "bbox": [
-        528,
-        281,
-        817,
-        503
+        524,
+        287,
+        820,
+        497
       ],
-      "mask_area": 63581
+      "mask_area": 61748
     },
     {
       "frame": 39,
       "track_id": "2",
       "bbox": [
-        527,
-        598,
-        817,
-        630
+        523,
+        586,
+        820,
+        618
       ],
-      "mask_area": 8970
+      "mask_area": 9160
+    },
+    {
+      "frame": 39,
+      "track_id": "3",
+      "bbox": [
+        951,
+        586,
+        985,
+        619
+      ],
+      "mask_area": 1041
     },
     {
       "frame": 40,
       "track_id": "0",
       "bbox": [
-        958,
-        291,
-        993,
-        492
+        965,
+        298,
+        999,
+        486
       ],
-      "mask_area": 6417
+      "mask_area": 6001
     },
     {
       "frame": 40,
       "track_id": "1",
       "bbox": [
-        519,
-        291,
-        824,
-        492
+        516,
+        298,
+        827,
+        485
       ],
-      "mask_area": 60266
+      "mask_area": 57205
     },
     {
       "frame": 40,
       "track_id": "2",
       "bbox": [
-        519,
-        576,
-        825,
-        609
+        515,
+        563,
+        828,
+        595
       ],
-      "mask_area": 9473
+      "mask_area": 9418
+    },
+    {
+      "frame": 40,
+      "track_id": "3",
+      "bbox": [
+        965,
+        563,
+        999,
+        596
+      ],
+      "mask_area": 1064
     },
     {
       "frame": 41,
       "track_id": "0",
       "bbox": [
-        967,
-        300,
-        1001,
-        483
+        975,
+        307,
+        1008,
+        476
       ],
-      "mask_area": 5745
+      "mask_area": 5289
     },
     {
       "frame": 41,
       "track_id": "1",
       "bbox": [
-        514,
-        301,
-        829,
-        482
+        511,
+        308,
+        832,
+        476
       ],
-      "mask_area": 56429
+      "mask_area": 53472
     },
     {
       "frame": 41,
       "track_id": "2",
       "bbox": [
-        514,
-        559,
-        830,
-        590
+        511,
+        544,
+        833,
+        577
       ],
-      "mask_area": 9371
+      "mask_area": 10024
+    },
+    {
+      "frame": 41,
+      "track_id": "3",
+      "bbox": [
+        975,
+        544,
+        1008,
+        577
+      ],
+      "mask_area": 1031
     },
     {
       "frame": 42,
       "track_id": "0",
       "bbox": [
-        983,
+        987,
         320,
-        1017,
+        1021,
         464
       ],
-      "mask_area": 4568
+      "mask_area": 4555
     },
     {
       "frame": 42,
       "track_id": "1",
       "bbox": [
-        508,
+        506,
         320,
-        836,
-        464
+        838,
+        463
       ],
-      "mask_area": 46717
+      "mask_area": 46743
     },
     {
       "frame": 42,
       "track_id": "2",
       "bbox": [
-        507,
-        520,
-        836,
+        506,
+        518,
+        839,
         551
       ],
-      "mask_area": 9738
+      "mask_area": 10299
+    },
+    {
+      "frame": 42,
+      "track_id": "3",
+      "bbox": [
+        987,
+        518,
+        1022,
+        552
+      ],
+      "mask_area": 1128
     },
     {
       "frame": 43,
       "track_id": "0",
       "bbox": [
         990,
-        314,
-        1024,
-        469
+        308,
+        1025,
+        477
       ],
-      "mask_area": 4874
+      "mask_area": 5435
     },
     {
       "frame": 43,
       "track_id": "1",
       "bbox": [
-        505,
-        315,
-        839,
-        469
+        504,
+        308,
+        840,
+        476
       ],
-      "mask_area": 50699
+      "mask_area": 55797
     },
     {
       "frame": 43,
       "track_id": "2",
       "bbox": [
-        504,
-        530,
+        503,
+        544,
         840,
-        562
+        577
       ],
-      "mask_area": 10292
+      "mask_area": 10418
+    },
+    {
+      "frame": 43,
+      "track_id": "3",
+      "bbox": [
+        990,
+        544,
+        1026,
+        577
+      ],
+      "mask_area": 1092
     },
     {
       "frame": 44,
       "track_id": "0",
       "bbox": [
         992,
-        304,
+        298,
         1026,
-        479
+        487
       ],
-      "mask_area": 5650
+      "mask_area": 6115
     },
     {
       "frame": 44,
       "track_id": "1",
       "bbox": [
         505,
-        305,
+        299,
         840,
-        479
+        485
       ],
-      "mask_area": 57499
+      "mask_area": 62002
     },
     {
       "frame": 44,
-      "track_id": "2",
-      "bbox": [
-        503,
-        550,
-        841,
-        582
-      ],
-      "mask_area": 10300
-    },
-    {
-      "frame": 45,
-      "track_id": "0",
-      "bbox": [
-        991,
-        291,
-        1025,
-        492
-      ],
-      "mask_area": 6546
-    },
-    {
-      "frame": 45,
-      "track_id": "1",
-      "bbox": [
-        505,
-        293,
-        839,
-        491
-      ],
-      "mask_area": 65527
-    },
-    {
-      "frame": 45,
       "track_id": "2",
       "bbox": [
         504,
-        575,
-        840,
-        607
+        563,
+        841,
+        595
       ],
-      "mask_area": 10342
+      "mask_area": 10163
     },
     {
-      "frame": 46,
+      "frame": 44,
+      "track_id": "3",
+      "bbox": [
+        991,
+        563,
+        1025,
+        596
+      ],
+      "mask_area": 1024
+    },
+    {
+      "frame": 45,
       "track_id": "0",
       "bbox": [
-        986,
-        282,
-        1020,
-        502
+        987,
+        284,
+        1021,
+        501
       ],
-      "mask_area": 6985
+      "mask_area": 6868
     },
     {
-      "frame": 46,
+      "frame": 45,
       "track_id": "1",
       "bbox": [
         506,
-        282,
-        837,
-        502
+        284,
+        838,
+        500
       ],
-      "mask_area": 72263
+      "mask_area": 71272
     },
     {
-      "frame": 46,
+      "frame": 45,
       "track_id": "2",
       "bbox": [
         505,
-        598,
-        838,
-        629
+        592,
+        839,
+        624
       ],
-      "mask_area": 10194
+      "mask_area": 10337
     },
     {
-      "frame": 47,
+      "frame": 45,
+      "track_id": "3",
+      "bbox": [
+        987,
+        592,
+        1021,
+        624
+      ],
+      "mask_area": 1032
+    },
+    {
+      "frame": 46,
       "track_id": "0",
       "bbox": [
-        982,
+        981,
         273,
         1015,
         511
       ],
-      "mask_area": 7390
+      "mask_area": 7599
     },
     {
-      "frame": 47,
+      "frame": 46,
       "track_id": "1",
       "bbox": [
         509,
         274,
-        835,
+        836,
         510
       ],
-      "mask_area": 75951
+      "mask_area": 76622
+    },
+    {
+      "frame": 46,
+      "track_id": "2",
+      "bbox": [
+        508,
+        613,
+        836,
+        645
+      ],
+      "mask_area": 9987
+    },
+    {
+      "frame": 46,
+      "track_id": "3",
+      "bbox": [
+        981,
+        612,
+        1017,
+        645
+      ],
+      "mask_area": 1109
+    },
+    {
+      "frame": 47,
+      "track_id": "0",
+      "bbox": [
+        973,
+        266,
+        1006,
+        517
+      ],
+      "mask_area": 7809
+    },
+    {
+      "frame": 47,
+      "track_id": "1",
+      "bbox": [
+        512,
+        267,
+        832,
+        517
+      ],
+      "mask_area": 79346
     },
     {
       "frame": 47,
       "track_id": "2",
       "bbox": [
-        508,
-        612,
-        836,
-        644
+        511,
+        626,
+        832,
+        658
       ],
-      "mask_area": 10037
+      "mask_area": 9626
+    },
+    {
+      "frame": 47,
+      "track_id": "3",
+      "bbox": [
+        973,
+        626,
+        1006,
+        658
+      ],
+      "mask_area": 1006
     },
     {
       "frame": 48,
       "track_id": "0",
       "bbox": [
-        967,
-        262,
-        1001,
-        521
-      ],
-      "mask_area": 8182
-    },
-    {
-      "frame": 48,
-      "track_id": "1",
-      "bbox": [
-        515,
-        263,
-        828,
-        521
-      ],
-      "mask_area": 79680
-    },
-    {
-      "frame": 48,
-      "track_id": "2",
-      "bbox": [
-        514,
-        634,
-        829,
-        666
-      ],
-      "mask_area": 9438
-    },
-    {
-      "frame": 49,
-      "track_id": "0",
-      "bbox": [
-        954,
-        255,
-        988,
-        528
-      ],
-      "mask_area": 8674
-    },
-    {
-      "frame": 49,
-      "track_id": "1",
-      "bbox": [
-        523,
+        957,
         256,
-        821,
+        994,
         527
       ],
-      "mask_area": 80083
+      "mask_area": 9193
+    },
+    {
+      "frame": 48,
+      "track_id": "1",
+      "bbox": [
+        521,
+        257,
+        824,
+        526
+      ],
+      "mask_area": 80241
+    },
+    {
+      "frame": 48,
+      "track_id": "2",
+      "bbox": [
+        520,
+        644,
+        824,
+        677
+      ],
+      "mask_area": 9662
+    },
+    {
+      "frame": 48,
+      "track_id": "3",
+      "bbox": [
+        957,
+        644,
+        994,
+        677
+      ],
+      "mask_area": 1151
+    },
+    {
+      "frame": 49,
+      "track_id": "0",
+      "bbox": [
+        941,
+        253,
+        975,
+        531
+      ],
+      "mask_area": 8760
+    },
+    {
+      "frame": 49,
+      "track_id": "1",
+      "bbox": [
+        528,
+        253,
+        816,
+        531
+      ],
+      "mask_area": 79222
     },
     {
       "frame": 49,
       "track_id": "2",
       "bbox": [
-        522,
-        647,
-        821,
-        679
+        527,
+        655,
+        816,
+        687
       ],
-      "mask_area": 9404
+      "mask_area": 8788
+    },
+    {
+      "frame": 49,
+      "track_id": "3",
+      "bbox": [
+        940,
+        655,
+        974,
+        687
+      ],
+      "mask_area": 1017
     },
     {
       "frame": 50,
       "track_id": "0",
       "bbox": [
-        938,
-        252,
-        970,
-        532
+        928,
+        249,
+        961,
+        534
       ],
-      "mask_area": 8663
+      "mask_area": 9173
     },
     {
       "frame": 50,
       "track_id": "1",
       "bbox": [
-        530,
-        252,
-        813,
-        531
+        535,
+        250,
+        808,
+        534
       ],
-      "mask_area": 78199
+      "mask_area": 76536
     },
     {
       "frame": 50,
       "track_id": "2",
       "bbox": [
-        529,
-        657,
-        814,
-        688
+        535,
+        659,
+        809,
+        691
       ],
-      "mask_area": 8364
+      "mask_area": 8245
+    },
+    {
+      "frame": 50,
+      "track_id": "3",
+      "bbox": [
+        928,
+        659,
+        960,
+        692
+      ],
+      "mask_area": 1011
     },
     {
       "frame": 51,
@@ -1617,10 +2085,10 @@
       "bbox": [
         918,
         249,
-        951,
-        535
+        950,
+        536
       ],
-      "mask_area": 8937
+      "mask_area": 8992
     },
     {
       "frame": 51,
@@ -1631,7 +2099,7 @@
         803,
         535
       ],
-      "mask_area": 73983
+      "mask_area": 74129
     },
     {
       "frame": 51,
@@ -1642,139 +2110,194 @@
         804,
         693
       ],
-      "mask_area": 7979
+      "mask_area": 7894
+    },
+    {
+      "frame": 51,
+      "track_id": "3",
+      "bbox": [
+        917,
+        661,
+        950,
+        694
+      ],
+      "mask_area": 1021
     },
     {
       "frame": 52,
       "track_id": "0",
       "bbox": [
-        897,
-        249,
-        929,
-        535
+        883,
+        250,
+        916,
+        534
+      ],
+      "mask_area": 8961
+    },
+    {
+      "frame": 52,
+      "track_id": "1",
+      "bbox": [
+        557,
+        250,
+        786,
+        534
+      ],
+      "mask_area": 64378
+    },
+    {
+      "frame": 52,
+      "track_id": "2",
+      "bbox": [
+        557,
+        660,
+        787,
+        692
+      ],
+      "mask_area": 6965
+    },
+    {
+      "frame": 52,
+      "track_id": "3",
+      "bbox": [
+        883,
+        660,
+        917,
+        693
+      ],
+      "mask_area": 1038
+    },
+    {
+      "frame": 53,
+      "track_id": "0",
+      "bbox": [
+        865,
+        252,
+        898,
+        532
       ],
       "mask_area": 8686
     },
     {
-      "frame": 52,
-      "track_id": "1",
-      "bbox": [
-        551,
-        249,
-        792,
-        535
-      ],
-      "mask_area": 67986
-    },
-    {
-      "frame": 52,
-      "track_id": "2",
-      "bbox": [
-        549,
-        662,
-        793,
-        694
-      ],
-      "mask_area": 7454
-    },
-    {
-      "frame": 53,
-      "track_id": "0",
-      "bbox": [
-        878,
-        250,
-        911,
-        534
-      ],
-      "mask_area": 8986
-    },
-    {
       "frame": 53,
       "track_id": "1",
       "bbox": [
-        559,
-        250,
-        784,
-        533
+        567,
+        252,
+        778,
+        532
       ],
-      "mask_area": 62825
+      "mask_area": 58581
     },
     {
       "frame": 53,
       "track_id": "2",
       "bbox": [
-        559,
-        660,
-        785,
-        691
+        565,
+        656,
+        778,
+        688
       ],
-      "mask_area": 6775
+      "mask_area": 6531
+    },
+    {
+      "frame": 53,
+      "track_id": "3",
+      "bbox": [
+        865,
+        656,
+        898,
+        688
+      ],
+      "mask_area": 1004
     },
     {
       "frame": 54,
       "track_id": "0",
       "bbox": [
-        848,
-        255,
-        880,
-        529
+        833,
+        256,
+        865,
+        525
       ],
-      "mask_area": 8397
+      "mask_area": 8447
     },
     {
       "frame": 54,
       "track_id": "1",
       "bbox": [
-        576,
-        255,
-        768,
-        529
+        582,
+        258,
+        762,
+        525
       ],
-      "mask_area": 52010
+      "mask_area": 47398
     },
     {
       "frame": 54,
       "track_id": "2",
       "bbox": [
-        575,
-        649,
-        769,
-        681
+        580,
+        644,
+        762,
+        675
       ],
-      "mask_area": 5907
+      "mask_area": 5551
+    },
+    {
+      "frame": 54,
+      "track_id": "3",
+      "bbox": [
+        833,
+        643,
+        865,
+        675
+      ],
+      "mask_area": 984
     },
     {
       "frame": 55,
       "track_id": "0",
       "bbox": [
-        822,
-        261,
-        854,
-        523
+        813,
+        264,
+        845,
+        521
       ],
-      "mask_area": 7879
+      "mask_area": 7658
     },
     {
       "frame": 55,
       "track_id": "1",
       "bbox": [
-        588,
-        262,
-        756,
-        522
+        592,
+        264,
+        751,
+        520
       ],
-      "mask_area": 42850
+      "mask_area": 40171
     },
     {
       "frame": 55,
       "track_id": "2",
       "bbox": [
-        588,
-        638,
-        756,
-        670
+        592,
+        632,
+        752,
+        665
       ],
-      "mask_area": 5269
+      "mask_area": 4983
+    },
+    {
+      "frame": 55,
+      "track_id": "3",
+      "bbox": [
+        813,
+        632,
+        846,
+        665
+      ],
+      "mask_area": 1011
     },
     {
       "frame": 56,
@@ -1782,10 +2305,10 @@
       "bbox": [
         801,
         268,
-        835,
+        834,
         516
       ],
-      "mask_area": 7816
+      "mask_area": 7647
     },
     {
       "frame": 56,
@@ -1793,299 +2316,354 @@
       "bbox": [
         598,
         268,
-        746,
+        745,
         516
       ],
-      "mask_area": 36031
+      "mask_area": 36100
     },
     {
       "frame": 56,
       "track_id": "2",
       "bbox": [
-        598,
-        625,
+        597,
+        624,
         746,
-        657
+        656
       ],
-      "mask_area": 4557
+      "mask_area": 4618
+    },
+    {
+      "frame": 56,
+      "track_id": "3",
+      "bbox": [
+        801,
+        624,
+        833,
+        656
+      ],
+      "mask_area": 998
     },
     {
       "frame": 57,
       "track_id": "0",
       "bbox": [
-        815,
-        279,
-        848,
-        505
+        835,
+        288,
+        869,
+        496
       ],
-      "mask_area": 7051
+      "mask_area": 6574
     },
     {
       "frame": 57,
       "track_id": "1",
       "bbox": [
-        590,
-        280,
-        752,
-        504
+        581,
+        287,
+        763,
+        496
       ],
-      "mask_area": 35652
+      "mask_area": 37476
     },
     {
       "frame": 57,
       "track_id": "2",
       "bbox": [
-        591,
-        602,
-        753,
-        634
-      ],
-      "mask_area": 4996
-    },
-    {
-      "frame": 58,
-      "track_id": "0",
-      "bbox": [
-        838,
-        290,
-        872,
-        494
-      ],
-      "mask_area": 6381
-    },
-    {
-      "frame": 58,
-      "track_id": "1",
-      "bbox": [
-        578,
-        290,
-        766,
-        493
-      ],
-      "mask_area": 37778
-    },
-    {
-      "frame": 58,
-      "track_id": "2",
-      "bbox": [
-        576,
         579,
-        766,
-        611
+        583,
+        763,
+        616
       ],
-      "mask_area": 5889
+      "mask_area": 5797
     },
     {
-      "frame": 59,
+      "frame": 57,
+      "track_id": "3",
+      "bbox": [
+        834,
+        583,
+        869,
+        616
+      ],
+      "mask_area": 1043
+    },
+    {
+      "frame": 58,
       "track_id": "0",
       "bbox": [
-        859,
+        860,
         299,
-        893,
-        485
+        895,
+        484
       ],
-      "mask_area": 5881
+      "mask_area": 5990
     },
     {
-      "frame": 59,
+      "frame": 58,
       "track_id": "1",
       "bbox": [
         569,
         300,
-        774,
+        775,
         484
       ],
-      "mask_area": 37255
+      "mask_area": 37411
+    },
+    {
+      "frame": 58,
+      "track_id": "2",
+      "bbox": [
+        567,
+        560,
+        776,
+        592
+      ],
+      "mask_area": 6348
+    },
+    {
+      "frame": 58,
+      "track_id": "3",
+      "bbox": [
+        859,
+        560,
+        897,
+        593
+      ],
+      "mask_area": 1138
+    },
+    {
+      "frame": 59,
+      "track_id": "0",
+      "bbox": [
+        879,
+        308,
+        912,
+        476
+      ],
+      "mask_area": 5241
+    },
+    {
+      "frame": 59,
+      "track_id": "1",
+      "bbox": [
+        560,
+        309,
+        784,
+        475
+      ],
+      "mask_area": 36907
     },
     {
       "frame": 59,
       "track_id": "2",
       "bbox": [
-        568,
-        562,
-        775,
-        594
-      ],
-      "mask_area": 6291
-    },
-    {
-      "frame": 60,
-      "track_id": "0",
-      "bbox": [
-        891,
-        314,
-        926,
-        470
-      ],
-      "mask_area": 4987
-    },
-    {
-      "frame": 60,
-      "track_id": "1",
-      "bbox": [
-        554,
-        315,
-        789,
-        469
-      ],
-      "mask_area": 35901
-    },
-    {
-      "frame": 60,
-      "track_id": "2",
-      "bbox": [
-        554,
-        530,
-        790,
-        561
-      ],
-      "mask_area": 7050
-    },
-    {
-      "frame": 61,
-      "track_id": "0",
-      "bbox": [
-        912,
-        320,
-        946,
-        464
-      ],
-      "mask_area": 4652
-    },
-    {
-      "frame": 61,
-      "track_id": "1",
-      "bbox": [
-        544,
-        320,
-        801,
-        464
-      ],
-      "mask_area": 36530
-    },
-    {
-      "frame": 61,
-      "track_id": "2",
-      "bbox": [
-        543,
-        521,
-        801,
-        553
-      ],
-      "mask_area": 7794
-    },
-    {
-      "frame": 62,
-      "track_id": "0",
-      "bbox": [
-        928,
-        309,
-        961,
-        474
-      ],
-      "mask_area": 5160
-    },
-    {
-      "frame": 62,
-      "track_id": "1",
-      "bbox": [
-        535,
-        310,
-        808,
-        474
-      ],
-      "mask_area": 44085
-    },
-    {
-      "frame": 62,
-      "track_id": "2",
-      "bbox": [
-        535,
+        559,
         541,
-        808,
-        572
+        785,
+        576
       ],
-      "mask_area": 8010
+      "mask_area": 7149
+    },
+    {
+      "frame": 59,
+      "track_id": "3",
+      "bbox": [
+        879,
+        541,
+        913,
+        577
+      ],
+      "mask_area": 1114
+    },
+    {
+      "frame": 60,
+      "track_id": "0",
+      "bbox": [
+        901,
+        321,
+        936,
+        463
+      ],
+      "mask_area": 4641
+    },
+    {
+      "frame": 60,
+      "track_id": "1",
+      "bbox": [
+        548,
+        321,
+        795,
+        462
+      ],
+      "mask_area": 34358
+    },
+    {
+      "frame": 60,
+      "track_id": "2",
+      "bbox": [
+        547,
+        514,
+        797,
+        547
+      ],
+      "mask_area": 7735
+    },
+    {
+      "frame": 60,
+      "track_id": "3",
+      "bbox": [
+        899,
+        514,
+        936,
+        547
+      ],
+      "mask_area": 1090
+    },
+    {
+      "frame": 61,
+      "track_id": "0",
+      "bbox": [
+        918,
+        315,
+        951,
+        468
+      ],
+      "mask_area": 4820
+    },
+    {
+      "frame": 61,
+      "track_id": "1",
+      "bbox": [
+        540,
+        316,
+        803,
+        468
+      ],
+      "mask_area": 39632
+    },
+    {
+      "frame": 61,
+      "track_id": "2",
+      "bbox": [
+        539,
+        528,
+        804,
+        560
+      ],
+      "mask_area": 7975
+    },
+    {
+      "frame": 61,
+      "track_id": "3",
+      "bbox": [
+        918,
+        528,
+        952,
+        560
+      ],
+      "mask_area": 1021
+    },
+    {
+      "frame": 62,
+      "track_id": "0",
+      "bbox": [
+        932,
+        305,
+        966,
+        478
+      ],
+      "mask_area": 5562
+    },
+    {
+      "frame": 62,
+      "track_id": "1",
+      "bbox": [
+        532,
+        306,
+        811,
+        478
+      ],
+      "mask_area": 47432
+    },
+    {
+      "frame": 62,
+      "track_id": "2",
+      "bbox": [
+        532,
+        546,
+        812,
+        579
+      ],
+      "mask_area": 8762
+    },
+    {
+      "frame": 62,
+      "track_id": "3",
+      "bbox": [
+        932,
+        547,
+        967,
+        579
+      ],
+      "mask_area": 1086
     },
     {
       "frame": 63,
       "track_id": "0",
       "bbox": [
-        950,
-        293,
-        983,
-        490
+        962,
+        284,
+        996,
+        500
       ],
-      "mask_area": 6163
+      "mask_area": 6746
     },
     {
       "frame": 63,
       "track_id": "1",
       "bbox": [
-        524,
-        294,
-        819,
-        490
+        518,
+        285,
+        826,
+        500
       ],
-      "mask_area": 57303
+      "mask_area": 65400
     },
     {
       "frame": 63,
       "track_id": "2",
       "bbox": [
-        524,
-        572,
-        819,
-        604
+        518,
+        589,
+        826,
+        621
       ],
-      "mask_area": 8719
+      "mask_area": 9239
+    },
+    {
+      "frame": 63,
+      "track_id": "3",
+      "bbox": [
+        962,
+        589,
+        995,
+        622
+      ],
+      "mask_area": 1014
     },
     {
       "frame": 64,
       "track_id": "0",
       "bbox": [
-        963,
-        282,
-        997,
-        501
-      ],
-      "mask_area": 7009
-    },
-    {
-      "frame": 64,
-      "track_id": "1",
-      "bbox": [
-        516,
-        283,
-        827,
-        501
-      ],
-      "mask_area": 67020
-    },
-    {
-      "frame": 64,
-      "track_id": "2",
-      "bbox": [
-        515,
-        594,
-        828,
-        626
-      ],
-      "mask_area": 9453
-    },
-    {
-      "frame": 65,
-      "track_id": "0",
-      "bbox": [
-        973,
+        974,
         274,
         1007,
         510
       ],
-      "mask_area": 7534
+      "mask_area": 7398
     },
     {
-      "frame": 65,
+      "frame": 64,
       "track_id": "1",
       "bbox": [
         512,
@@ -2093,10 +2671,10 @@
         832,
         509
       ],
-      "mask_area": 74103
+      "mask_area": 73998
     },
     {
-      "frame": 65,
+      "frame": 64,
       "track_id": "2",
       "bbox": [
         512,
@@ -2104,73 +2682,150 @@
         832,
         643
       ],
-      "mask_area": 9854
+      "mask_area": 10006
     },
     {
-      "frame": 66,
+      "frame": 64,
+      "track_id": "3",
+      "bbox": [
+        974,
+        610,
+        1008,
+        643
+      ],
+      "mask_area": 1086
+    },
+    {
+      "frame": 65,
       "track_id": "0",
       "bbox": [
-        985,
-        264,
-        1019,
-        520
+        982,
+        268,
+        1016,
+        516
       ],
-      "mask_area": 8135
+      "mask_area": 7936
     },
     {
-      "frame": 66,
+      "frame": 65,
       "track_id": "1",
       "bbox": [
-        507,
-        264,
-        837,
-        520
+        509,
+        267,
+        835,
+        516
       ],
-      "mask_area": 83657
+      "mask_area": 80251
     },
     {
-      "frame": 66,
+      "frame": 65,
       "track_id": "2",
       "bbox": [
-        506,
-        632,
-        838,
-        664
+        508,
+        624,
+        836,
+        656
       ],
-      "mask_area": 10198
+      "mask_area": 9794
     },
     {
-      "frame": 67,
+      "frame": 65,
+      "track_id": "3",
+      "bbox": [
+        981,
+        624,
+        1015,
+        656
+      ],
+      "mask_area": 1024
+    },
+    {
+      "frame": 66,
       "track_id": "0",
       "bbox": [
-        991,
-        256,
-        1025,
-        527
+        988,
+        259,
+        1023,
+        525
       ],
-      "mask_area": 8802
+      "mask_area": 8571
     },
     {
-      "frame": 67,
+      "frame": 66,
       "track_id": "1",
       "bbox": [
         506,
-        257,
+        259,
         838,
-        526
+        524
       ],
-      "mask_area": 88794
+      "mask_area": 86812
     },
     {
-      "frame": 67,
+      "frame": 66,
       "track_id": "2",
       "bbox": [
         505,
-        646,
-        840,
-        678
+        640,
+        839,
+        674
       ],
-      "mask_area": 10410
+      "mask_area": 10488
+    },
+    {
+      "frame": 66,
+      "track_id": "3",
+      "bbox": [
+        988,
+        640,
+        1022,
+        673
+      ],
+      "mask_area": 1094
+    },
+    {
+      "frame": 67,
+      "track_id": "0",
+      "bbox": [
+        990,
+        255,
+        1025,
+        528
+      ],
+      "mask_area": 9086
+    },
+    {
+      "frame": 67,
+      "track_id": "1",
+      "bbox": [
+        504,
+        256,
+        840,
+        528
+      ],
+      "mask_area": 90690
+    },
+    {
+      "frame": 67,
+      "track_id": "2",
+      "bbox": [
+        504,
+        649,
+        841,
+        680
+      ],
+      "mask_area": 9966
+    },
+    {
+      "frame": 67,
+      "track_id": "3",
+      "bbox": [
+        990,
+        648,
+        1025,
+        681
+      ],
+      "mask_area": 1017
     },
     {
       "frame": 68,
@@ -2181,472 +2836,582 @@
         1026,
         531
       ],
-      "mask_area": 8973
+      "mask_area": 9113
     },
     {
       "frame": 68,
       "track_id": "1",
       "bbox": [
-        504,
+        505,
         253,
         840,
-        531
+        530
       ],
-      "mask_area": 92203
+      "mask_area": 92036
     },
     {
       "frame": 68,
       "track_id": "2",
       "bbox": [
-        503,
+        504,
         654,
         841,
         685
       ],
-      "mask_area": 10246
+      "mask_area": 10159
+    },
+    {
+      "frame": 68,
+      "track_id": "3",
+      "bbox": [
+        992,
+        654,
+        1025,
+        686
+      ],
+      "mask_area": 1021
     },
     {
       "frame": 69,
       "track_id": "0",
       "bbox": [
-        990,
-        250,
-        1023,
-        534
-      ],
-      "mask_area": 8894
-    },
-    {
-      "frame": 69,
-      "track_id": "1",
-      "bbox": [
-        506,
-        250,
-        838,
-        533
-      ],
-      "mask_area": 93191
-    },
-    {
-      "frame": 69,
-      "track_id": "2",
-      "bbox": [
-        504,
-        661,
-        839,
-        693
-      ],
-      "mask_area": 10025
-    },
-    {
-      "frame": 70,
-      "track_id": "0",
-      "bbox": [
-        983,
+        985,
         249,
-        1017,
+        1019,
         535
       ],
-      "mask_area": 9003
+      "mask_area": 8915
     },
     {
-      "frame": 70,
+      "frame": 69,
       "track_id": "1",
       "bbox": [
-        508,
-        249,
-        836,
-        534
+        507,
+        250,
+        837,
+        535
       ],
-      "mask_area": 92350
+      "mask_area": 93162
+    },
+    {
+      "frame": 69,
+      "track_id": "2",
+      "bbox": [
+        506,
+        662,
+        837,
+        694
+      ],
+      "mask_area": 10033
+    },
+    {
+      "frame": 69,
+      "track_id": "3",
+      "bbox": [
+        985,
+        662,
+        1019,
+        694
+      ],
+      "mask_area": 1029
     },
     {
       "frame": 70,
-      "track_id": "2",
-      "bbox": [
-        507,
-        662,
-        836,
-        694
-      ],
-      "mask_area": 10096
-    },
-    {
-      "frame": 71,
       "track_id": "0",
       "bbox": [
-        978,
+        976,
         249,
-        1012,
+        1010,
         534
       ],
-      "mask_area": 8795
+      "mask_area": 9163
     },
     {
-      "frame": 71,
+      "frame": 70,
       "track_id": "1",
       "bbox": [
         511,
-        251,
+        250,
         833,
         533
       ],
-      "mask_area": 90015
+      "mask_area": 90287
+    },
+    {
+      "frame": 70,
+      "track_id": "2",
+      "bbox": [
+        510,
+        659,
+        834,
+        691
+      ],
+      "mask_area": 9766
+    },
+    {
+      "frame": 70,
+      "track_id": "3",
+      "bbox": [
+        976,
+        659,
+        1010,
+        691
+      ],
+      "mask_area": 1048
+    },
+    {
+      "frame": 71,
+      "track_id": "0",
+      "bbox": [
+        971,
+        252,
+        1003,
+        533
+      ],
+      "mask_area": 8562
+    },
+    {
+      "frame": 71,
+      "track_id": "1",
+      "bbox": [
+        513,
+        251,
+        831,
+        532
+      ],
+      "mask_area": 88214
     },
     {
       "frame": 71,
       "track_id": "2",
       "bbox": [
-        510,
-        660,
-        834,
-        692
+        512,
+        657,
+        832,
+        689
       ],
-      "mask_area": 9739
+      "mask_area": 10056
+    },
+    {
+      "frame": 71,
+      "track_id": "3",
+      "bbox": [
+        971,
+        656,
+        1004,
+        689
+      ],
+      "mask_area": 1010
     },
     {
       "frame": 72,
       "track_id": "0",
       "bbox": [
-        962,
+        958,
         255,
-        996,
-        530
-      ],
-      "mask_area": 8557
-    },
-    {
-      "frame": 72,
-      "track_id": "1",
-      "bbox": [
-        517,
-        255,
-        825,
+        994,
         529
       ],
-      "mask_area": 83374
+      "mask_area": 9231
+    },
+    {
+      "frame": 72,
+      "track_id": "1",
+      "bbox": [
+        520,
+        256,
+        823,
+        528
+      ],
+      "mask_area": 81961
     },
     {
       "frame": 72,
       "track_id": "2",
       "bbox": [
-        516,
-        651,
-        827,
-        683
+        520,
+        647,
+        823,
+        679
       ],
-      "mask_area": 9772
+      "mask_area": 9619
+    },
+    {
+      "frame": 72,
+      "track_id": "3",
+      "bbox": [
+        958,
+        647,
+        994,
+        679
+      ],
+      "mask_area": 1101
     },
     {
       "frame": 73,
       "track_id": "0",
       "bbox": [
-        947,
-        260,
-        981,
-        523
-      ],
-      "mask_area": 8421
-    },
-    {
-      "frame": 73,
-      "track_id": "1",
-      "bbox": [
-        525,
-        260,
-        819,
-        523
-      ],
-      "mask_area": 76232
-    },
-    {
-      "frame": 73,
-      "track_id": "2",
-      "bbox": [
-        524,
-        638,
-        819,
-        674
-      ],
-      "mask_area": 9527
-    },
-    {
-      "frame": 74,
-      "track_id": "0",
-      "bbox": [
-        932,
-        267,
-        967,
-        517
-      ],
-      "mask_area": 7921
-    },
-    {
-      "frame": 74,
-      "track_id": "1",
-      "bbox": [
-        532,
-        267,
-        811,
-        516
-      ],
-      "mask_area": 68944
-    },
-    {
-      "frame": 74,
-      "track_id": "2",
-      "bbox": [
-        531,
-        627,
-        812,
-        659
-      ],
-      "mask_area": 8607
-    },
-    {
-      "frame": 75,
-      "track_id": "0",
-      "bbox": [
-        909,
-        277,
         942,
-        507
+        262,
+        975,
+        521
       ],
-      "mask_area": 7234
+      "mask_area": 8035
+    },
+    {
+      "frame": 73,
+      "track_id": "1",
+      "bbox": [
+        529,
+        263,
+        815,
+        521
+      ],
+      "mask_area": 73273
+    },
+    {
+      "frame": 73,
+      "track_id": "2",
+      "bbox": [
+        528,
+        634,
+        816,
+        666
+      ],
+      "mask_area": 8932
+    },
+    {
+      "frame": 73,
+      "track_id": "3",
+      "bbox": [
+        941,
+        634,
+        976,
+        666
+      ],
+      "mask_area": 1033
+    },
+    {
+      "frame": 74,
+      "track_id": "0",
+      "bbox": [
+        929,
+        269,
+        961,
+        515
+      ],
+      "mask_area": 7685
+    },
+    {
+      "frame": 74,
+      "track_id": "1",
+      "bbox": [
+        535,
+        268,
+        808,
+        515
+      ],
+      "mask_area": 66378
+    },
+    {
+      "frame": 74,
+      "track_id": "2",
+      "bbox": [
+        535,
+        622,
+        809,
+        654
+      ],
+      "mask_area": 8518
+    },
+    {
+      "frame": 74,
+      "track_id": "3",
+      "bbox": [
+        928,
+        621,
+        961,
+        655
+      ],
+      "mask_area": 1009
+    },
+    {
+      "frame": 75,
+      "track_id": "0",
+      "bbox": [
+        897,
+        283,
+        929,
+        500
+      ],
+      "mask_area": 6608
     },
     {
       "frame": 75,
       "track_id": "1",
       "bbox": [
-        544,
-        278,
-        800,
-        506
+        550,
+        284,
+        793,
+        500
       ],
-      "mask_area": 57533
+      "mask_area": 52035
     },
     {
       "frame": 75,
       "track_id": "2",
       "bbox": [
-        544,
-        605,
-        800,
-        637
+        549,
+        592,
+        794,
+        624
       ],
-      "mask_area": 7957
+      "mask_area": 7637
+    },
+    {
+      "frame": 75,
+      "track_id": "3",
+      "bbox": [
+        895,
+        592,
+        929,
+        625
+      ],
+      "mask_area": 1037
     },
     {
       "frame": 76,
       "track_id": "0",
       "bbox": [
-        886,
-        288,
-        921,
-        495
+        872,
+        295,
+        906,
+        488
       ],
-      "mask_area": 6768
+      "mask_area": 5998
     },
     {
       "frame": 76,
       "track_id": "1",
       "bbox": [
-        556,
-        288,
-        787,
-        495
-      ],
-      "mask_area": 47084
-    },
-    {
-      "frame": 76,
-      "track_id": "2",
-      "bbox": [
-        556,
-        581,
-        788,
-        614
-      ],
-      "mask_area": 7339
-    },
-    {
-      "frame": 77,
-      "track_id": "0",
-      "bbox": [
-        874,
-        294,
-        907,
-        490
-      ],
-      "mask_area": 6183
-    },
-    {
-      "frame": 77,
-      "track_id": "1",
-      "bbox": [
-        562,
+        563,
         295,
         782,
-        489
+        488
       ],
-      "mask_area": 42162
+      "mask_area": 41753
+    },
+    {
+      "frame": 76,
+      "track_id": "2",
+      "bbox": [
+        562,
+        569,
+        783,
+        601
+      ],
+      "mask_area": 6656
+    },
+    {
+      "frame": 76,
+      "track_id": "3",
+      "bbox": [
+        873,
+        569,
+        907,
+        603
+      ],
+      "mask_area": 1035
+    },
+    {
+      "frame": 77,
+      "track_id": "0",
+      "bbox": [
+        848,
+        308,
+        881,
+        476
+      ],
+      "mask_area": 5355
+    },
+    {
+      "frame": 77,
+      "track_id": "1",
+      "bbox": [
+        576,
+        308,
+        769,
+        476
+      ],
+      "mask_area": 32061
     },
     {
       "frame": 77,
       "track_id": "2",
       "bbox": [
-        561,
-        571,
-        782,
-        603
+        575,
+        544,
+        769,
+        577
       ],
-      "mask_area": 6796
+      "mask_area": 6105
+    },
+    {
+      "frame": 77,
+      "track_id": "3",
+      "bbox": [
+        847,
+        544,
+        881,
+        577
+      ],
+      "mask_area": 1060
     },
     {
       "frame": 78,
       "track_id": "0",
       "bbox": [
-        830,
-        316,
-        864,
-        468
+        834,
+        314,
+        868,
+        471
       ],
-      "mask_area": 4779
+      "mask_area": 5048
     },
     {
       "frame": 78,
       "track_id": "1",
       "bbox": [
-        584,
-        317,
-        760,
-        467
+        581,
+        314,
+        763,
+        470
       ],
-      "mask_area": 26044
+      "mask_area": 28212
     },
     {
       "frame": 78,
       "track_id": "2",
       "bbox": [
-        583,
-        526,
-        760,
-        558
+        579,
+        531,
+        764,
+        563
       ],
-      "mask_area": 5443
+      "mask_area": 5775
+    },
+    {
+      "frame": 78,
+      "track_id": "3",
+      "bbox": [
+        835,
+        531,
+        869,
+        564
+      ],
+      "mask_area": 1044
     },
     {
       "frame": 79,
       "track_id": "0",
       "bbox": [
-        809,
+        807,
         320,
         842,
-        463
+        464
       ],
-      "mask_area": 4451
+      "mask_area": 4602
     },
     {
       "frame": 79,
       "track_id": "1",
       "bbox": [
         594,
-        321,
+        320,
         749,
         463
       ],
-      "mask_area": 21694
+      "mask_area": 21851
     },
     {
       "frame": 79,
       "track_id": "2",
       "bbox": [
         594,
-        518,
+        519,
         750,
-        550
+        551
       ],
-      "mask_area": 4914
+      "mask_area": 4884
+    },
+    {
+      "frame": 79,
+      "track_id": "3",
+      "bbox": [
+        807,
+        518,
+        842,
+        552
+      ],
+      "mask_area": 1082
     },
     {
       "frame": 80,
       "track_id": "0",
       "bbox": [
-        792,
-        312,
-        826,
-        472
+        800,
+        307,
+        833,
+        476
       ],
-      "mask_area": 4952
+      "mask_area": 5001
     },
     {
       "frame": 80,
       "track_id": "1",
       "bbox": [
-        602,
-        312,
-        741,
-        472
+        599,
+        308,
+        746,
+        476
       ],
-      "mask_area": 21962
+      "mask_area": 24462
     },
     {
       "frame": 80,
       "track_id": "2",
       "bbox": [
-        602,
-        538,
-        742,
-        570
+        598,
+        544,
+        746,
+        577
       ],
-      "mask_area": 4348
+      "mask_area": 4728
+    },
+    {
+      "frame": 80,
+      "track_id": "3",
+      "bbox": [
+        801,
+        544,
+        834,
+        577
+      ],
+      "mask_area": 1040
     },
     {
       "frame": 81,
-      "track_id": "0",
-      "bbox": [
-        826,
-        295,
-        860,
-        488
-      ],
-      "mask_area": 6097
-    },
-    {
-      "frame": 81,
-      "track_id": "1",
-      "bbox": [
-        586,
-        296,
-        757,
-        488
-      ],
-      "mask_area": 32506
-    },
-    {
-      "frame": 81,
-      "track_id": "2",
-      "bbox": [
-        586,
-        569,
-        757,
-        600
-      ],
-      "mask_area": 5241
-    },
-    {
-      "frame": 82,
       "track_id": "0",
       "bbox": [
         845,
-        286,
+        287,
         879,
-        497
+        498
       ],
-      "mask_area": 6649
+      "mask_area": 6664
     },
     {
-      "frame": 82,
+      "frame": 81,
       "track_id": "1",
       "bbox": [
         576,
@@ -2654,18 +3419,74 @@
         768,
         497
       ],
-      "mask_area": 39768
+      "mask_area": 39816
+    },
+    {
+      "frame": 81,
+      "track_id": "2",
+      "bbox": [
+        575,
+        587,
+        769,
+        619
+      ],
+      "mask_area": 6001
+    },
+    {
+      "frame": 81,
+      "track_id": "3",
+      "bbox": [
+        845,
+        586,
+        879,
+        620
+      ],
+      "mask_area": 1055
+    },
+    {
+      "frame": 82,
+      "track_id": "0",
+      "bbox": [
+        871,
+        276,
+        904,
+        509
+      ],
+      "mask_area": 7111
+    },
+    {
+      "frame": 82,
+      "track_id": "1",
+      "bbox": [
+        564,
+        276,
+        781,
+        508
+      ],
+      "mask_area": 49868
     },
     {
       "frame": 82,
       "track_id": "2",
       "bbox": [
-        576,
-        587,
-        768,
-        618
+        562,
+        608,
+        781,
+        642
       ],
-      "mask_area": 5785
+      "mask_area": 6995
+    },
+    {
+      "frame": 82,
+      "track_id": "3",
+      "bbox": [
+        870,
+        608,
+        905,
+        642
+      ],
+      "mask_area": 1133
     }
-  ]
+  ],
+  "noun_source": "fallback"
 }

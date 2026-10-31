@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "No persistent visual anomaly observed; central marker remains static",
+  "expected": "No anomaly",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.00859625,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1590,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1555,
+    "output_tokens_details": {
+      "reasoning_tokens": 1489
+    },
+    "total_tokens": 3145
+  },
+  "case_id": "k864",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

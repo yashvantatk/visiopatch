@@ -1,0 +1,1 @@
+{"anomaly": true, "frame": 30, "time_s": 1.86, "track_ids": ["a"], "bbox": [10, 20, 20, 20], "observed": "The red square changes speed after the collision.", "expected": "Total momentum stays the same across the collision.", "confidence": 0.8}

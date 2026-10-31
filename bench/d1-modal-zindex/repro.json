@@ -1,1 +1,22 @@
-{"actions": [], "buggy_sha": "1ec6a75a8387e89a68f27c20ad76b720d926f315", "duration_s": 5, "fix_sha": "ac57e401da4148da679ed8e1b9b23599350228c2", "noun_phrases": ["modal", "header"], "url": "http://localhost:8905/", "noun_fallbacks": {"modal": ["dialog", "popup"], "header": ["bar", "banner"]}}
+{
+  "actions": [],
+  "buggy_sha": "dfc305c4bc3bcc9bed298249ddaa64852ecf0c68",
+  "duration_s": 5,
+  "fix_sha": "fde38fa1c7ffac4b6371796f46142795e031c9d5",
+  "noun_phrases": [
+    "modal",
+    "header"
+  ],
+  "url": "http://localhost:8905/",
+  "noun_fallbacks": {
+    "modal": [
+      "dialog",
+      "popup"
+    ],
+    "header": [
+      "bar",
+      "banner"
+    ]
+  },
+  "report": "the popup's top part is hidden when it opens"
+}

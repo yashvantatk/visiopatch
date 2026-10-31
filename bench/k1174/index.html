@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1280, initial-scale=1">
-<title>k1174 momentum repro (buggy)</title>
-<!-- kaplay.js built at buggy_sha a9680214 (parent of ec5d7c46) -->
+<title>k1174 momentum repro</title>
+<!-- kaplay.js bundle at a9680214 (parent of ec5d7c46) -->
 <style>
   html, body { margin: 0; background: #14141e; }
   canvas { display: block; }
@@ -36,8 +36,7 @@ onUpdate(function () {
     var p = 1 * A.vel.x + 2 * B.vel.x;
     hud.textContent =
         "red v=" + A.vel.x.toFixed(1) + "  blue v=" + B.vel.x.toFixed(1) +
-        "\nP now=" + p.toFixed(1) + "  P start=" + p0.toFixed(1) +
-        "\n" + (Math.abs(p - p0) < 1 ? "MOMENTUM OK" : "BUG: MOMENTUM NOT CONSERVED");
+        "\nP now=" + p.toFixed(1) + "  P start=" + p0.toFixed(1);
 });
 </script>
 </body>

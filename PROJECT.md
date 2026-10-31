@@ -34,3 +34,17 @@ Grill target: this file (`PROJECT.md`) per repo convention.
 - Corrected: k950 fix_sha is `231b23f07e5af855ad46d1466228a553b6b26e3d` (the brief's `...b926e3d` has a typo'd extra `9` and resolves to nothing); all four kaplay "merges" are single-parent fix commits, so buggy_sha = fix_sha^.
 - Verified: all six serve 200 with bug markers; d1/d2 fix-switch checked live; kaplay fix contrast checked at bundle level (impulse 0→1, maxActualBoundingBoxAscent 0→1, quad-guard return→continue, slice9 offset call appears). Pixel rendering unverified — sandbox has no WebGL.
 - Render check: scripts/render_check.py + visiopatch/browser.py (ordered GL backends with WebGL gate, winner cached in render_out/.backend; SHA parent check; fresh browser per phase so the fix swap can't be masked by HTTP cache); render_out/ gitignored. All 36 render_out/<id>/{buggy,fix}_{1s,3s,5s}.png inspected — every bug visible at buggy_sha and gone at fix_sha.
+
+## Spark analysis (Step 4) — blind + reported results
+- Built: bench pages stripped of verdict text (raw values only; d1/d2 fixture bundles rebuilt, functional diffs unchanged, new SHAs in repro.json, one-line user "report" in each repro.json, cause-word-free); visiopatch/analyze.py (Spark nouns + anomaly, sha256+prompt-version cache, strict JSON validation); Spark noun stage added after noun_fallbacks in run_perceive (noun_source repro/fallback/spark; all 4 EMPTY primaries still EMPTY after Spark nouns); scripts/run_analyze.py writes analysis/<id>/<state>.json (blind) and .reported.json (reported), $3 budget. All 24 files validate; total Spark spend for Step 4 ≈ $0.71.
+- Scores (buggy hit = observed names the real bug; reported hits also checked for frame/bbox landing on it):
+
+  | mode | buggy hit rate | fix false-positive rate |
+  |---|---|---|
+  | blind v1 | 2/6 (k1174, d1; d2 flagged for the wrong reason) | 2/6 (k1174, d2) |
+  | blind v2 | 1/6 (d1 only) | 1/6 (d2) |
+  | reported | 2/6 (k1174: frame 45 on the stationary blue square; k950: frame 36 bbox on the top text block) | 1/6 (k864 fix) |
+
+- Read: blind v2 trades false positives for misses (accepts rebounds and steady motion as normal, so k1174's momentum bug goes unseen); the report line is what recovers k1174 and k950, and it also suppresses both v1 fix false positives. d1/d2/k658/k864 reports still miss in reported mode — the reported halves of those clips describe stability, not the fault.
+- Confidence carries no signal and must not gate anything downstream: blind v2 0.85–0.95, reported 0.85–0.95 across hits, misses and false positives alike.
+- Prompt versions used: blind 2 of 2 max (final), reported 1 of 1. Bench pages and report lines must stay verdict-free (tests/test_bench_pages.py).

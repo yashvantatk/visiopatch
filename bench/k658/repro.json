@@ -1,1 +1,17 @@
-{"actions": [], "buggy_sha": "4c9ee05784bf0836d6b5f50d8fc6eb51c723f759", "duration_s": 5, "fix_sha": "c7e91c6416f2a745d4dd228faf3ed28f230ca531", "noun_phrases": ["panel"], "url": "http://localhost:8904/", "noun_fallbacks": {"panel": ["rectangle", "frame"]}}
+{
+  "actions": [],
+  "buggy_sha": "4c9ee05784bf0836d6b5f50d8fc6eb51c723f759",
+  "duration_s": 5,
+  "fix_sha": "c7e91c6416f2a745d4dd228faf3ed28f230ca531",
+  "noun_phrases": [
+    "panel"
+  ],
+  "url": "http://localhost:8904/",
+  "noun_fallbacks": {
+    "panel": [
+      "rectangle",
+      "frame"
+    ]
+  },
+  "report": "the anchored 9-slice panel doesn't look right"
+}

@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "After the first second both squares move at constant velocity with constant size and y-position: red moves left ~100 px/s, blue moves right ~200 px/s and exits right edge. No contact, interpenetration, teleport, or size change persists.",
+  "expected": "Constant-velocity horizontal separation with stable size is normal motion; no persistent visual wrongness in the motion itself.",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.03594075,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1930,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 7889,
+    "output_tokens_details": {
+      "reasoning_tokens": 7765
+    },
+    "total_tokens": 9819
+  },
+  "case_id": "k1174",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

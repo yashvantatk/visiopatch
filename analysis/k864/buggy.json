@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "No persistent abnormal motion; after initial loading bar the clip shows a static black screen with a small central icon.",
+  "expected": "N/A - no anomaly",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.008966,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1590,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1642,
+    "output_tokens_details": {
+      "reasoning_tokens": 1562
+    },
+    "total_tokens": 3232
+  },
+  "case_id": "k864",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

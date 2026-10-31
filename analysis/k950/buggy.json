@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "static text on black background with no persistent abnormal motion; initial loading bar and border disappear and scene remains stable",
+  "expected": "same as observed",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.010105,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1590,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1910,
+    "output_tokens_details": {
+      "reasoning_tokens": 1832
+    },
+    "total_tokens": 3500
+  },
+  "case_id": "k950",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

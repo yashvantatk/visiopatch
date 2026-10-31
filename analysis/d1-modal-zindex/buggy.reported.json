@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "The modal with red title bar 'Confirm action' auto-opens around t=1s and remains fully visible below the sticky site header for the rest of the clip; its top part is not clipped or covered.",
+  "expected": "Full visibility of the popup top is the correct behavior, and that is what is observed - no persistent hiding behind the header occurs.",
+  "confidence": 0.95,
+  "localization": "spark",
+  "mode": "reported",
+  "cost_usd": 0.00660575,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1616,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 1079,
+    "output_tokens_details": {
+      "reasoning_tokens": 958
+    },
+    "total_tokens": 2695
+  },
+  "case_id": "d1-modal-zindex",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 1
+}

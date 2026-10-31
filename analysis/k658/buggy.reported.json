@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "Center panel (track 1) changes width/height across samples while vertical edge width stays ~33-35px with height matching center, horizontal edge height stays ~31-34px with width matching center, and corner stays ~34x33px. No stretching of borders is visible.",
+  "expected": "A broken anchored 9-slice would show borders or corners stretching/squashing with the center; instead thickness is preserved, which is correct 9-slice behavior.",
+  "confidence": 0.92,
+  "localization": "spark",
+  "mode": "reported",
+  "cost_usd": 0.0121805,
+  "cached": false,
+  "usage": {
+    "input_tokens": 2380,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 2166,
+    "output_tokens_details": {
+      "reasoning_tokens": 2022
+    },
+    "total_tokens": 4546
+  },
+  "case_id": "k658",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 1
+}

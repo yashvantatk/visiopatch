@@ -1,0 +1,38 @@
+{
+  "anomaly": true,
+  "frame": 45,
+  "time_s": 2.958,
+  "track_ids": [
+    "0",
+    "1"
+  ],
+  "bbox": [
+    141,
+    60,
+    335,
+    202
+  ],
+  "observed": "leftmost carousel panel remains fixed in left slot for the whole clip while other panels scroll, so at this moment two separate panels overlap exactly in the left slot",
+  "expected": "all carousel items should translate together; the left slot should contain a single moving panel that scrolls out and is replaced, not a permanently fixed panel with another panel moving on top of it",
+  "confidence": 0.85,
+  "localization": "sam",
+  "mode": "blind",
+  "cost_usd": 0.0300485,
+  "cached": false,
+  "usage": {
+    "input_tokens": 2544,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 6322,
+    "output_tokens_details": {
+      "reasoning_tokens": 6181
+    },
+    "total_tokens": 8866
+  },
+  "case_id": "d2-carousel-drift",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

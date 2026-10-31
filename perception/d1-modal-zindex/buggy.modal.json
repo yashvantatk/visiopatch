@@ -1,11 +1,12 @@
 {
   "model": "sam-3.1",
-  "noun": "popup",
+  "noun": "title bar",
   "requested_noun": "modal",
   "mp4": "buggy.mp4",
-  "sha256": "8f851b48b4aff8dc53e6ba4276070e55311045bf6f27245f8e5031541df2975c",
+  "sha256": "1f61c2bc749f66fc4a6ebc7b341e3ebd9eb59d3f24d65fcdca739029eecb1da4",
   "frame_count": 0,
   "track_count": 0,
   "tracks": [],
-  "frames": []
+  "frames": [],
+  "noun_source": "spark"
 }

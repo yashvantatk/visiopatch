@@ -1,1 +1,17 @@
-{"actions": [], "buggy_sha": "1e1d6ab1dca78bced6da97b27e65bf3826da509b", "duration_s": 5, "fix_sha": "229a9bd74bf6c8f8f1c2fdf4b3644e67e9e2169a", "noun_phrases": ["panel"], "url": "http://localhost:8903/", "noun_fallbacks": {"panel": ["rectangle", "frame"]}}
+{
+  "actions": [],
+  "buggy_sha": "1e1d6ab1dca78bced6da97b27e65bf3826da509b",
+  "duration_s": 5,
+  "fix_sha": "229a9bd74bf6c8f8f1c2fdf4b3644e67e9e2169a",
+  "noun_phrases": [
+    "panel"
+  ],
+  "url": "http://localhost:8903/",
+  "noun_fallbacks": {
+    "panel": [
+      "rectangle",
+      "frame"
+    ]
+  },
+  "report": "the 9-slice panel is missing pieces"
+}

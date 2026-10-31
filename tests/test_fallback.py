@@ -59,6 +59,64 @@ def test_all_miss_means_no_fix_call(tmp_path) -> None:
     assert all(mp4 == "b.mp4" for mp4, _, _, _ in log)
 
 
+def fake_spark(nouns, log):
+    def call(mp4):
+        log.append(str(mp4))
+        return {"nouns": nouns}
+    return call
+
+
+def test_spark_nouns_tried_only_after_fallbacks_run_out(tmp_path) -> None:
+    log: list = []
+    spark_log: list = []
+    job = make_job(["panel", "rectangle"])
+    winner, rows = run_perceive.perceive_job(
+        job, tmp_path, fake_perceive({"square": 2}, log), lambda n, e: None,
+        spark_fn=fake_spark(["square", "circle"], spark_log))
+    assert winner == "square"
+    assert spark_log == ["b.mp4"]  # asked once, about the buggy clip
+    assert [(r[0], r[1], r[3]) for r in rows] == [
+        ("buggy", "panel", "repro"), ("buggy", "rectangle", "fallback"),
+        ("buggy", "square", "spark"), ("fix", "square", "spark")]
+
+
+def test_spark_not_called_when_fallback_hits(tmp_path) -> None:
+    spark_log: list = []
+    job = make_job(["panel", "rectangle"])
+    winner, rows = run_perceive.perceive_job(
+        job, tmp_path, fake_perceive({"rectangle": 1}, []),
+        lambda n, e: None,
+        spark_fn=fake_spark(["square"], spark_log))
+    assert winner == "rectangle"
+    assert spark_log == []
+    assert rows[-1][3] == "fallback"
+
+
+def test_spark_nouns_deduped_and_first_hit_wins(tmp_path) -> None:
+    log: list = []
+    job = make_job(["panel"])
+    winner, rows = run_perceive.perceive_job(
+        job, tmp_path, fake_perceive({"circle": 1}, log),
+        lambda n, e: None,
+        spark_fn=fake_spark(["panel", "square", "circle"], []))
+    assert winner == "circle"
+    # "panel" from Spark was already tried as the repro noun: not retried.
+    assert [c[1] for c in log].count("panel") == 1
+    assert [(r[1], r[3]) for r in rows] == [
+        ("panel", "repro"), ("square", "spark"),
+        ("circle", "spark"), ("circle", "spark")]
+
+
+def test_spark_all_miss_means_no_fix_call(tmp_path) -> None:
+    log: list = []
+    job = make_job(["panel"])
+    winner, rows = run_perceive.perceive_job(
+        job, tmp_path, fake_perceive({}, log), lambda n, e: None,
+        spark_fn=fake_spark(["square"], []))
+    assert winner is None
+    assert all(r[0] == "buggy" for r in rows)
+
+
 def test_budget_guard_stops_before_call(tmp_path) -> None:
     import pytest as _pytest
 

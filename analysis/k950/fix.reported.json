@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "Tall letters (T, h, l, t, f, d) in the upper orange decorative lines and the lower white lines remain fully visible with intact tops and bottoms; no truncation or flattening is seen across sampled frames.",
+  "expected": "If the reported cut-off occurred, ascenders of tall letters would appear clipped/flattened at the top or bottom of the text box.",
+  "confidence": 0.85,
+  "localization": "spark",
+  "mode": "reported",
+  "cost_usd": 0.01507775,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1614,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 3073,
+    "output_tokens_details": {
+      "reasoning_tokens": 2946
+    },
+    "total_tokens": 4687
+  },
+  "case_id": "k950",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 1
+}

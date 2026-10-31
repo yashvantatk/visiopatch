@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1280, initial-scale=1">
-<title>k658 9-slice anchor repro (buggy)</title>
-<!-- kaplay.js (kaboom build) at buggy_sha 4c9ee05 (parent of c7e91c64) -->
+<title>k658 9-slice repro</title>
+<!-- kaplay.js bundle at 4c9ee05 (parent of c7e91c64) -->
 <style>html, body { margin: 0; background: #222; } canvas { display: block; }</style>
 </head>
 <body>
@@ -16,7 +16,7 @@ loadSprite("9slice", "9slice.png", {
 });
 var g = add([pos(center()), sprite("9slice"), anchor("center")]);
 onUpdate(function () {
-    // Auto-animates (no mouse): buggy anchor renders the slice offset
+    // Auto-animates (no mouse): width and height vary over time
     var t = time() * 2;
     g.width = 200 + Math.abs(wave(-200, 200, t));
     g.height = 200 + Math.abs(wave(-150, 150, t * 1.3));

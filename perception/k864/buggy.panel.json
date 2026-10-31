@@ -1,11 +1,12 @@
 {
   "model": "sam-3.1",
-  "noun": "frame",
+  "noun": "cursor",
   "requested_noun": "panel",
   "mp4": "buggy.mp4",
-  "sha256": "55130afbc914494e6c9d2f9311e9950712e2ef3e394b2a81f4e483bb37e35426",
+  "sha256": "69d9662e18e7031dba671a4ce5bf8d3ccebee91b35fa90559d8d5f1f1f0eb23b",
   "frame_count": 0,
   "track_count": 0,
   "tracks": [],
-  "frames": []
+  "frames": [],
+  "noun_source": "spark"
 }

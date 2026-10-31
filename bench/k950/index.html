@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=1280, initial-scale=1">
-<title>k950 tall fonts repro (buggy)</title>
-<!-- kaplay.js built at buggy_sha 2b07d92 (parent of 231b23f0); fonts from fix commit -->
+<title>k950 tall fonts repro</title>
+<!-- kaplay.js bundle at 2b07d92 (parent of 231b23f0); fonts: Nabla, Anton -->
 <style>html, body { margin: 0; background: #000; } canvas { display: block; }</style>
 </head>
 <body>
@@ -15,7 +15,7 @@ loadFont("Nabla", "Nabla.ttf", { filter: "nearest" });
 loadFont("Anton", "Anton-Regular.ttf", { filter: "nearest" });
 add([
     pos(10, 10),
-    text("This is a tall font\nThat shouldn't \nget cropped by KAPLAY", {
+    text("This is a tall font\nsample line two\nsample line three", {
         font: "Nabla",
         width: 1260,
         size: 48,
@@ -24,7 +24,7 @@ add([
 ]);
 add([
     pos(10, 400),
-    text("This is another tall font\nThat also \nshouldn't get cropped", {
+    text("This is another tall font\nsecond sample line\nthird sample line", {
         font: "Anton",
         width: 1260,
         size: 32,

@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "Modal opens at ~t=1s as direct child of body and remains fully visible above page content with sticky header at top; no clipping, flicker, or layering error persists across seconds.",
+  "expected": "Same as observed - modal correctly overlays content while header stays visible.",
+  "confidence": 0.9,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.02316525,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1590,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 4983,
+    "output_tokens_details": {
+      "reasoning_tokens": 4877
+    },
+    "total_tokens": 6573
+  },
+  "case_id": "d1-modal-zindex",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}

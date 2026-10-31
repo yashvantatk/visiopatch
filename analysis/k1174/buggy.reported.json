@@ -1,0 +1,38 @@
+{
+  "anomaly": true,
+  "frame": 45,
+  "time_s": 2.852,
+  "track_ids": [
+    "0",
+    "1"
+  ],
+  "bbox": [
+    781,
+    344,
+    64,
+    64
+  ],
+  "observed": "after colliding with the stationary blue square, the red square moves left away from the collision while the blue square remains stationary at its original position",
+  "expected": "the red square should stop and the blue square should move to the right carrying the momentum",
+  "confidence": 0.95,
+  "localization": "sam",
+  "mode": "reported",
+  "cost_usd": 0.01530725,
+  "cached": false,
+  "usage": {
+    "input_tokens": 1954,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 3027,
+    "output_tokens_details": {
+      "reasoning_tokens": 2910
+    },
+    "total_tokens": 4981
+  },
+  "case_id": "k1174",
+  "state": "buggy",
+  "model": "muse-spark-1.3",
+  "prompt_version": 1
+}

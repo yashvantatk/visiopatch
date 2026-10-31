@@ -1,0 +1,30 @@
+{
+  "anomaly": false,
+  "frame": null,
+  "time_s": null,
+  "track_ids": [],
+  "bbox": null,
+  "observed": "Centered 9-slice square scales up and down about a stable center with constant border thickness and no persistent distortion, detachment or flicker",
+  "expected": "N/A - behavior matches expected 9-slice scaling",
+  "confidence": 0.92,
+  "localization": "spark",
+  "mode": "blind",
+  "cost_usd": 0.02374625,
+  "cached": false,
+  "usage": {
+    "input_tokens": 2354,
+    "input_tokens_details": {
+      "cache_write_tokens": null,
+      "cached_tokens": 0
+    },
+    "output_tokens": 4895,
+    "output_tokens_details": {
+      "reasoning_tokens": 4802
+    },
+    "total_tokens": 7249
+  },
+  "case_id": "k658",
+  "state": "fix",
+  "model": "muse-spark-1.3",
+  "prompt_version": 2
+}
