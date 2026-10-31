@@ -13,6 +13,8 @@ Live smoke test `scripts/smoke.py` (not pytest): SAM 3.1, Spark 1.3, Wonder, `mu
 5. Timeouts (timeout = FAIL): SAM 300s, Spark 180s, Wonder 180s, `muse exec` 300s.
 6. Final cost estimate from token usage: Spark $1.25 in / $4.25 out, Wonder $4 in / $20 out per Mtok; SAM $0.20 per 1k frames.
 7. `muse exec` also runs `--no-session-log` (sandbox home is read-only for session logs). ROS pytest-plugin pollution is fixed by unsetting `PYTHONPATH` in the venv, not in this script.
+8. SAM returns frames=0 at no cost when a noun phrase matches nothing (empty output text → 0 frames → $0.00); a miss is a vocabulary problem, not a pipeline bug. k1174's `box` became `square` because SAM segments both squares but associates nothing with "box".
+9. Noun fallback rule: per-noun candidate lists in `repro.json` `noun_fallbacks`; the runner tries primary then fallbacks in order on the buggy clip, stops at the first hit, uses the winner for the fix clip, records the noun used, and only ever tries listed nouns. All-miss is flagged EMPTY, never retried with new nouns.
 
 ## Assumed (accepted)
 - Uploads cached by file sha256 in `smoke_out/cache.json`; SAM and Spark share one `file_id` for the same mp4.

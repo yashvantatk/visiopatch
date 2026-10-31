@@ -1,0 +1,13 @@
+{
+  "case_id": "k950",
+  "state": "buggy",
+  "url": "http://localhost:8902/",
+  "duration_s": 5.0,
+  "record_s": 5.5,
+  "load_offset_s": 0.157,
+  "fps": 15,
+  "width": 1280,
+  "height": 720,
+  "frames": 83,
+  "sha256": "5c799676d9cd09d03eb28e1c8c0c9ceff96076c27fcd439ce841d427a0eb042e"
+}

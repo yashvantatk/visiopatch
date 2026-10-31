@@ -7,3 +7,5 @@ render_out/
 __pycache__/
 *.webm
 .muse/worktrees/
+captures/*/*.mp4
+cache/

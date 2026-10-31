@@ -1,0 +1,13 @@
+{
+  "case_id": "d2-carousel-drift",
+  "state": "buggy",
+  "url": "http://localhost:8906/",
+  "duration_s": 5.0,
+  "record_s": 5.5,
+  "load_offset_s": 0.02,
+  "fps": 15,
+  "width": 1280,
+  "height": 720,
+  "frames": 83,
+  "sha256": "c9c110c8490624e6d394ec85f8e521a77dae6e2163e2272c3d134d00eaf6abe6"
+}

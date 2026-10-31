@@ -1,0 +1,11 @@
+{
+  "model": "sam-3.1",
+  "noun": "frame",
+  "requested_noun": "panel",
+  "mp4": "buggy.mp4",
+  "sha256": "55130afbc914494e6c9d2f9311e9950712e2ef3e394b2a81f4e483bb37e35426",
+  "frame_count": 0,
+  "track_count": 0,
+  "tracks": [],
+  "frames": []
+}

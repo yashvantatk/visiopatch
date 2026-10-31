@@ -1,0 +1,11 @@
+{
+  "model": "sam-3.1",
+  "noun": "banner",
+  "requested_noun": "header",
+  "mp4": "buggy.mp4",
+  "sha256": "8f851b48b4aff8dc53e6ba4276070e55311045bf6f27245f8e5031541df2975c",
+  "frame_count": 0,
+  "track_count": 0,
+  "tracks": [],
+  "frames": []
+}

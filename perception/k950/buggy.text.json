@@ -1,0 +1,11 @@
+{
+  "model": "sam-3.1",
+  "noun": "word",
+  "requested_noun": "text",
+  "mp4": "buggy.mp4",
+  "sha256": "5c799676d9cd09d03eb28e1c8c0c9ceff96076c27fcd439ce841d427a0eb042e",
+  "frame_count": 0,
+  "track_count": 0,
+  "tracks": [],
+  "frames": []
+}
