@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1280, initial-scale=1">
+<title>k1174 momentum repro (buggy)</title>
+<!-- kaplay.js built at buggy_sha a9680214 (parent of ec5d7c46) -->
+<style>
+  html, body { margin: 0; background: #14141e; }
+  canvas { display: block; }
+  #hud { position: fixed; left: 12px; top: 12px; color: #0f0; background: #111;
+    font: 14px monospace; padding: 8px 12px; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="hud">starting…</div>
+<script src="kaplay.js"></script>
+<script>
+kaplay({ width: 1280, height: 720, background: [20, 20, 30] });
+setGravity(0);
+var A = add([
+    pos(500, 344), rect(64, 64),
+    area({ restitution: 1, friction: 0 }),
+    body({ mass: 1 }), color(255, 80, 80),
+]);
+var B = add([
+    pos(780, 344), rect(64, 64),
+    area({ restitution: 1, friction: 0 }),
+    body({ mass: 2 }), color(80, 160, 255),
+]);
+A.vel = vec2(300, 0);
+B.vel = vec2(0, 0);
+var p0 = 1 * 300 + 2 * 0;
+var hud = document.getElementById("hud");
+onUpdate(function () {
+    var p = 1 * A.vel.x + 2 * B.vel.x;
+    hud.textContent =
+        "red v=" + A.vel.x.toFixed(1) + "  blue v=" + B.vel.x.toFixed(1) +
+        "\nP now=" + p.toFixed(1) + "  P start=" + p0.toFixed(1) +
+        "\n" + (Math.abs(p - p0) < 1 ? "MOMENTUM OK" : "BUG: MOMENTUM NOT CONSERVED");
+});
+</script>
+</body>
+</html>

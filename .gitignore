@@ -3,6 +3,7 @@
 .env
 runs/
 smoke_out/
+render_out/
 __pycache__/
 *.webm
 .muse/worktrees/

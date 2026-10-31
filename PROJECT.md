@@ -22,3 +22,13 @@ Live smoke test `scripts/smoke.py` (not pytest): SAM 3.1, Spark 1.3, Wonder, `mu
 
 ## Open
 None.
+
+## Benchmark setup (Draft — grill in progress)
+Grill target: this file (`PROJECT.md`) per repo convention.
+- Settled: artifact boundary = 6 repros only. Each `bench/<id>/` gets a working repro page + `repro.json` + `serve.sh`; kaplay stays in `../kaplay`, never vendored.
+- Settled: done = all 6 `repro.json` carry url/actions/duration_s/buggy_sha/fix_sha/noun_phrases with duration_s <= 5; each `serve.sh` runs; each page shows its bug at 1280x720 with no input in <= 5s; no kaplay sources in this repo.
+- Settled: later stages deferred. Capture, SAM/Spark/Wonder, testgen/repair are proposals only; accepting this record never approves them. `go` authorizes only the 6-repro boundary above.
+- Built: 6/6 repros land (ports 8901-8906). kaplay sources stay in `../kaplay` (single clone); `bench/k*/kaplay.js` are built bundles pinned at buggy_sha, plus test assets (9slice.png, Anton-Regular.ttf).
+- Corrected: k950 fix_sha is `231b23f07e5af855ad46d1466228a553b6b26e3d` (the brief's `...b926e3d` has a typo'd extra `9` and resolves to nothing); all four kaplay "merges" are single-parent fix commits, so buggy_sha = fix_sha^.
+- Verified: all six serve 200 with bug markers; d1/d2 fix-switch checked live; kaplay fix contrast checked at bundle level (impulse 0→1, maxActualBoundingBoxAscent 0→1, quad-guard return→continue, slice9 offset call appears). Pixel rendering unverified — sandbox has no WebGL.
+- Render check: scripts/render_check.py + visiopatch/browser.py (ordered GL backends with WebGL gate, winner cached in render_out/.backend; SHA parent check; fresh browser per phase so the fix swap can't be masked by HTTP cache); render_out/ gitignored. All 36 render_out/<id>/{buggy,fix}_{1s,3s,5s}.png inspected — every bug visible at buggy_sha and gone at fix_sha.
