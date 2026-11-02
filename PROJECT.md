@@ -64,3 +64,20 @@ Grill target: this file (`PROJECT.md`) per repo convention.
 
 - Read: root cause is 6/6 with suspect_file_hit 6/6, so file picking and diagnosis are not the bottleneck. Gate 1 is 4/6: d2's generated test also fails on the fix build, and k658's never separates the builds (one attempt also wasted on a missing PIL import the AST validator does not ban). Test assertion quality, not diagnosis, is what Gate 2 repair should distrust. Confidence (0.85–0.95) again carries no signal and gates nothing.
 - Spend: final recorded runs total $2.61; with the k1174 prompt-iteration runs (testgen v1–v4) the whole step cost ≈ $4.06 of the $10 cap.
+
+## Wonder repair + Gate 2 (Step 6) — done, 4/4 picks overlap the human fix
+- Harness: `visiopatch/repair.py` (offline snapshot at buggy_sha, leak-checked prompts, allowlist guard, inputs-only contamination scan, Gate 2 helpers) + `scripts/run_repair.py` (`--only`, `--gate2-only`); `runs/<id>/gate2.json` + `runs/<id>/fix.patch` committed, raw muse JSONL logs and `repair/` workdirs gitignored. `tests/test_repair.py` (16 tests) covers prompts, guard, scanner, and parse helpers offline.
+- Snapshot isolation: `git archive buggy_sha` into `runs/<id>/repair/src`, fresh `git init` with one `baseline` commit and no remotes; candidates run in caller-owned nested worktrees via `muse exec -w existing` with `--max-model-steps 40` (a `-w create` worktree is deleted on success, losing the diff). Exactly 1 commit + 0 remotes asserted per case. Model on all 12 candidates: `muse-spark-1.3`, subscription, $0 API.
+- Contamination rule change (v1 → v2) and reason: v1 scanned the whole JSONL and flagged k1174-s3 for a `github.com` URL inside a locally read `package.json` (tool output, not a lookup). v2 scans tool-call inputs only (fetch/web tool uses; shell commands like curl, wget, git clone/fetch, gh, npm view); local file content never counts. The v1 flag stays noted on s3's record. No web/fetch tool call appears in any candidate log.
+- Deps: one install per case snapshot (`npm ci` with lockfile, else `npm install`, falling back to `--legacy-peer-deps` for k950's pre-lockfile tree which trips npm's `edgesOut` peer-dep bug); `../kaplay` ships no node_modules. Symlinked into each worktree before the fan-out so candidates can run tsc; the symlink is a guard exception and never counts toward lines changed.
+- Gates: baseline (unmodified snapshot build must FAIL the Gate 1 test, else the build path is wrong — recorded as `baseline_build_gate1`); per candidate Gate 2 = generated test passes + existing suite (kaplay: `tsc` must pass, playwright compared failure-set vs baseline because 18 tests fail at baseline in this env; d1: `none`) + visual (recapture + screenshot + SAM completed; SAM frames recorded, not gated, since frames are vocabulary-dependent — d1/k864/k950 never had a Step-4 SAM hit). Bench state restored to buggy_sha and verified after every stage.
+- d2 and k658 reported as Gate 1 failures with no repair, per the step boundary.
+
+| case | eligible | picked strategy | lines | files | overlap |
+|---|---|---|---|---|---|
+| k1174 | 3/3 | Momentum impulse in physics-resolve handler | 35 | `src/ecs/components/physics/body.ts` | yes |
+| d1-modal-zindex | 2/3 (s3 fails Gate 1 on a top-layer variant) | Remove the stacking context from main | 2 | `index.html` | yes (identical to human fix) |
+| k864 | 3/3 | Skip only the degenerate slice | 2 | `src/ecs/components/draw/sprite.ts` | yes |
+| k950 | 1/3 (s2/s3 fail Gate 1) | Pad and offset atlas rasterization | 69 | `src/core/fontCache.ts`, `src/gfx/formatText.ts` | yes |
+
+- Spend: SAM reruns ≈ $0.05 total (k1174 $0.048, k864 $0.0002, d1/k950 $0 at 0 frames); all `muse exec` on the subscription. Far under the $8 cap.

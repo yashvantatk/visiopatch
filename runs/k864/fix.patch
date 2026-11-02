@@ -1,0 +1,13 @@
+diff --git a/src/ecs/components/draw/sprite.ts b/src/ecs/components/draw/sprite.ts
+index 7fbed3f..3f30964 100644
+--- a/src/ecs/components/draw/sprite.ts
++++ b/src/ecs/components/draw/sprite.ts
+@@ -401,7 +401,7 @@ export function sprite(
+                     const uv = quads[i];
+                     const transform = quads[i + 9];
+                     if (transform.w == 0 || transform.h == 0) {
+-                        return;
++                        continue;
+                     }
+                     drawTexture(
+                         Object.assign(props, {

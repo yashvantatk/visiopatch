@@ -1,0 +1,384 @@
+{
+  "case_id": "k864",
+  "snapshot": {
+    "commits": 1,
+    "remotes": "",
+    "ok": true
+  },
+  "deps": {
+    "exit": 0,
+    "method": "npm-install",
+    "ok": true,
+    "tail": "\n> kaplay@4000.0.0-alpha.20 prepare\n> npm run build\n\n\n> kaplay@4000.0.0-alpha.20 build\n> node scripts/generateIndex.js && npm run doc-dts && node scripts/build.js\n\nGenerating src/index.ts\nExtracting types\n-> src/index.ts\n\n> kaplay@4000.0.0-alpha.20 doc-dts\n> dts-bundle-generator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 2.77s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/kaplay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 457 packages in 4m\nnpm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.\nnpm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+  },
+  "baseline_build_gate1": {
+    "kind": "baseline",
+    "build": {
+      "exit": 0,
+      "exists": true,
+      "tail": "\n> kaplay@4000.0.0-alpha.20 build\n> node scripts/generateIndex.js && npm run doc-dts && node scripts/build.js\n\nGenerating src/index.ts\nExtracting types\n-> src/index.ts\n\n> kaplay@4000.0.0-alpha.20 doc-dts\n> dts-bundle-generator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 2.78s\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+    },
+    "restore_ok": true,
+    "gate1_exit": 1,
+    "gate1_tail": "998, 'width': 32, 'height': 32, 'probeFraction': 1, ...} is not None and 998 > 2000)\n\ntests_generated/test_k864.py:130: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k864.py::test_reported_symptom - AssertionError: ...\n1 failed in 7.83s\n",
+    "pass": true,
+    "playwright_exit": 1,
+    "playwright_failures": []
+  },
+  "contamination_rule": "inputs-only-v2 (tool-call inputs; local file content never counts)",
+  "muse_flags": [
+    "exec",
+    "--json",
+    "--disable-approval",
+    "--trust-workspace",
+    "--max-model-steps",
+    "40",
+    "--subagent-worktree-isolation",
+    "-w",
+    "existing"
+  ],
+  "max_model_steps": 40,
+  "cost_note": "muse exec runs on the subscription; no API cost billed",
+  "candidates": [
+    {
+      "strategy": "Skip only the degenerate slice",
+      "tag": "s1",
+      "prompt": "prompts/repair_k864_s1.txt",
+      "log": "runs/k864/repair/cand_s1.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 47.9,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s1",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_k864_s1.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 10,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s1",
+      "guard": {
+        "files": [
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "allowed": [
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 2,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "\n> kaplay@4000.0.0-alpha.20 build\n> node scripts/generateIndex.js && npm run doc-dts && node scripts/build.js\n\nGenerating src/index.ts\nExtracting types\n-> src/index.ts\n\n> kaplay@4000.0.0-alpha.20 doc-dts\n> dts-bundle-generator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 4.06s\n-> dist/kaplay.mjs\n-> dist/kaplay.cjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "0046f63eee0684dd2c6cdc4a16ab161d3b38f1404f434868cfef925b55997c3c",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 6.39s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "panel",
+              "requested_noun": "panel"
+            },
+            {
+              "frames": 1,
+              "tracks": 1,
+              "cost_usd": 0.0002,
+              "cached": false,
+              "noun": "rectangle",
+              "requested_noun": "panel"
+            }
+          ],
+          "shot": "runs/k864/repair/shot_s1.png",
+          "frames": 83,
+          "mp4": "runs/k864/repair/cap_s1.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated"
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_failures": [],
+        "playwright_new_failures": [],
+        "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "restore_ok": true
+      },
+      "eligible": true
+    },
+    {
+      "strategy": "Clamp or rescale slices for small panels",
+      "tag": "s2",
+      "prompt": "prompts/repair_k864_s2.txt",
+      "log": "runs/k864/repair/cand_s2.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 298.8,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s2",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_k864_s2.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 31,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s2",
+      "guard": {
+        "files": [
+          "src/assets/sprite.ts",
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "allowed": [
+          "src/assets/sprite.ts",
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 64,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "\n> kaplay@4000.0.0-alpha.20 build\n> node scripts/generateIndex.js && npm run doc-dts && node scripts/build.js\n\nGenerating src/index.ts\nExtracting types\n-> src/index.ts\n\n> kaplay@4000.0.0-alpha.20 doc-dts\n> dts-bundle-generator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.26s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "202b17d79217af37f1fd9d403b0ebb53744f581906ca45a195444925a8914545",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 6.01s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "panel",
+              "requested_noun": "panel"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "rectangle",
+              "requested_noun": "panel"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "frame",
+              "requested_noun": "panel"
+            }
+          ],
+          "shot": "runs/k864/repair/shot_s2.png",
+          "frames": 83,
+          "mp4": "runs/k864/repair/cap_s2.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated"
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_failures": [],
+        "playwright_new_failures": [],
+        "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "restore_ok": true
+      },
+      "eligible": true
+    },
+    {
+      "strategy": "Move 9-slice rendering into the shared draw path",
+      "tag": "s3",
+      "prompt": "prompts/repair_k864_s3.txt",
+      "log": "runs/k864/repair/cand_s3.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 504.6,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s3",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_k864_s3.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 121,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": true,
+          "patterns": [
+            "pattern-0"
+          ],
+          "substrings": [
+            "github.com"
+          ]
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s3",
+      "guard": {
+        "files": [
+          "src/ecs/components/draw/sprite.ts",
+          "src/gfx/draw/drawSprite.ts"
+        ],
+        "allowed": [
+          "src/ecs/components/draw/sprite.ts",
+          "src/gfx/draw/drawSprite.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 139,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "\n> kaplay@4000.0.0-alpha.20 build\n> node scripts/generateIndex.js && npm run doc-dts && node scripts/build.js\n\nGenerating src/index.ts\nExtracting types\n-> src/index.ts\n\n> kaplay@4000.0.0-alpha.20 doc-dts\n> dts-bundle-generator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 5.98s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "9645cb6902436e14bfb95fe484c57644239876c70a5f33ecf9b01d8bfc0da0af",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 6.81s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "panel",
+              "requested_noun": "panel"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "rectangle",
+              "requested_noun": "panel"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "frame",
+              "requested_noun": "panel"
+            }
+          ],
+          "shot": "runs/k864/repair/shot_s3.png",
+          "frames": 83,
+          "mp4": "runs/k864/repair/cap_s3.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated"
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_failures": [],
+        "playwright_new_failures": [],
+        "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
+        "restore_ok": true
+      },
+      "eligible": true
+    }
+  ],
+  "picked": {
+    "strategy": "Skip only the degenerate slice",
+    "tag": "s1",
+    "files": [
+      "src/ecs/components/draw/sprite.ts"
+    ],
+    "lines_changed": 2,
+    "model": "muse-spark-1.3"
+  },
+  "overlap": {
+    "hit": true,
+    "changed_files": [
+      "src/ecs/components/draw/sprite.ts",
+      "tests/playtests/slice9zero.js"
+    ]
+  }
+}

@@ -1,0 +1,13 @@
+diff --git a/index.html b/index.html
+index a700018..76f15e7 100644
+--- a/index.html
++++ b/index.html
+@@ -10,7 +10,7 @@
+   header { position: sticky; top: 0; z-index: 100; height: 64px;
+     background: #222; color: #fff; display: flex; align-items: center;
+     padding: 0 20px; font-size: 20px; }
+-  main { transform: translateZ(0); background: #fff; min-height: 660px;
++  main { background: #fff; min-height: 660px;
+     padding: 40px; }
+   .modal-backdrop { display: none; }
+   .modal-backdrop.open { display: block; }

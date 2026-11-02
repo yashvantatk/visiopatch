@@ -1,0 +1,402 @@
+{
+  "case_id": "k1174",
+  "snapshot": {
+    "commits": 1,
+    "remotes": "",
+    "ok": true
+  },
+  "deps": {
+    "exit": 0,
+    "ok": true,
+    "tail": "-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 288 packages in 7s\nnpm warn EBADENGINE Unsupported engine {\nnpm warn EBADENGINE   package: 'kaplay@4000.0.0-alpha.27.1',\nnpm warn EBADENGINE   required: { node: '>=24.0.0' },\nnpm warn EBADENGINE   current: { node: 'v22.23.2', npm: '10.9.8' }\nnpm warn EBADENGINE }\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+  },
+  "baseline_build_gate1": {
+    "kind": "baseline",
+    "build": {
+      "exit": 0,
+      "exists": true,
+      "tail": "erator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.58s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+    },
+    "restore_ok": true,
+    "gate1_exit": 1,
+    "gate1_tail": "itial x=810.0, final x=814.0, displacement=4.0px\nE               assert 4.0 > 30.0\n\ntests_generated/test_k1174.py:187: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k1174.py::test_reported_symptom - AssertionError:...\n1 failed in 17.86s\n",
+    "pass": true,
+    "playwright_exit": 1,
+    "playwright_failures": [
+      "tests/integration/components/missingComps.spec.ts:7:1 \u203a add() should throw an error when a body() without pos() is passed",
+      "tests/integration/components/sprite.spec.ts:25:5 \u203a sprite component \u203a updates the sprite property after dynamic assignment",
+      "tests/integration/components/sprite.spec.ts:55:5 \u203a sprite component \u203a preserves sprite assignment before adding the component",
+      "tests/integration/components/wait.spec.ts:3:1 \u203a Wait 1 second and pass test \u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+      "tests/integration/core/VERSION.spec.ts:18:1 \u203a VERSION constant should not be defined in global scope when running kaplay({ global: false })",
+      "tests/integration/core/VERSION.spec.ts:7:1 \u203a VERSION constant should be defined in global scope when running kaplay()",
+      "tests/integration/core/plugin.spec.ts:27:1 \u203a plugin methods should work in context",
+      "tests/integration/core/plugin.spec.ts:8:1 \u203a plugin methods should exist in context",
+      "tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props",
+      "tests/integration/entity/prefab.spec.ts:8:5 \u203a Prefab creation \u203a An object created using a addPrefab() should exist",
+      "tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags",
+      "tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged",
+      "tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged",
+      "tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag",
+      "tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags",
+      "tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag",
+      "tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged",
+      "tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush"
+    ]
+  },
+  "contamination_rule": "inputs-only-v2 (tool-call inputs; local file content never counts)",
+  "muse_flags": [
+    "exec",
+    "--json",
+    "--disable-approval",
+    "--trust-workspace",
+    "--max-model-steps",
+    "40",
+    "--subagent-worktree-isolation",
+    "-w",
+    "existing"
+  ],
+  "max_model_steps": 40,
+  "cost_note": "muse exec runs on the subscription; no API cost billed",
+  "candidates": [
+    {
+      "strategy": "Momentum impulse in physics-resolve handler",
+      "tag": "s1",
+      "prompt": "prompts/repair_k1174_s1.txt",
+      "log": "runs/k1174/repair/cand_s1.jsonl",
+      "rerun": "gate2-only (no new model run)",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": null,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing"
+      ],
+      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s1",
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 81,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "guard": {
+        "files": [
+          "src/ecs/components/physics/body.ts"
+        ],
+        "allowed": [
+          "src/ecs/components/physics/body.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 35,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.68s\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s1/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s1/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "76e56006ea65042a264fd690300294e59a2167a715af527cda27408a1b489621",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 17.44s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 80,
+              "tracks": 2,
+              "cost_usd": 0.016,
+              "cached": false,
+              "noun": "square"
+            }
+          ],
+          "shot": "runs/k1174/repair/shot_s1.png",
+          "frames": 83,
+          "mp4": "runs/k1174/repair/cap_s1.mp4",
+          "visual_pass": true
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.27.1 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "refab() should exist \n    [chromium] \u203a tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags \n    [chromium] \u203a tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush \n  55 passed (3.5s)\n",
+        "playwright_failures": [
+          "tests/integration/components/missingComps.spec.ts:7:1 \u203a add() should throw an error when a body() without pos() is passed",
+          "tests/integration/components/sprite.spec.ts:25:5 \u203a sprite component \u203a updates the sprite property after dynamic assignment",
+          "tests/integration/components/sprite.spec.ts:55:5 \u203a sprite component \u203a preserves sprite assignment before adding the component",
+          "tests/integration/components/wait.spec.ts:3:1 \u203a Wait 1 second and pass test \u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+          "tests/integration/core/VERSION.spec.ts:18:1 \u203a VERSION constant should not be defined in global scope when running kaplay({ global: false })",
+          "tests/integration/core/VERSION.spec.ts:7:1 \u203a VERSION constant should be defined in global scope when running kaplay()",
+          "tests/integration/core/plugin.spec.ts:27:1 \u203a plugin methods should work in context",
+          "tests/integration/core/plugin.spec.ts:8:1 \u203a plugin methods should exist in context",
+          "tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props",
+          "tests/integration/entity/prefab.spec.ts:8:5 \u203a Prefab creation \u203a An object created using a addPrefab() should exist",
+          "tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags",
+          "tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag",
+          "tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags",
+          "tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag",
+          "tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged",
+          "tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush"
+        ],
+        "playwright_new_failures": [],
+        "restored_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "restore_ok": true
+      },
+      "eligible": true
+    },
+    {
+      "strategy": "Velocity exchange during positional resolution",
+      "tag": "s2",
+      "prompt": "prompts/repair_k1174_s2.txt",
+      "log": "runs/k1174/repair/cand_s2.jsonl",
+      "rerun": "gate2-only (no new model run)",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": null,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing"
+      ],
+      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s2",
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 80,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "guard": {
+        "files": [
+          "src/ecs/components/physics/body.ts",
+          "src/ecs/systems/Collision.ts"
+        ],
+        "allowed": [
+          "src/ecs/components/physics/body.ts",
+          "src/ecs/systems/Collision.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 39,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.66s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s2/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s2/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "12cd2c44d4ce2ec13a776cb116327a74b1591e55442bb218910ff90ae11f298b",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 17.77s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 82,
+              "tracks": 2,
+              "cost_usd": 0.0164,
+              "cached": false,
+              "noun": "square"
+            }
+          ],
+          "shot": "runs/k1174/repair/shot_s2.png",
+          "frames": 83,
+          "mp4": "runs/k1174/repair/cap_s2.mp4",
+          "visual_pass": true
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.27.1 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "refab() should exist \n    [chromium] \u203a tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags \n    [chromium] \u203a tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush \n  55 passed (3.6s)\n",
+        "playwright_failures": [
+          "tests/integration/components/missingComps.spec.ts:7:1 \u203a add() should throw an error when a body() without pos() is passed",
+          "tests/integration/components/sprite.spec.ts:25:5 \u203a sprite component \u203a updates the sprite property after dynamic assignment",
+          "tests/integration/components/sprite.spec.ts:55:5 \u203a sprite component \u203a preserves sprite assignment before adding the component",
+          "tests/integration/components/wait.spec.ts:3:1 \u203a Wait 1 second and pass test \u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+          "tests/integration/core/VERSION.spec.ts:18:1 \u203a VERSION constant should not be defined in global scope when running kaplay({ global: false })",
+          "tests/integration/core/VERSION.spec.ts:7:1 \u203a VERSION constant should be defined in global scope when running kaplay()",
+          "tests/integration/core/plugin.spec.ts:27:1 \u203a plugin methods should work in context",
+          "tests/integration/core/plugin.spec.ts:8:1 \u203a plugin methods should exist in context",
+          "tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props",
+          "tests/integration/entity/prefab.spec.ts:8:5 \u203a Prefab creation \u203a An object created using a addPrefab() should exist",
+          "tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags",
+          "tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag",
+          "tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags",
+          "tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag",
+          "tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged",
+          "tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush"
+        ],
+        "playwright_new_failures": [],
+        "restored_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "restore_ok": true
+      },
+      "eligible": true
+    },
+    {
+      "strategy": "Central impulse solver in collision system",
+      "tag": "s3",
+      "prompt": "prompts/repair_k1174_s3.txt",
+      "log": "runs/k1174/repair/cand_s3.jsonl",
+      "rerun": "gate2-only (no new model run)",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": null,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing"
+      ],
+      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s3",
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 102,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": true,
+          "patterns": [
+            "pattern-0"
+          ],
+          "substrings": [
+            "github.com"
+          ]
+        }
+      },
+      "guard": {
+        "files": [
+          "src/ecs/components/physics/body.ts",
+          "src/ecs/systems/Collision.ts",
+          "src/ecs/systems/createCollisionSystem.ts"
+        ],
+        "allowed": [
+          "src/ecs/components/physics/body.ts",
+          "src/ecs/systems/Collision.ts",
+          "src/ecs/systems/createCollisionSystem.ts"
+        ],
+        "rejected": [],
+        "ignored": [
+          "node_modules"
+        ],
+        "lines_changed": 79,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "kaplay",
+        "pinned_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "build": {
+          "exit": 0,
+          "exists": true,
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.64s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s3/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s3/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+        },
+        "staged_sha": "375421b740f5d4aa12d067e5d125c3e74d723895b6a9f5e9332208595e0779b5",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 18.57s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 80,
+              "tracks": 2,
+              "cost_usd": 0.016,
+              "cached": false,
+              "noun": "square"
+            }
+          ],
+          "shot": "runs/k1174/repair/shot_s3.png",
+          "frames": 83,
+          "mp4": "runs/k1174/repair/cap_s3.mp4",
+          "visual_pass": true
+        },
+        "suite": "npm run check (tsc)",
+        "tsc_exit": 0,
+        "tsc_tail": "\n> kaplay@4000.0.0-alpha.27.1 check\n> tsc\n\n",
+        "playwright_exit": 1,
+        "playwright_tail": "refab() should exist \n    [chromium] \u203a tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag \n    [chromium] \u203a tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags \n    [chromium] \u203a tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush \n  55 passed (3.5s)\n",
+        "playwright_failures": [
+          "tests/integration/components/missingComps.spec.ts:7:1 \u203a add() should throw an error when a body() without pos() is passed",
+          "tests/integration/components/sprite.spec.ts:25:5 \u203a sprite component \u203a updates the sprite property after dynamic assignment",
+          "tests/integration/components/sprite.spec.ts:55:5 \u203a sprite component \u203a preserves sprite assignment before adding the component",
+          "tests/integration/components/wait.spec.ts:3:1 \u203a Wait 1 second and pass test \u2500\u2500\u2500\u2500\u2500\u2500\u2500",
+          "tests/integration/core/VERSION.spec.ts:18:1 \u203a VERSION constant should not be defined in global scope when running kaplay({ global: false })",
+          "tests/integration/core/VERSION.spec.ts:7:1 \u203a VERSION constant should be defined in global scope when running kaplay()",
+          "tests/integration/core/plugin.spec.ts:27:1 \u203a plugin methods should work in context",
+          "tests/integration/core/plugin.spec.ts:8:1 \u203a plugin methods should exist in context",
+          "tests/integration/entity/prefab.spec.ts:46:5 \u203a Prefab creation \u203a An object created using a addPrefab() with parameters should keep new component props",
+          "tests/integration/entity/prefab.spec.ts:8:5 \u203a Prefab creation \u203a An object created using a addPrefab() should exist",
+          "tests/integration/entity/singletonTags.spec.ts:117:1 \u203a get() live update should work with singleton tags",
+          "tests/integration/entity/singletonTags.spec.ts:29:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTags() should add a new tag and ensure only the last obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:44:5 \u203a KAPLAYOpt.singletonTags API \u203a addSingletonTag() should add a new tag and ensure only the passed obj remains tagged",
+          "tests/integration/entity/singletonTags.spec.ts:59:5 \u203a KAPLAYOpt.singletonTags API \u203a After removeSingletonTag(), multiple objs can be tagged with the same tag",
+          "tests/integration/entity/singletonTags.spec.ts:84:5 \u203a KAPLAYOpt.singletonTags API \u203a removeSingletonTag() should accept array of tags",
+          "tests/integration/entity/singletonTags.spec.ts:98:1 \u203a Another obj tagged with the same singleton tag should remain only obj of the tag",
+          "tests/integration/entity/singletonTags.spec.ts:9:5 \u203a KAPLAYOpt.singletonTags API \u203a setSingletonTags() should replace original tags and ensure only the last obj remains tagged",
+          "tests/integration/gfx/textureSync.spec.ts:7:1 \u203a direct sprite referencing should force a texture flush"
+        ],
+        "playwright_new_failures": [],
+        "restored_sha": "c4c25e5a125aa36e9c5665437e34c9fc23c9410584eae27693a6685448decda2",
+        "restore_ok": true
+      },
+      "eligible": true
+    }
+  ],
+  "picked": {
+    "strategy": "Momentum impulse in physics-resolve handler",
+    "tag": "s1",
+    "files": [
+      "src/ecs/components/physics/body.ts"
+    ],
+    "lines_changed": 35,
+    "model": "muse-spark-1.3"
+  },
+  "overlap": {
+    "hit": true,
+    "changed_files": [
+      "CHANGELOG.md",
+      "src/ecs/components/physics/body.ts",
+      "src/ecs/systems/Collision.ts",
+      "tests/integration/components/bodyMomentum.spec.ts"
+    ]
+  }
+}

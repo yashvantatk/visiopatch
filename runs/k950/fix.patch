@@ -1,0 +1,110 @@
+diff --git a/src/core/fontCache.ts b/src/core/fontCache.ts
+index 88c483e..e4f44ac 100644
+--- a/src/core/fontCache.ts
++++ b/src/core/fontCache.ts
+@@ -1,9 +1,12 @@
+ import { MAX_TEXT_CACHE_SIZE } from "../constants/general";
+ 
++// Extra room so a padded atlas tile (glyph + padding + outline) fits
++const FONT_CACHE_PADDING = 8;
++
+ export const createFontCache = () => {
+     const fontCacheCanvas = document.createElement("canvas");
+-    fontCacheCanvas.width = MAX_TEXT_CACHE_SIZE;
+-    fontCacheCanvas.height = MAX_TEXT_CACHE_SIZE;
++    fontCacheCanvas.width = MAX_TEXT_CACHE_SIZE + FONT_CACHE_PADDING * 2;
++    fontCacheCanvas.height = MAX_TEXT_CACHE_SIZE + FONT_CACHE_PADDING * 2;
+     const fontCacheC2d = fontCacheCanvas.getContext("2d", {
+         willReadFrequently: true,
+     });
+diff --git a/src/gfx/formatText.ts b/src/gfx/formatText.ts
+index b4b1765..21ff72f 100644
+--- a/src/gfx/formatText.ts
++++ b/src/gfx/formatText.ts
+@@ -198,17 +198,58 @@ function updateFontAtlas(font: FontData | string, ch: string) {
+         );
+ 
+         c2d.font = `${atlas.font.size}px ${fontName}`;
+-        c2d.textBaseline = "top";
++        c2d.textBaseline = "alphabetic";
+         c2d.textAlign = "left";
+         c2d.fillStyle = "#ffffff";
+         const m = c2d.measureText(ch);
+-        let w = Math.ceil(m.width);
+-        if (!w) return;
+-        let h = (Math.ceil(Math.abs(m.actualBoundingBoxAscent))
+-            + Math.ceil(Math.abs(m.actualBoundingBoxDescent)))
++        const rawW = Math.ceil(m.width);
++        if (!rawW) return;
++        const ascent = Math.ceil(Math.abs(m.actualBoundingBoxAscent));
++        const descent = Math.ceil(Math.abs(m.actualBoundingBoxDescent));
++        const fontAscent = Math.ceil(
++            Math.abs(m.fontBoundingBoxAscent ?? ascent),
++        );
++        const excess = Math.max(0, ascent - fontAscent);
++        const pad = 2;
++        // Offset covers at least the excess of tall glyphs over the font ascent
++        const topPad = pad + excess;
++        const outlineWidth = atlas.outline?.width ?? 0;
++        let w = rawW + pad * 2;
++        let h = (ascent + descent + topPad + pad)
+             || atlas.font.size;
+ 
+         // TODO: Test if this works with the verification of width and color
++        if (
++            atlas.outline && atlas.outline.width
++            && atlas.outline.color
++        ) {
++            w += atlas.outline.width * 2;
++            h += atlas.outline.width * 3;
++        }
++
++        // Guarantee the scratch canvas can contain the padded tile
++        // (resizing clears context state, so re-apply it afterwards)
++        if (
++            _k.fontCacheCanvas.width < w
++            || _k.fontCacheCanvas.height < h
++        ) {
++            _k.fontCacheCanvas.width = Math.max(
++                _k.fontCacheCanvas.width,
++                w,
++            );
++            _k.fontCacheCanvas.height = Math.max(
++                _k.fontCacheCanvas.height,
++                h,
++            );
++            c2d.font = `${atlas.font.size}px ${fontName}`;
++            c2d.textBaseline = "alphabetic";
++            c2d.textAlign = "left";
++            c2d.fillStyle = "#ffffff";
++        }
++
++        const dx = pad + outlineWidth;
++        const baselineY = ascent + topPad + outlineWidth;
++
+         if (
+             atlas.outline && atlas.outline.width
+             && atlas.outline.color
+@@ -218,18 +259,15 @@ function updateFontAtlas(font: FontData | string, ch: string) {
+             c2d.strokeStyle = atlas.outline.color.toHex();
+             c2d.strokeText(
+                 ch,
+-                atlas.outline.width,
+-                atlas.outline.width,
++                dx,
++                baselineY,
+             );
+-
+-            w += atlas.outline.width * 2;
+-            h += atlas.outline.width * 3;
+         }
+ 
+         c2d.fillText(
+             ch,
+-            atlas.outline?.width ?? 0,
+-            atlas.outline?.width ?? 0,
++            dx,
++            baselineY,
+         );
+ 
+         const img = c2d.getImageData(

@@ -5,6 +5,8 @@ runs/*
 !runs/*/
 !runs/*/rootcause.json
 !runs/*/gate1.json
+!runs/*/gate2.json
+!runs/*/fix.patch
 smoke_out/
 render_out/
 __pycache__/

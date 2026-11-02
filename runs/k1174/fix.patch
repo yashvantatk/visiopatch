@@ -1,0 +1,53 @@
+diff --git a/src/ecs/components/physics/body.ts b/src/ecs/components/physics/body.ts
+index ca1016c..692067f 100644
+--- a/src/ecs/components/physics/body.ts
++++ b/src/ecs/components/physics/body.ts
+@@ -305,19 +305,42 @@ export function body(opt: BodyCompOpt = {}): BodyComp {
+                             * (col.target.friction || 0),
+                     );
+ 
+-                    const projection = this.vel.project(col.normal);
+-                    const rejection = this.vel.sub(projection);
++                    // Momentum impulse: transfer normal velocity between the
++                    // two bodies based on relative velocity, restitution, and
++                    // both masses (static bodies have infinite mass)
++                    const sourceBody = col.source as GameObj<BodyComp>;
++                    const targetBody = col.target as GameObj<BodyComp>;
++                    const sourceInvMass = sourceBody.isStatic
++                        ? 0
++                        : 1 / (sourceBody.mass ?? 1);
++                    const targetInvMass = targetBody.isStatic
++                        ? 0
++                        : 1 / (targetBody.mass ?? 1);
++                    const relVel = sourceBody.vel.sub(targetBody.vel);
++                    const velAlongNormal = relVel.dot(col.normal);
+ 
+-                    // Clear the velocity in the direction of the normal, as we've hit something
+-                    if (this.vel.dot(col.normal) < 0) {
+-                        // Modulate the velocity tangential to the normal
+-                        this.vel = rejection.sub(projection.scale(restitution));
++                    if (
++                        velAlongNormal < 0
++                        && sourceInvMass + targetInvMass > 0
++                    ) {
++                        const impulseMag = -(1 + restitution)
++                            * velAlongNormal
++                            / (sourceInvMass + targetInvMass);
++                        const impulse = col.normal.scale(impulseMag);
++                        sourceBody.vel = sourceBody.vel.add(
++                            impulse.scale(sourceInvMass),
++                        );
++                        targetBody.vel = targetBody.vel.sub(
++                            impulse.scale(targetInvMass),
++                        );
+                     }
+ 
+                     if (friction != 0) {
+                         // TODO: This should work with dt, not frame, but then friction 1 will brake in 1 second, not one frame
+                         // TODO: This should depend with gravity, stronger gravity means more friction
+                         //       getGravityDirection().scale(getGravity()).project(col.normal).len()
++                        const projection = this.vel.project(col.normal);
++                        const rejection = this.vel.sub(projection);
+                         this.vel = this.vel.sub(rejection.scale(friction));
+                     }
+                 });

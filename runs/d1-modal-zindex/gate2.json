@@ -1,0 +1,298 @@
+{
+  "case_id": "d1-modal-zindex",
+  "snapshot": {
+    "commits": 1,
+    "remotes": "",
+    "ok": true
+  },
+  "deps": {
+    "skipped": true,
+    "reason": "no package.json in snapshot"
+  },
+  "baseline_build_gate1": {
+    "kind": "baseline",
+    "pass": true,
+    "reason": "d1 serves sources directly"
+  },
+  "contamination_rule": "inputs-only-v2 (tool-call inputs; local file content never counts)",
+  "muse_flags": [
+    "exec",
+    "--json",
+    "--disable-approval",
+    "--trust-workspace",
+    "--max-model-steps",
+    "40",
+    "--subagent-worktree-isolation",
+    "-w",
+    "existing"
+  ],
+  "max_model_steps": 40,
+  "cost_note": "muse exec runs on the subscription; no API cost billed",
+  "candidates": [
+    {
+      "strategy": "Portal the modal to body level",
+      "tag": "s1",
+      "prompt": "prompts/repair_d1-modal-zindex_s1.txt",
+      "log": "runs/d1-modal-zindex/repair/cand_s1.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 46.2,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s1",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s1.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 19,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s1",
+      "guard": {
+        "files": [
+          "index.html"
+        ],
+        "allowed": [
+          "index.html"
+        ],
+        "rejected": [],
+        "ignored": [],
+        "lines_changed": 12,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "d1",
+        "suite": "none",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 3.97s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "modal"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "header"
+            }
+          ],
+          "shot": "runs/d1-modal-zindex/repair/shot_s1.png",
+          "frames": 83,
+          "mp4": "runs/d1-modal-zindex/repair/cap_s1.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated (recomputed from recorded artifacts, no rerun)"
+        },
+        "restore_ok": true
+      },
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "strategy": "Remove the stacking context from main",
+      "tag": "s2",
+      "prompt": "prompts/repair_d1-modal-zindex_s2.txt",
+      "log": "runs/d1-modal-zindex/repair/cand_s2.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 51.0,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s2",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s2.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 13,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s2",
+      "guard": {
+        "files": [
+          "index.html"
+        ],
+        "allowed": [
+          "index.html"
+        ],
+        "rejected": [],
+        "ignored": [],
+        "lines_changed": 2,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "d1",
+        "suite": "none",
+        "gate1_exit": 0,
+        "gate1_tail": ".                                                                        [100%]\n1 passed in 3.92s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": true,
+              "noun": "modal"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": true,
+              "noun": "header"
+            }
+          ],
+          "shot": "runs/d1-modal-zindex/repair/shot_s2.png",
+          "frames": 83,
+          "mp4": "runs/d1-modal-zindex/repair/cap_s2.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated (recomputed from recorded artifacts, no rerun)"
+        },
+        "restore_ok": true
+      },
+      "eligible": true,
+      "reason": null
+    },
+    {
+      "strategy": "Promote the modal to the top layer",
+      "tag": "s3",
+      "prompt": "prompts/repair_d1-modal-zindex_s3.txt",
+      "log": "runs/d1-modal-zindex/repair/cand_s3.jsonl",
+      "exit": 0,
+      "model": "muse-spark-1.3",
+      "elapsed_s": 89.2,
+      "flags": [
+        "exec",
+        "--json",
+        "--disable-approval",
+        "--trust-workspace",
+        "--max-model-steps",
+        "40",
+        "--subagent-worktree-isolation",
+        "-w",
+        "existing",
+        "--workspace",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "--worktree-existing",
+        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s3",
+        "--prompt-file",
+        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s3.txt"
+      ],
+      "contamination": {
+        "contaminated": false,
+        "hits": [],
+        "inputs_scanned": 20,
+        "rule": "inputs-only-v2",
+        "v1": {
+          "contaminated": false,
+          "patterns": [],
+          "substrings": []
+        }
+      },
+      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s3",
+      "guard": {
+        "files": [
+          "index.html"
+        ],
+        "allowed": [
+          "index.html"
+        ],
+        "rejected": [],
+        "ignored": [],
+        "lines_changed": 15,
+        "ok": true
+      },
+      "gate2": {
+        "kind": "d1",
+        "suite": "none",
+        "gate1_exit": 1,
+        "gate1_tail": "F                                                                        [100%]\n=================================== FAILURES ===================================\n____________________________ test_reported_symptom _____________________________\n\n    def test_reported_symptom():\n        url = os.environ[\"VISIOPATCH_CASE_URL\"]\n        with sync_playwright() as playwright:\n            browser = launch_chromium(playwright)\n            try:\n                page = browser.new_page(viewport={\"width\": 1280, \"height\": 720})\n                page.goto(url)\n    \n                opened = False\n                for _ in range(40):\n                    opened = page.evaluate(\n                        \"() => { const b = document.querySelector('#backdrop'); \"\n                        \"return !!b && b.classList.contains('open'); }\"\n                    )\n                    if opened:\n                        break\n                    page.wait_for_timeout(100)\n>               assert opened\nE               assert False\n\ntests_generated/test_d1-modal-zindex.py:25: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_d1-modal-zindex.py::test_reported_symptom - asser...\n1 failed in 7.09s\n",
+        "visual": {
+          "capture_ok": true,
+          "sam": [
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "modal"
+            },
+            {
+              "frames": 0,
+              "tracks": 0,
+              "cost_usd": 0.0,
+              "cached": false,
+              "noun": "header"
+            }
+          ],
+          "shot": "runs/d1-modal-zindex/repair/shot_s3.png",
+          "frames": 83,
+          "mp4": "runs/d1-modal-zindex/repair/cap_s3.mp4",
+          "visual_pass": true,
+          "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated (recomputed from recorded artifacts, no rerun)"
+        },
+        "restore_ok": true
+      },
+      "eligible": false,
+      "reason": "gate 2 failed"
+    }
+  ],
+  "picked": {
+    "strategy": "Remove the stacking context from main",
+    "tag": "s2",
+    "files": [
+      "index.html"
+    ],
+    "lines_changed": 2,
+    "model": "muse-spark-1.3"
+  },
+  "overlap": {
+    "hit": true,
+    "changed_files": [
+      "index.html"
+    ]
+  },
+  "visual_rule": "v2: capture+screenshot+SAM-completed; frames recorded, not gated (recomputed from recorded artifacts, no rerun)"
+}
