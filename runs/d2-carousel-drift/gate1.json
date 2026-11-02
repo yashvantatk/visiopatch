@@ -1,0 +1,36 @@
+{
+  "case_id": "d2-carousel-drift",
+  "gate_pass": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "testgen_cost_usd": 0.16616,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "                 else:\n                                offset = float(snapshot[\"containerLeft\"]) - float(snapshot[\"firstCardLeft\"])\n    \n                            if last_offset is not None and abs(offset - last_offset) <= 0.2:\n                                stable_samples += 1\n                            else:\n                                stable_samples = 0\n                            last_offset = offset\n    \n                            # Only settled positions represent a snapped card;\n                            # intermediate animation positions are ignored.\n                            if stable_samples >= 2:\n                                step = int(round(offset / card_width))\n                                if step >= 0:\n                                    errors_by_step[step] = offset - step * card_width\n                                if step >= 8:\n                                    break\n                        page.wait_for_timeout(25)\n    \n                    assert errors_by_step, \"carousel track was not found or never settled\"\n                    max_step = max(errors_by_step)\n                    final_error = errors_by_step[max_step]\n    \n>                   assert max_step >= 8, (\n                        f\"carousel only reached settled step {max_step}; \"\n                        f\"settled errors by step: {errors_by_step}\"\n                    )\nE                   AssertionError: carousel only reached settled step 3; settled errors by step: {0: -2.0, 1: -2.328125, 2: -2.65625, 3: -1.984375}\nE                   assert 3 >= 8\n\ntests_generated/test_d2-carousel-drift.py:110: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_d2-carousel-drift.py::test_reported_symptom - Ass...\n1 failed in 5.43s\n",
+      "fix_exit": 1,
+      "gate_pass": false,
+      "stage": "gate"
+    },
+    {
+      "attempt": 2,
+      "stage": "validation",
+      "gate_pass": false,
+      "error": "invalid generated test: contains a state-label word"
+    },
+    {
+      "attempt": 3,
+      "testgen_cost_usd": 0.165984,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "0], count: kids.length };\n            }\n          }\n          return choice;\n        }\"\"\"\n        browser = None\n        with sync_playwright() as playwright:\n            try:\n                browser = launch_chromium(playwright)\n                page = browser.new_page(viewport={\"width\": 1280, \"height\": 720})\n                page.goto(url)\n                samples = []\n                positions = []\n                current = None\n                stable = 0\n                deadline = time.monotonic() + 4.85\n                while time.monotonic() < deadline and len(samples) < 9:\n                    data = page.evaluate(measure)\n                    if data is not None:\n                        value = float(data[\"error\"])\n                        first = float(data[\"first\"])\n                        if current is not None and abs(value - current) <= 0.02:\n                            stable += 1\n                        else:\n                            current = value\n                            stable = 1\n                        if stable >= 2 and (\n                            not positions or abs(first - positions[-1]) > 5\n                        ):\n                            positions.append(first)\n                            samples.append(value)\n                    page.wait_for_timeout(25)\n>               assert len(samples) >= 8 and abs(samples[-1]) < 0.1\nE               assert (9 >= 8 and 4.65625 < 0.1)\nE                +  where 9 = len([2.0, 2.328125, 2.65625, -330.34375, 3.328125, 3.65625, ...])\nE                +  and   4.65625 = abs(4.65625)\n\ntests_generated/test_d2-carousel-drift.py:57: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_d2-carousel-drift.py::test_reported_symptom - ass...\n1 failed in 5.38s\n",
+      "fix_exit": 1,
+      "gate_pass": false,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 3,
+  "test_file": "tests_generated/test_d2-carousel-drift.py",
+  "rootcause_cost_usd": 0.051544,
+  "total_cost_usd": 0.383688
+}

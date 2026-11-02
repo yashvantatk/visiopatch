@@ -1,0 +1,20 @@
+{
+  "case_id": "k1174",
+  "gate_pass": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "testgen_cost_usd": 0.171552,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "_bytes in screenshots:\n                    blue_x, blue_count = _centroids_from_png(png_bytes)\n                    # At 4x sampling, an unobscured 64px square has roughly\n                    # 256 classified pixels; 20 avoids edge/noise-only frames.\n                    if blue_x is not None and blue_count >= 20:\n                        blue_positions.append(blue_x)\n    \n                assert len(blue_positions) >= 5, (\n                    f\"Could not reliably track the blue square; \"\n                    f\"got {len(blue_positions)} usable frames\"\n                )\n    \n                initial_blue_x = statistics.median(blue_positions[:3])\n                final_blue_x = statistics.median(blue_positions[-3:])\n                blue_displacement = final_blue_x - initial_blue_x\n    \n                # Correct momentum transfer: the formerly stationary blue\n                # square must move substantially to the right after contact\n                # (half its 64px width, far above centroid noise), rather\n                # than remaining at its original position.\n>               assert blue_displacement > 30.0, (\n                    f\"Blue square did not move substantially right after the \"\n                    f\"collision: initial x={initial_blue_x:.1f}, \"\n                    f\"final x={final_blue_x:.1f}, \"\n                    f\"displacement={blue_displacement:.1f}px\"\n                )\nE               AssertionError: Blue square did not move substantially right after the collision: initial x=810.0, final x=814.0, displacement=4.0px\nE               assert 4.0 > 30.0\n\ntests_generated/test_k1174.py:187: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k1174.py::test_reported_symptom - AssertionError:...\n1 failed in 17.17s\n",
+      "fix_exit": 0,
+      "gate_pass": true,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 1,
+  "test_file": "tests_generated/test_k1174.py",
+  "rootcause_cost_usd": 0.0,
+  "total_cost_usd": 0.171552
+}

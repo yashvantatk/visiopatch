@@ -1,0 +1,20 @@
+{
+  "case_id": "d1-modal-zindex",
+  "gate_pass": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "testgen_cost_usd": 0.105788,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "                      window.scrollTo(0, window.scrollY + (t.top - desiredTop));\n                    }\"\"\"\n                )\n                page.wait_for_timeout(100)\n    \n                metrics = page.evaluate(\n                    \"\"\"() => {\n                        const title = document.querySelector('#modalTitle');\n                        const hdr = document.querySelector('#hdr');\n                        const t = title.getBoundingClientRect();\n                        const h = hdr.getBoundingClientRect();\n                        const overlap = Math.max(\n                            0,\n                            Math.min(t.bottom, h.bottom) - Math.max(t.top, h.top)\n                        );\n                        const cx = t.left + t.width / 2;\n                        let total = 0;\n                        let hit = 0;\n                        for (let y = t.top + 2; y < t.bottom - 1; y += 2) {\n                            if (y < 0 || y >= window.innerHeight) continue;\n                            const el = document.elementFromPoint(cx, y);\n                            total += 1;\n                            if (el === title || (el && title.contains(el))) hit += 1;\n                        }\n                        return {\n                            overlap_px: overlap,\n                            title_height: t.height,\n                            visible_fraction: total ? hit / total : 0,\n                        };\n                    }\"\"\"\n                )\n    \n>               assert metrics[\"overlap_px\"] > 0\nE               assert 0 > 0\n\ntests_generated/test_d1-modal-zindex.py:69: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_d1-modal-zindex.py::test_reported_symptom - asser...\n1 failed in 1.68s\n",
+      "fix_exit": 0,
+      "gate_pass": true,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 1,
+  "test_file": "tests_generated/test_d1-modal-zindex.py",
+  "rootcause_cost_usd": 0.09781999999999999,
+  "total_cost_usd": 0.20360799999999998
+}

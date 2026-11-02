@@ -1,0 +1,85 @@
+{
+  "case_id": "d2-carousel-drift",
+  "pick": {
+    "files": [
+      {
+        "path": "index.html",
+        "why": "Only source file; contains carousel markup, CSS transforms, and JS slide positioning that could cause progressive misalignment"
+      }
+    ],
+    "cost_usd": 0.006788,
+    "cached": false,
+    "usage": {
+      "input_tokens": 207,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 298,
+      "output_tokens_details": {
+        "reasoning_tokens": 253
+      },
+      "total_tokens": 505
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "The track advances by the rounded step Math.round(1000/3)=333px while each card is 1000/3=333.333px wide, so every advance under-shifts the track by 1/3px and the error accumulates in the persistent offset.",
+    "file": "index.html",
+    "line_range": [
+      38,
+      43
+    ],
+    "suspect_function": "anonymous callback passed to setInterval",
+    "mechanism": "Each 600ms tick adds the too-small integer step to offset and applies it as translateX without ever recomputing position from the card index; the 0.333px shortfall per tick is never corrected, so card edges drift linearly away from the viewport snap position (about 2.7px after 8 ticks, growing with further ticks) instead of realigning exactly every 3 cards.",
+    "test_spec": "Drive the page through at least 8-9 auto-advance ticks and, after each tick, measure the track's computed translateX and/or the viewport-relative getBoundingClientRect().left of the card that should be snapped to the viewport's left edge; assert the absolute alignment error versus the nearest exact multiple of 1000/3 stays near zero (<0.1px) and does not increase with tick count, whereas the buggy page shows error growing by ~0.33px per tick in the under-shift direction.",
+    "fix_strategies": [
+      {
+        "name": "Use exact fractional step",
+        "files": [
+          "index.html"
+        ],
+        "approach": "At the step definition, stop rounding: set step = containerWidth / n (333.333...px) so the per-tick shift exactly matches the rendered card width, eliminating the per-tick shortfall."
+      },
+      {
+        "name": "Recompute offset from index instead of accumulating",
+        "files": [
+          "index.html"
+        ],
+        "approach": "Inside the interval callback, replace incremental offset += step with an absolute derivation such as offset = ticks * (containerWidth / n) (or Math.round(ticks * containerWidth / n) for pixel snapping), so any rounding is bounded to <1px total and cannot accumulate over time."
+      },
+      {
+        "name": "Snap to measured card geometry",
+        "files": [
+          "index.html"
+        ],
+        "approach": "Intervene at the transform application: translate the track to the target card's measured offsetLeft (or card.getBoundingClientRect().width accumulated from the DOM) rather than a computed constant, so the track always aligns to the actual laid-out card edge regardless of fractional widths."
+      }
+    ],
+    "confidence": 0.95,
+    "cost_usd": 0.044756,
+    "cached": false,
+    "usage": {
+      "input_tokens": 1129,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 2012,
+      "output_tokens_details": {
+        "reasoning_tokens": 1473
+      },
+      "total_tokens": 3141
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "index.html"
+  ],
+  "cost_usd": 0.051544
+}

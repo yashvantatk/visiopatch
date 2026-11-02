@@ -1,0 +1,85 @@
+{
+  "case_id": "d1-modal-zindex",
+  "pick": {
+    "files": [
+      {
+        "path": "index.html",
+        "why": "Only source file; contains popup/modal markup, its CSS positioning and z-index versus the sticky header, and the logic that opens it"
+      }
+    ],
+    "cost_usd": 0.005724,
+    "cached": false,
+    "usage": {
+      "input_tokens": 251,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 236,
+      "output_tokens_details": {
+        "reasoning_tokens": 185
+      },
+      "total_tokens": 487
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "The transform: translateZ(0) on <main> creates a stacking context that traps the modal's z-index: 9999 inside <main>, so the sticky header's root-level z-index: 100 paints over the modal's top.",
+    "file": "index.html",
+    "line_range": [
+      13,
+      14
+    ],
+    "suspect_function": "CSS main rule (modal opened by the anonymous setTimeout callback)",
+    "mechanism": "Because a transformed ancestor establishes a stacking context, the modal's z-index 9999 is only compared with siblings inside <main>; in the root stacking context the whole <main> subtree (z-index auto) is painted as one unit below the positioned sticky <header> (z-index 100), so whenever the absolutely-positioned modal's title bar reaches/overlaps the header area the header occludes that top strip despite the modal's nominally larger z-index.",
+    "test_spec": "Load the page, wait >1s for #backdrop.open, then scroll so the modal title overlaps the sticky header (or measure in the overlap region) and record #modalTitle.getBoundingClientRect(), #hdr.getBoundingClientRect(), and document.elementFromPoint() at the modal title's center-top point plus the hit-testable/visible fraction of the title's height. Correct behavior: elementFromPoint returns #modalTitle and the visible title fraction is 1.0 (full title height); reported behavior: elementFromPoint returns #hdr and the visible title fraction drops below 1.0 by the header-overlap amount while the modal is open.",
+    "fix_strategies": [
+      {
+        "name": "Portal the modal to body level",
+        "files": [
+          "index.html"
+        ],
+        "approach": "Move the #backdrop/#modal markup out of <main> to be a direct child of <body> (or append it to document.body on open) so its z-index 9999 competes in the root stacking context against the header's 100 instead of being confined inside <main>."
+      },
+      {
+        "name": "Remove the stacking context from main",
+        "files": [
+          "index.html"
+        ],
+        "approach": "Delete the transform: translateZ(0) from the main rule (or apply it only while no modal is open / replace the compositing hint with one that does not create a stacking context), restoring global z-index comparison so the modal's 9999 beats the header's 100."
+      },
+      {
+        "name": "Promote the modal to the top layer",
+        "files": [
+          "index.html"
+        ],
+        "approach": "Render the popup with a native top-layer API, e.g. a <dialog> opened via showModal() (or the Popover API), which paints above all stacking contexts including the sticky header regardless of the transformed ancestor, keeping <main>'s transform intact."
+      }
+    ],
+    "confidence": 0.82,
+    "cost_usd": 0.092096,
+    "cached": false,
+    "usage": {
+      "input_tokens": 1034,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 4398,
+      "output_tokens_details": {
+        "reasoning_tokens": 3804
+      },
+      "total_tokens": 5432
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "index.html"
+  ],
+  "cost_usd": 0.09781999999999999
+}

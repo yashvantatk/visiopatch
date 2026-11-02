@@ -1,0 +1,107 @@
+{
+  "case_id": "k950",
+  "pick": {
+    "files": [
+      {
+        "path": "src/gfx/formatText.ts",
+        "why": "Computes text layout, line height, width/height and glyph positions; likely underestimates ascent for tall fonts so first line starts clipped at y=0"
+      },
+      {
+        "path": "src/core/fontCache.ts",
+        "why": "Renders and caches individual glyphs to atlas/canvas; fixed glyph height or baseline handling can truncate tall ascenders"
+      },
+      {
+        "path": "src/gfx/draw/drawFormattedText.ts",
+        "why": "Draws formatted lines using the calculated line offsets; no top ascent margin would flush tall letters against frame edge"
+      },
+      {
+        "path": "src/assets/font.ts",
+        "why": "Defines Font metrics/measure used by formatting; incorrect ascent/height data for this font propagates to clipping"
+      },
+      {
+        "path": "src/ecs/components/draw/text.ts",
+        "why": "Text component supplies size/line height and draw origin for text objects, controlling its bounding box and top position"
+      }
+    ],
+    "cost_usd": 0.031304,
+    "cached": false,
+    "usage": {
+      "input_tokens": 2876,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 990,
+      "output_tokens_details": {
+        "reasoning_tokens": 778
+      },
+      "total_tokens": 3866
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "updateFontAtlas rasterizes each glyph at the top of the scratch canvas with textBaseline=\"top\" and crops only actualBoundingBoxAscent+actualBoundingBoxDescent from y=0, so ascenders extending above the font's em/font-ascent are drawn or cropped outside the captured tile.",
+    "file": "src/gfx/formatText.ts",
+    "line_range": [
+      181,
+      240
+    ],
+    "suspect_function": "updateFontAtlas",
+    "mechanism": "For a tall font whose glyph actualBoundingBoxAscent exceeds fontBoundingBoxAscent, baseline-top placement puts the baseline at the font ascent and the glyph apex above y=0; fillText therefore paints the apex off-canvas and getImageData(0, 0, w, ascent+descent) stores a tile whose tall letters already have flat, truncated tops, which formatText/drawFormattedText then faithfully reuse for every occurrence.",
+    "test_spec": "Render tall glyphs such as 'T', 'h', 't', 'l' and 'f' well inset from the viewport (e.g. text pos y >= 80px, so the frame edge cannot clip) and measure the yellow ink bounding box and top-row shape against an independent padded Canvas2D reference of the same font/size; broken behaviour has smaller visible ink height with pixel differences concentrated in missing top rows/flat apexes, while correct behaviour increases visible glyph height/top extent to match the reference within a few pixels.",
+    "fix_strategies": [
+      {
+        "name": "Pad and offset atlas rasterization",
+        "files": [
+          "src/gfx/formatText.ts",
+          "src/core/fontCache.ts"
+        ],
+        "approach": "In updateFontAtlas draw with an alphabetic or explicitly offset baseline at y = actualBoundingBoxAscent + padding (and at least the excess over fontBoundingBoxAscent), size the getImageData crop to ascent+descent+padding, and enlarge or guarantee the scratch canvas can contain that padded tile."
+      },
+      {
+        "name": "Use full font bounding-box metrics for the cache tile",
+        "files": [
+          "src/assets/font.ts",
+          "src/gfx/formatText.ts"
+        ],
+        "approach": "Probe/store fontBoundingBoxAscent/fontBoundingBoxDescent and representative tall-glyph metrics at font load or first atlas use, derive the atlas tile height and vertical offset from the full font bounding box instead of the nominal px size, and pass that metric through FontData so no glyph can exceed its tile."
+      },
+      {
+        "name": "Account for glyph height and top bearing in layout",
+        "files": [
+          "src/gfx/formatText.ts",
+          "src/gfx/draw/drawFormattedText.ts"
+        ],
+        "approach": "Generate tiles with transparent headroom, record each glyph's top bearing/height in the formatted character, and make formatText use the rendered glyph height rather than nominal font size for line height and character y-position (with drawFormattedText honouring the resulting offset), so restored ascenders are positioned inside the formatted text box instead of above its top edge."
+      }
+    ],
+    "confidence": 0.78,
+    "cost_usd": 0.155692,
+    "cached": false,
+    "usage": {
+      "input_tokens": 9458,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 5893,
+      "output_tokens_details": {
+        "reasoning_tokens": 5255
+      },
+      "total_tokens": 15351
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "examples/fonts/Anton-Regular.ttf",
+    "examples/fonts/Nabla-Regular-VariableFont_EDPT,EHLT.ttf",
+    "src/gfx/formatText.ts",
+    "tests/playtests/textTall.js"
+  ],
+  "cost_usd": 0.186996
+}

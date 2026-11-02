@@ -1,0 +1,36 @@
+{
+  "case_id": "k864",
+  "gate_pass": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "stage": "validation",
+      "gate_pass": false,
+      "error": "invalid generated test: contains a state-label word"
+    },
+    {
+      "attempt": 2,
+      "testgen_cost_usd": 0.138964,
+      "testgen_cached": false,
+      "buggy_exit": 2,
+      "buggy_output_tail": "\n==================================== ERRORS ====================================\n________________ ERROR collecting tests_generated/test_k864.py _________________\nImportError while importing test module '/home/yashvant/visiopatch/tests_generated/test_k864.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.10/importlib/__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\ntests_generated/test_k864.py:5: in <module>\n    from PIL import Image\nE   ModuleNotFoundError: No module named 'PIL'\n=========================== short test summary info ============================\nERROR tests_generated/test_k864.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.17s\n",
+      "fix_exit": 2,
+      "gate_pass": false,
+      "stage": "gate"
+    },
+    {
+      "attempt": 3,
+      "testgen_cost_usd": 0.192176,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "                                     total++;\n                                        if (mask[y * w + x]) count++;\n                                    }\n                                }\n                                fractions.push(total ? count / total : 0);\n                                probeCount += count;\n                                probeTotal += total;\n                            }\n                            return {\n                                nonBg: nonBg,\n                                width: bw,\n                                height: bh,\n                                probeFraction: probeTotal ? probeCount / probeTotal : 0,\n                                minProbeFraction: Math.min(...fractions)\n                            };\n                        }\"\"\",\n                        encoded,\n                    )\n                    count = stats[\"nonBg\"] if stats else 0\n                    if poll >= 4 and count > 2000 and previous_count is not None:\n                        if abs(count - previous_count) <= max(100, 0.05 * previous_count):\n                            stable_polls += 1\n                            if stable_polls >= 1:\n                                break\n                        else:\n                            stable_polls = 0\n                    previous_count = count\n                    page.wait_for_timeout(150)\n    \n>               assert stats is not None and stats[\"nonBg\"] > 2000\nE               AssertionError: assert ({'nonBg': 998, 'width': 32, 'height': 32, 'probeFraction': 1, ...} is not None and 998 > 2000)\n\ntests_generated/test_k864.py:130: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k864.py::test_reported_symptom - AssertionError: ...\n1 failed in 6.02s\n",
+      "fix_exit": 0,
+      "gate_pass": true,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 3,
+  "test_file": "tests_generated/test_k864.py",
+  "rootcause_cost_usd": 0.12379200000000001,
+  "total_cost_usd": 0.454932
+}

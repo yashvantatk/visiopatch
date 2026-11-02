@@ -1,0 +1,36 @@
+{
+  "case_id": "k950",
+  "gate_pass": true,
+  "attempts": [
+    {
+      "attempt": 1,
+      "stage": "validation",
+      "gate_pass": false,
+      "error": "invalid generated test: contains a state-label word"
+    },
+    {
+      "attempt": 2,
+      "testgen_cost_usd": 0.233452,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "                  for (const fam of fams) {\n                        const c = document.createElement('canvas');\n                        c.width = 3000; c.height = 500;\n                        const ctx = c.getContext('2d');\n                        ctx.font = '100px \"' + fam + '\"';\n                        ctx.fillStyle = '#ffffff';\n                        ctx.textBaseline = 'alphabetic';\n                        ctx.fillText('This is a tall font', 50, 250);\n                        const d = ctx.getImageData(0, 0, c.width, c.height).data;\n                        let a = 100000, b = -1, e = 100000, g = -1;\n                        for (let y = 0; y < c.height; y++) {\n                          for (let x = 0; x < c.width; x++) {\n                            if (d[(y * c.width + x) * 4 + 3] > 10) {\n                              if (x < a) a = x;\n                              if (x > b) b = x;\n                              if (y < e) e = y;\n                              if (y > g) g = y;\n                            }\n                          }\n                        }\n                        if (b >= a && g >= e) out.push({w: b - a + 1, h: g - e + 1});\n                      }\n                      return out;\n                    }\"\"\"\n                )\n                assert refs\n                ref = max(refs, key=lambda v: v[\"h\"] / v[\"w\"])\n                predicted = width * ref[\"h\"] / ref[\"w\"]\n>               assert measured + 4 >= predicted, f\"{measured} {predicted:.1f}\"\nE               AssertionError: 40 57.2\nE               assert (40 + 4) >= 57.24164133738602\n\ntests_generated/test_k950.py:149: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k950.py::test_reported_symptom - AssertionError: ...\n1 failed in 2.04s\n",
+      "fix_exit": 1,
+      "gate_pass": false,
+      "stage": "gate"
+    },
+    {
+      "attempt": 3,
+      "testgen_cost_usd": 0.254912,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "       ):\n                    component_heights.append(comp_h)\n    \n            x_height = statistics.median(component_heights) if len(component_heights) >= 3 else None\n            return line_height, x_height, lines[0]\n    \n        url = os.environ[\"VISIOPATCH_CASE_URL\"]\n        with sync_playwright() as playwright:\n            browser = launch_chromium(playwright)\n            try:\n                page = browser.new_page(viewport={\"width\": 1280, \"height\": 720})\n                page.goto(url, wait_until=\"domcontentloaded\", timeout=15000)\n    \n                measured_height = None\n                page_x_height = None\n                for _ in range(12):\n                    page.evaluate(\n                        \"\"\"() => ({\n                            fonts: document.fonts ? document.fonts.status : '',\n                            canvases: document.querySelectorAll('canvas').length,\n                            text: document.body ? document.body.innerText.slice(0, 200) : ''\n                        })\"\"\"\n                    )\n                    measured_height, page_x_height, _line = analyse_screenshot(page.screenshot())\n                    if measured_height is not None and page_x_height is not None:\n                        break\n                    page.wait_for_timeout(150)\n    \n                assert measured_height is not None, \"no yellow text line found\"\n>               assert page_x_height is not None, \"no x-height letters found in first line\"\nE               AssertionError: no x-height letters found in first line\nE               assert None is not None\n\ntests_generated/test_k950.py:165: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k950.py::test_reported_symptom - AssertionError: ...\n1 failed in 9.47s\n",
+      "fix_exit": 0,
+      "gate_pass": true,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 3,
+  "test_file": "tests_generated/test_k950.py",
+  "rootcause_cost_usd": 0.186996,
+  "total_cost_usd": 0.67536
+}

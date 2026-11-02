@@ -1,0 +1,40 @@
+{
+  "case_id": "k658",
+  "gate_pass": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "testgen_cost_usd": 0.17998,
+      "testgen_cached": false,
+      "buggy_exit": 2,
+      "buggy_output_tail": "\n==================================== ERRORS ====================================\n________________ ERROR collecting tests_generated/test_k658.py _________________\nImportError while importing test module '/home/yashvant/visiopatch/tests_generated/test_k658.py'.\nHint: make sure your test modules/packages have valid Python names.\nTraceback:\n/usr/lib/python3.10/importlib/__init__.py:126: in import_module\n    return _bootstrap._gcd_import(name[level:], package, level)\ntests_generated/test_k658.py:4: in <module>\n    from PIL import Image\nE   ModuleNotFoundError: No module named 'PIL'\n=========================== short test summary info ============================\nERROR tests_generated/test_k658.py\n!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!\n1 error in 0.08s\n",
+      "fix_exit": 2,
+      "gate_pass": false,
+      "stage": "gate"
+    },
+    {
+      "attempt": 2,
+      "testgen_cost_usd": 0.210196,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "\n                    centre_x, centre_y = 640.0, 360.0\n                    half_w, half_h = 360.0, 280.0\n    \n                roi = {\n                    \"x0\": centre_x - half_w,\n                    \"y0\": centre_y - half_h,\n                    \"x1\": centre_x + half_w,\n                    \"y1\": centre_y + half_h,\n                }\n    \n                samples = []\n                start = time.monotonic()\n                while time.monotonic() - start < 4.2:\n                    shot = page.screenshot()\n                    bbox = page.evaluate(\n                        decoder_js,\n                        {\n                            \"b64\": base64.b64encode(shot).decode(\"ascii\"),\n                            \"roi\": roi,\n                        },\n                    )\n                    if bbox and bbox[\"count\"] >= 200:\n                        samples.append(bbox)\n                    page.wait_for_timeout(150)\n    \n                assert len(samples) >= 5, f\"too few panel samples: {len(samples)}\"\n    \n                smallest = min(samples, key=lambda s: s[\"width\"])\n                largest = max(samples, key=lambda s: s[\"width\"])\n    \n                # The panel must actually change size, otherwise centre\n                # stability cannot be measured.\n>               assert largest[\"width\"] - smallest[\"width\"] >= 30, (\n                    f\"panel width barely changed: \"\n                    f\"{smallest['width']} -> {largest['width']}\"\n                )\nE               AssertionError: panel width barely changed: 720 -> 720\nE               assert (720 - 720) >= 30\n\ntests_generated/test_k658.py:153: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k658.py::test_reported_symptom - AssertionError: ...\n1 failed in 5.06s\n",
+      "fix_exit": 1,
+      "gate_pass": false,
+      "stage": "gate"
+    },
+    {
+      "attempt": 3,
+      "testgen_cost_usd": 0.178776,
+      "testgen_cached": false,
+      "buggy_exit": 1,
+      "buggy_output_tail": "ntre_x = rect[\"x\"] + rect[\"width\"] / 2.0\n                    centre_y = rect[\"y\"] + rect[\"height\"] / 2.0\n                else:\n                    centre_x, centre_y = 640.0, 360.0\n    \n                samples = []\n                start = time.monotonic()\n                while time.monotonic() - start < 4.2:\n                    shot = page.screenshot()\n                    bbox = page.evaluate(\n                        _ANALYZE_JS,\n                        {\n                            \"b64\": base64.b64encode(shot).decode(\"ascii\"),\n                            \"cx\": centre_x,\n                            \"cy\": centre_y,\n                        },\n                    )\n                    if bbox and bbox[\"count\"] >= 200:\n                        samples.append(bbox)\n                    page.wait_for_timeout(120)\n    \n                assert len(samples) >= 5, f\"too few panel samples: {len(samples)}\"\n    \n                widths = [s[\"width\"] for s in samples]\n                cxs = [s[\"cx\"] for s in samples]\n                cys = [s[\"cy\"] for s in samples]\n    \n                # The panel must genuinely resize, otherwise anchor stability\n                # as its size changes cannot be measured.\n>               assert max(widths) - min(widths) >= 30, (\n                    f\"panel width barely changed: {min(widths)} -> {max(widths)}\"\n                )\nE               AssertionError: panel width barely changed: 2 -> 3\nE               assert (3 - 2) >= 30\nE                +  where 3 = max([2, 3, 2, 2, 3, 2, ...])\nE                +  and   2 = min([2, 3, 2, 2, 3, 2, ...])\n\ntests_generated/test_k658.py:195: AssertionError\n----------------------------- Captured stdout call -----------------------------\n[browser] using backend ['--use-angle=gl-egl', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist']\n=========================== short test summary info ============================\nFAILED tests_generated/test_k658.py::test_reported_symptom - AssertionError: ...\n1 failed in 5.07s\n",
+      "fix_exit": 1,
+      "gate_pass": false,
+      "stage": "gate"
+    }
+  ],
+  "attempt_count": 3,
+  "test_file": "tests_generated/test_k658.py",
+  "rootcause_cost_usd": 0.147492,
+  "total_cost_usd": 0.7164439999999999
+}

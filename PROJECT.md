@@ -48,3 +48,19 @@ Grill target: this file (`PROJECT.md`) per repo convention.
 - Read: blind v2 trades false positives for misses (accepts rebounds and steady motion as normal, so k1174's momentum bug goes unseen); the report line is what recovers k1174 and k950, and it also suppresses both v1 fix false positives. d1/d2/k658/k864 reports still miss in reported mode — the reported halves of those clips describe stability, not the fault.
 - Confidence carries no signal and must not gate anything downstream: blind v2 0.85–0.95, reported 0.85–0.95 across hits, misses and false positives alike.
 - Prompt versions used: blind 2 of 2 max (final), reported 1 of 1. Bench pages and report lines must stay verdict-free (tests/test_bench_pages.py).
+
+## Wonder root cause + Gate 1 testgen (Step 5) — results
+- Built: visiopatch/rootcause.py (Wonder pick_files at medium effort, diagnose at high effort; sha256-of-inputs + prompt-version cache in cache/, strict JSON validation; diagnose prompt v2 adds suspect_function, test_spec, and exactly 3 fix_strategies for the later repair fan-out); visiopatch/testgen.py (Wonder at high effort builds one deterministic pytest-playwright test per case on the diagnosis test_spec, via visiopatch/browser.py at 1280x720, py_compile + AST validation; testgen prompt v5); scripts/run_gate1.py is the only state switcher (fails-on-buggy + passes-on-fix, retry with buggy-run pytest output only, max 3 attempts per case). runs/<id>/rootcause.json and runs/<id>/gate1.json are committed; *_raw.txt and cache/ stay gitignored.
+- Scoring: root-cause verdict is my judgement of the diagnosis against bench/candidates.md. suspect_file_hit is harness-only scoring (git diff --name-only buggy_sha..fix_sha, app/ repo for d1/d2; whether any picked or diagnosed file was really changed) and never enters a prompt.
+
+| case | root cause | suspect_file_hit | Gate 1 | attempts | cost |
+|---|---|---|---|---|---|
+| k1174 | match (no momentum/impulse transfer in body.ts) | yes | pass | 1 | $0.1716 |
+| k950 | match (font atlas crops ascenders above the em box) | yes | pass | 3 | $0.6754 |
+| k864 | match (one degenerate slice aborts the whole 9-slice draw) | yes | pass | 3 | $0.4549 |
+| k658 | match (per-tile anchor instead of whole-panel anchor) | yes | fail | 3 | $0.7164 |
+| d1-modal-zindex | match (transform on main traps modal z-index) | yes | pass | 1 | $0.2036 |
+| d2-carousel-drift | match (rounded cumulative step drifts 1/3px per advance) | yes | fail | 3 | $0.3837 |
+
+- Read: root cause is 6/6 with suspect_file_hit 6/6, so file picking and diagnosis are not the bottleneck. Gate 1 is 4/6: d2's generated test also fails on the fix build, and k658's never separates the builds (one attempt also wasted on a missing PIL import the AST validator does not ban). Test assertion quality, not diagnosis, is what Gate 2 repair should distrust. Confidence (0.85–0.95) again carries no signal and gates nothing.
+- Spend: final recorded runs total $2.61; with the k1174 prompt-iteration runs (testgen v1–v4) the whole step cost ≈ $4.06 of the $10 cap.

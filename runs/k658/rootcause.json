@@ -1,0 +1,104 @@
+{
+  "case_id": "k658",
+  "pick": {
+    "files": [
+      {
+        "path": "src/gfx/draw/drawSprite.ts",
+        "why": "Implements 9-slice rendering, splitting the texture into corners, edges, and center"
+      },
+      {
+        "path": "src/components/draw/sprite.ts",
+        "why": "Sprite component supplies width, height, anchor, and slice9 data to the renderer"
+      },
+      {
+        "path": "examples/slice9.js",
+        "why": "Example page that creates the anchored, resized 9-slice panel"
+      },
+      {
+        "path": "src/gfx/anchor.ts",
+        "why": "Computes anchor offsets used when positioning the sliced sprite"
+      },
+      {
+        "path": "src/assets/sprite.ts",
+        "why": "Parses and stores slice9 border insets for loaded sprites"
+      }
+    ],
+    "cost_usd": 0.032816,
+    "cached": false,
+    "usage": {
+      "input_tokens": 2089,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 1223,
+      "output_tokens_details": {
+        "reasoning_tokens": 1059
+      },
+      "total_tokens": 3312
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "The 9-slice draw loop reuses the object's anchor for every individual tile, so each tile is offset by the anchor fraction of its own size rather than by the anchor fraction of the whole panel.",
+    "file": "src/components/draw/sprite.ts",
+    "line_range": [
+      344,
+      359
+    ],
+    "suspect_function": "sprite().draw",
+    "mechanism": "getRenderProps(this) carries the object's anchor into each of the nine drawTexture() calls while pos is only the tile's top-left transform position and width/height are the tile's dimensions. drawTexture therefore anchor-offsets corners by roughly 32px, edges by the edge or center size, and the center by iw/ih; tiles shift by different amounts, overlap or separate, and the composite panel's bounding box is not anchored at the object's position even though individual border thicknesses may still look preserved.",
+    "test_spec": "Render a slice9 sprite (e.g. 32px margins) with anchor 'center' at a known position such as canvas center, then vary width/height (e.g. 120x100 to 300x220). Measure the union bounding box of all rendered pixels/tiles and internal seams: correct behavior keeps bbox width/height equal to the set width/height, keeps bbox center fixed at the object position, keeps corners ~32x32, and keeps tiles contiguous. The buggy behavior shows bbox width/height differing from the set size and growing error as size increases, bbox center displaced from the anchor position, and tiles overlapping/gapping at seams.",
+    "fix_strategies": [
+      {
+        "name": "Neutralize per-tile anchor in sprite draw",
+        "files": [
+          "src/components/draw/sprite.ts",
+          "src/gfx/anchor.ts"
+        ],
+        "approach": "In the slice9 loop, compute one whole-panel anchor offset from anchorPt(this.anchor) and this.width/this.height, add that offset to every tile's transform position, and force each sub-draw to use a top-left/zero anchor instead of inheriting the object anchor."
+      },
+      {
+        "name": "Centralize 9-slice handling in drawSprite",
+        "files": [
+          "src/gfx/draw/drawSprite.ts",
+          "src/components/draw/sprite.ts"
+        ],
+        "approach": "Move or delegate slice9 expansion to drawSprite/drawTexture-level code that receives the full sprite size and anchor once, generates the nine quads in anchored whole-panel coordinates, and have the sprite component call that single path rather than issuing nine anchored draws itself."
+      },
+      {
+        "name": "Bake anchored origin into tile transforms",
+        "files": [
+          "src/components/draw/sprite.ts"
+        ],
+        "approach": "When building the nine transform quads, pre-translate all tile x/y origins by -anchorFractionX*this.width and -anchorFractionY*this.height (e.g. starting at -width/2,-height/2 for center), leaving tile sizes unchanged, so the existing per-tile draws compose into one correctly anchored panel."
+      }
+    ],
+    "confidence": 0.86,
+    "cost_usd": 0.114676,
+    "cached": false,
+    "usage": {
+      "input_tokens": 9074,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 3919,
+      "output_tokens_details": {
+        "reasoning_tokens": 3286
+      },
+      "total_tokens": 12993
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "examples/slice9.js",
+    "src/components/draw/sprite.ts"
+  ],
+  "cost_usd": 0.147492
+}

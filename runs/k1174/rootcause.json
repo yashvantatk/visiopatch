@@ -1,0 +1,85 @@
+{
+  "case_id": "k1174",
+  "pick": {
+    "files": [
+      {
+        "path": "src/ecs/components/physics/body.ts",
+        "why": "Dynamic-body integration and collision impulse/momentum resolution determine both squares' post-collision velocities."
+      },
+      {
+        "path": "src/ecs/systems/createCollisionSystem.ts",
+        "why": "Dispatches collision handling between bodies and may apply resolution only to the moving source instead of both bodies."
+      },
+      {
+        "path": "src/ecs/systems/Collision.ts",
+        "why": "Computes collision normal, displacement, and resolution state used to separate and redirect the squares."
+      },
+      {
+        "path": "src/ecs/components/physics/area.ts",
+        "why": "Provides collision detection and resolveCollision behavior for the squares' area components."
+      },
+      {
+        "path": "src/math/sat.ts",
+        "why": "Calculates the collision axis and penetration direction; an incorrect normal could send the red square backward."
+      }
+    ],
+    "cost_usd": 0.0,
+    "cached": true,
+    "usage": null,
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "The body collision handler reflects each body's own velocity against the collision normal without transferring momentum to the other non-static body, treating a movable body like an immovable wall.",
+    "file": "src/ecs/components/physics/body.ts",
+    "line_range": [
+      298,
+      315
+    ],
+    "suspect_function": "body() - the onPhysicsResolve callback registered in add()",
+    "mechanism": "For the moving red square, projection is computed only from this.vel and, with restitution, this.vel becomes rejection minus the reflected projection, so it rebounds left; for the stationary blue square this.vel is zero, its projection is zero, and no impulse or velocity is ever applied to it, so it stays in place despite positional separation.",
+    "test_spec": "Track both squares' x-centroids and x-velocities before and for about 0.5-1s after first contact: assert the blue square gains positive x-velocity and its x-position increases substantially to the right, the red square's post-collision x-velocity is near zero rather than negative and its x-position does not retreat left, and total x-momentum is approximately conserved.",
+    "fix_strategies": [
+      {
+        "name": "Momentum impulse in physics-resolve handler",
+        "files": [
+          "src/ecs/components/physics/body.ts"
+        ],
+        "approach": "In the onPhysicsResolve callback, compute relative velocity along the normal, derive an impulse from restitution and both masses (infinite mass for static bodies), remove the self-only reflection, and apply opposite impulses to the two bodies' velocities so equal-mass head-on bodies exchange normal velocity."
+      },
+      {
+        "name": "Velocity exchange during positional resolution",
+        "files": [
+          "src/ecs/components/physics/body.ts",
+          "src/ecs/systems/Collision.ts"
+        ],
+        "approach": "In the non-static vs non-static branch of the onCollideUpdate resolver, at the single point where displacement is split by mass, also swap/transfer the normal components of velocity weighted by mass, record on the Collision that momentum was resolved to prevent the later per-body handler from reflecting velocity again, and leave tangential/friction handling unchanged."
+      },
+      {
+        "name": "Central impulse solver in collision system",
+        "files": [
+          "src/ecs/systems/createCollisionSystem.ts",
+          "src/ecs/systems/Collision.ts",
+          "src/ecs/components/physics/body.ts"
+        ],
+        "approach": "After narrowPhase detects a pair once, compute a single momentum-conserving impulse from the Collision normal, both velocities, masses and restitution, and apply it via each body's applyImpulse(), while changing body.ts so its physics-resolve handler no longer independently reflects velocity against a movable target."
+      }
+    ],
+    "confidence": 0.9,
+    "cost_usd": 0.0,
+    "cached": true,
+    "usage": null,
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "CHANGELOG.md",
+    "src/ecs/components/physics/body.ts",
+    "src/ecs/systems/Collision.ts",
+    "tests/integration/components/bodyMomentum.spec.ts"
+  ],
+  "cost_usd": 0.0
+}

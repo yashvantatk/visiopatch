@@ -1,0 +1,105 @@
+{
+  "case_id": "k864",
+  "pick": {
+    "files": [
+      {
+        "path": "src/gfx/draw/drawSprite.ts",
+        "why": "Core 9-slice rendering: splits sprite into corners, edges and center and draws each piece"
+      },
+      {
+        "path": "src/ecs/components/draw/sprite.ts",
+        "why": "Sprite component passes slice9 options, size and texture frame into the drawing code"
+      },
+      {
+        "path": "examples/slice9.js",
+        "why": "Example page that configures and displays the reported 9-slice panel"
+      },
+      {
+        "path": "src/gfx/draw/drawUVQuad.ts",
+        "why": "Draws the individual UV-mapped quads used for each slice piece"
+      },
+      {
+        "path": "src/assets/sprite.ts",
+        "why": "Defines/loads sprite texture and frame data used to source the slice pieces"
+      }
+    ],
+    "cost_usd": 0.03016,
+    "cached": false,
+    "usage": {
+      "input_tokens": 2630,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 982,
+      "output_tokens_details": {
+        "reasoning_tokens": 805
+      },
+      "total_tokens": 3612
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 1,
+    "effort": "medium"
+  },
+  "diagnosis": {
+    "root_cause": "In the sprite component's 9-slice rendering loop, encountering one zero-width or zero-height slice aborts the entire draw instead of skipping only that slice.",
+    "file": "src/ecs/components/draw/sprite.ts",
+    "line_range": [
+      400,
+      405
+    ],
+    "suspect_function": "sprite() component draw()",
+    "mechanism": "The loop checks each of the 9 transform quads and uses return when transform.w or transform.h is 0. This occurs, for example, when the target width equals left+right so the center column width is 0, when the target height equals top+bottom so the center row height is 0, or when an inset is 0. Return exits draw() entirely, so every slice after the degenerate one\u2014including later edges and the bottom/right corners\u2014is never submitted to drawTexture, producing a panel with only the slices before that index and all remaining pieces missing.",
+    "test_spec": "Load a slice9 sprite with 32px insets, render a panel whose width is exactly left+right (64px) and whose height is larger than top+bottom, then sample screenshot pixels or count non-background pixels in the bottom-left, bottom-right, and right-edge regions. Buggy behaviour: only the top-left region is present and those probe regions remain background/transparent. Correct behaviour: all non-degenerate corners and edges are present, probe pixels match the sprite panel colour/alpha, and the non-background pixel count is substantially higher; repeat with height exactly top+bottom to check the bottom row also renders.",
+    "fix_strategies": [
+      {
+        "name": "Skip only the degenerate slice",
+        "files": [
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "approach": "Change the in-loop abort so a zero-sized quad is skipped and iteration continues with the remaining slices, letting each valid corner/edge/centre piece be drawn."
+      },
+      {
+        "name": "Clamp or rescale slices for small panels",
+        "files": [
+          "src/assets/sprite.ts",
+          "src/ecs/components/draw/sprite.ts"
+        ],
+        "approach": "Validate/clamp slice9 insets and the effective inner width/height relative to the target width/height so degenerate slices are avoided or proportionally reduced before quads are generated, preventing the zero-size condition from arising."
+      },
+      {
+        "name": "Move 9-slice rendering into the shared draw path",
+        "files": [
+          "src/gfx/draw/drawSprite.ts",
+          "src/ecs/components/draw/sprite.ts",
+          "src/gfx/draw/drawUVQuad.ts"
+        ],
+        "approach": "Implement or delegate 9-slice drawing through drawSprite/drawTexture so each sub-quad is issued independently and the existing per-quad width/height guard in drawUVQuad skips only empty pieces instead of terminating the whole panel."
+      }
+    ],
+    "confidence": 0.88,
+    "cost_usd": 0.093632,
+    "cached": false,
+    "usage": {
+      "input_tokens": 11108,
+      "input_tokens_details": {
+        "cache_write_tokens": null,
+        "cached_tokens": 0
+      },
+      "output_tokens": 2460,
+      "output_tokens_details": {
+        "reasoning_tokens": 1860
+      },
+      "total_tokens": 13568
+    },
+    "model": "muse-wonder-1.0",
+    "prompt_version": 2,
+    "effort": "high"
+  },
+  "suspect_file_hit": true,
+  "changed_files": [
+    "src/ecs/components/draw/sprite.ts",
+    "tests/playtests/slice9zero.js"
+  ],
+  "cost_usd": 0.12379200000000001
+}

@@ -1,7 +1,10 @@
 .venv/
 .vscode/
 .env
-runs/
+runs/*
+!runs/*/
+!runs/*/rootcause.json
+!runs/*/gate1.json
 smoke_out/
 render_out/
 __pycache__/
