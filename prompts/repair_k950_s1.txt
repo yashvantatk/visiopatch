@@ -1,0 +1,13 @@
+You are fixing a visual bug in the source checkout in the current working directory. Work completely offline: do not use any web, fetch, or network tool, and do not look up anything outside this checkout, including upstream trackers or published history. Only edit files in this checkout.
+A user reported: tall letters in this font look cut off
+A source-code diagnosis (a hint that may be wrong) is:
+{"root_cause": "updateFontAtlas rasterizes each glyph at the top of the scratch canvas with textBaseline=\"top\" and crops only actualBoundingBoxAscent+actualBoundingBoxDescent from y=0, so ascenders extending above the font's em/font-ascent are drawn or cropped outside the captured tile.", "file": "src/gfx/formatText.ts", "line_range": [181, 240], "suspect_function": "updateFontAtlas", "mechanism": "For a tall font whose glyph actualBoundingBoxAscent exceeds fontBoundingBoxAscent, baseline-top placement puts the baseline at the font ascent and the glyph apex above y=0; fillText therefore paints the apex off-canvas and getImageData(0, 0, w, ascent+descent) stores a tile whose tall letters already have flat, truncated tops, which formatText/drawFormattedText then faithfully reuse for every occurrence."}
+Apply exactly this fix strategy and nothing else:
+strategy name: Pad and offset atlas rasterization
+strategy files: ["src/gfx/formatText.ts", "src/core/fontCache.ts"]
+strategy approach: In updateFontAtlas draw with an alphabetic or explicitly offset baseline at y = actualBoundingBoxAscent + padding (and at least the excess over fontBoundingBoxAscent), size the getImageData crop to ascent+descent+padding, and enlarge or guarantee the scratch canvas can contain that padded tile.
+Rules:
+- Keep the change minimal and confined to the strategy files.
+- Do not add tests, do not touch package.json, lockfiles, configs, test directories, or build output.
+- Do not contact the network for any reason.
+- When done, report the list of files you changed.

@@ -1,0 +1,13 @@
+You are fixing a visual bug in the source checkout in the current working directory. Work completely offline: do not use any web, fetch, or network tool, and do not look up anything outside this checkout, including upstream trackers or published history. Only edit files in this checkout.
+A user reported: after the two squares collide, their motion looks wrong
+A source-code diagnosis (a hint that may be wrong) is:
+{"root_cause": "The body collision handler reflects each body's own velocity against the collision normal without transferring momentum to the other non-static body, treating a movable body like an immovable wall.", "file": "src/ecs/components/physics/body.ts", "line_range": [298, 315], "suspect_function": "body() - the onPhysicsResolve callback registered in add()", "mechanism": "For the moving red square, projection is computed only from this.vel and, with restitution, this.vel becomes rejection minus the reflected projection, so it rebounds left; for the stationary blue square this.vel is zero, its projection is zero, and no impulse or velocity is ever applied to it, so it stays in place despite positional separation."}
+Apply exactly this fix strategy and nothing else:
+strategy name: Velocity exchange during positional resolution
+strategy files: ["src/ecs/components/physics/body.ts", "src/ecs/systems/Collision.ts"]
+strategy approach: In the non-static vs non-static branch of the onCollideUpdate resolver, at the single point where displacement is split by mass, also swap/transfer the normal components of velocity weighted by mass, record on the Collision that momentum was resolved to prevent the later per-body handler from reflecting velocity again, and leave tangential/friction handling unchanged.
+Rules:
+- Keep the change minimal and confined to the strategy files.
+- Do not add tests, do not touch package.json, lockfiles, configs, test directories, or build output.
+- Do not contact the network for any reason.
+- When done, report the list of files you changed.

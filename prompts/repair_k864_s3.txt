@@ -1,0 +1,13 @@
+You are fixing a visual bug in the source checkout in the current working directory. Work completely offline: do not use any web, fetch, or network tool, and do not look up anything outside this checkout, including upstream trackers or published history. Only edit files in this checkout.
+A user reported: the 9-slice panel is missing pieces
+A source-code diagnosis (a hint that may be wrong) is:
+{"root_cause": "In the sprite component's 9-slice rendering loop, encountering one zero-width or zero-height slice aborts the entire draw instead of skipping only that slice.", "file": "src/ecs/components/draw/sprite.ts", "line_range": [400, 405], "suspect_function": "sprite() component draw()", "mechanism": "The loop checks each of the 9 transform quads and uses return when transform.w or transform.h is 0. This occurs, for example, when the target width equals left+right so the center column width is 0, when the target height equals top+bottom so the center row height is 0, or when an inset is 0. Return exits draw() entirely, so every slice after the degenerate one\u2014including later edges and the bottom/right corners\u2014is never submitted to drawTexture, producing a panel with only the slices before that index and all remaining pieces missing."}
+Apply exactly this fix strategy and nothing else:
+strategy name: Move 9-slice rendering into the shared draw path
+strategy files: ["src/gfx/draw/drawSprite.ts", "src/ecs/components/draw/sprite.ts", "src/gfx/draw/drawUVQuad.ts"]
+strategy approach: Implement or delegate 9-slice drawing through drawSprite/drawTexture so each sub-quad is issued independently and the existing per-quad width/height guard in drawUVQuad skips only empty pieces instead of terminating the whole panel.
+Rules:
+- Keep the change minimal and confined to the strategy files.
+- Do not add tests, do not touch package.json, lockfiles, configs, test directories, or build output.
+- Do not contact the network for any reason.
+- When done, report the list of files you changed.
