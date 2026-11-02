@@ -18,22 +18,49 @@ BANNED = re.compile(
     r"|not conserved|cropped|cut off", re.IGNORECASE)
 
 
-def _page_texts() -> list[tuple[str, str]]:
+def _git_dir_for(case: Path, tmp: Path) -> Path:
+    """Working-tree app repo, or a scratch clone from the committed bundle.
+
+    On a clean clone ``app/`` does not exist (it is gitignored and built
+    by ``serve.sh``); the ``app.bundle`` file next to it carries the same
+    history, so clone that into ``tmp`` instead of requiring serve.sh.
+    """
+    app = case / "app"
+    if (app / ".git").is_dir():
+        return app
+    bundle = case / "app.bundle"
+    if not bundle.is_file():
+        raise AssertionError(
+            f"{case.name}: neither app/.git nor app.bundle exists; "
+            "run serve.sh first")
+    dest = tmp / case.name
+    if not (dest / ".git").is_dir():
+        subprocess.run(
+            ["git", "clone", "-q", str(bundle), str(dest)],
+            check=True)
+    return dest
+
+
+def _page_texts(tmp: Path) -> list[tuple[str, str]]:
     texts: list[tuple[str, str]] = []
     for page in sorted(BENCH.glob("*/index.html")):
         texts.append((str(page.relative_to(REPO)), page.read_text()))
     for case in sorted(BENCH.iterdir()):
-        app = case / "app"
-        if not (app / ".git").is_dir():
+        if not (case / "repro.json").is_file():
             continue
-        meta = json.loads((case / "repro.json").read_text())
-        texts.append((f"{case.name}/app (working tree)",
-                      (app / "index.html").read_text()))
-        for key in ("buggy_sha", "fix_sha"):
-            out = subprocess.run(
-                ["git", "-C", str(app), "show", f"{meta[key]}:index.html"],
-                capture_output=True, text=True, check=True).stdout
-            texts.append((f"{case.name}/app @{key}", out))
+        if (case / "app.bundle").is_file() or (case / "app").is_dir():
+            git_dir = _git_dir_for(case, tmp)
+            meta = json.loads((case / "repro.json").read_text())
+            if (git_dir == case / "app"
+                    and (git_dir / "index.html").is_file()):
+                texts.append((f"{case.name}/app (working tree)",
+                              (git_dir / "index.html").read_text()))
+            for key in ("buggy_sha", "fix_sha"):
+                out = subprocess.run(
+                    ["git", "-C", str(git_dir), "show",
+                     f"{meta[key]}:index.html"],
+                    capture_output=True, text=True, check=True).stdout
+                texts.append((f"{case.name}/app @{key}", out))
     return texts
 
 
@@ -55,8 +82,8 @@ def test_repro_report_lines_name_no_cause() -> None:
                 f"{repro.parent.name}: report names {word!r}"
 
 
-def test_bench_pages_have_no_verdict_words() -> None:
-    pages = _page_texts()
+def test_bench_pages_have_no_verdict_words(tmp_path) -> None:
+    pages = _page_texts(tmp_path)
     assert len(pages) >= 6
     for name, text in pages:
         cleaned = text.replace("position: fixed", "")

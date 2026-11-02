@@ -47,6 +47,7 @@ from visiopatch.testgen import (  # noqa: E402
     validate_generated_code,
     write_generated_test,
 )
+from visiopatch.repair import sanitize_record  # noqa: E402
 
 BUDGET_USD = 10.0
 MAX_ATTEMPTS = 3
@@ -190,6 +191,7 @@ def run_case(case_id: str, spent: list[float]) -> dict:
         "total_cost_usd": rootcause_doc["cost_usd"] + sum(
             a.get("testgen_cost_usd", 0.0) for a in attempts),
     }
+    gate_doc = sanitize_record(gate_doc)
     (runs_dir / "gate1.json").write_text(
         json.dumps(gate_doc, indent=2) + "\n", encoding="utf-8")
     return gate_doc

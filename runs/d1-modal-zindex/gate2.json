@@ -48,11 +48,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "runs/d1-modal-zindex/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s1",
+        "runs/d1-modal-zindex/repair/src/work_s1",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s1.txt"
+        "prompts/repair_d1-modal-zindex_s1.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -65,7 +65,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s1",
+      "worktree": "runs/d1-modal-zindex/repair/src/work_s1",
       "guard": {
         "files": [
           "index.html"
@@ -131,11 +131,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "runs/d1-modal-zindex/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s2",
+        "runs/d1-modal-zindex/repair/src/work_s2",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s2.txt"
+        "prompts/repair_d1-modal-zindex_s2.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -148,7 +148,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s2",
+      "worktree": "runs/d1-modal-zindex/repair/src/work_s2",
       "guard": {
         "files": [
           "index.html"
@@ -214,11 +214,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src",
+        "runs/d1-modal-zindex/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s3",
+        "runs/d1-modal-zindex/repair/src/work_s3",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_d1-modal-zindex_s3.txt"
+        "prompts/repair_d1-modal-zindex_s3.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -231,7 +231,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/d1-modal-zindex/repair/src/work_s3",
+      "worktree": "runs/d1-modal-zindex/repair/src/work_s3",
       "guard": {
         "files": [
           "index.html"

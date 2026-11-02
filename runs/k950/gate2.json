@@ -9,14 +9,14 @@
     "exit": 0,
     "method": "npm-install-legacy-peer-deps",
     "ok": true,
-    "tail": "ay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 450 packages in 10s\nnpm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported\nnpm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k950/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k950/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+    "tail": "ay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 450 packages in 10s\nnpm warn deprecated puppeteer@22.15.0: < 24.15.0 is no longer supported\nnpm warn deprecated eslint@9.39.5: This version is no longer supported. Please see https://eslint.org/version-support for other options.\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k950/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k950/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
   },
   "baseline_build_gate1": {
     "kind": "baseline",
     "build": {
       "exit": 0,
       "exists": true,
-      "tail": "enerator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.59s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/kaplay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k950/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k950/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+      "tail": "enerator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.59s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/kaplay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k950/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k950/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
     },
     "restore_ok": true,
     "gate1_exit": 1,
@@ -59,11 +59,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k950/repair/src",
+        "runs/k950/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k950/repair/src/work_s1",
+        "runs/k950/repair/src/work_s1",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k950_s1.txt"
+        "prompts/repair_k950_s1.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -76,7 +76,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k950/repair/src/work_s1",
+      "worktree": "runs/k950/repair/src/work_s1",
       "guard": {
         "files": [
           "src/core/fontCache.ts",
@@ -99,7 +99,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.42s\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s1/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s1/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.42s\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k950/repair/src/work_s1/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k950/repair/src/work_s1/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "e8de52a06a6368704e32a65c318c98f1fe6b29cf34a1a991eb4464fd0cb8b854",
         "gate1_exit": 0,
@@ -142,7 +142,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.23 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s1/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s1/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
+        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s1/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s1/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "17979afa7d647cba4eed9f00504da98d099b7d6b587415fb561b2ebeddce8099",
@@ -169,11 +169,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k950/repair/src",
+        "runs/k950/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k950/repair/src/work_s2",
+        "runs/k950/repair/src/work_s2",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k950_s2.txt"
+        "prompts/repair_k950_s2.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -186,7 +186,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k950/repair/src/work_s2",
+      "worktree": "runs/k950/repair/src/work_s2",
       "guard": {
         "files": [
           "src/assets/font.ts",
@@ -209,7 +209,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.43s\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s2/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s2/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.43s\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k950/repair/src/work_s2/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k950/repair/src/work_s2/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "57823c01f1f03f7ada54e6391938b0e6b7d3ca93f02b07c6cddecee105577bd7",
         "gate1_exit": 1,
@@ -252,7 +252,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.23 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s2/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s2/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
+        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s2/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s2/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "17979afa7d647cba4eed9f00504da98d099b7d6b587415fb561b2ebeddce8099",
@@ -280,11 +280,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k950/repair/src",
+        "runs/k950/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k950/repair/src/work_s3",
+        "runs/k950/repair/src/work_s3",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k950_s3.txt"
+        "prompts/repair_k950_s3.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -297,7 +297,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k950/repair/src/work_s3",
+      "worktree": "runs/k950/repair/src/work_s3",
       "guard": {
         "files": [
           "src/gfx/draw/drawFormattedText.ts",
@@ -320,7 +320,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.38s\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s3/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k950/repair/src/work_s3/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.38s\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k950/repair/src/work_s3/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k950/repair/src/work_s3/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "f821fe9d3bb874eb55b1e2057f39a3f6b97c2744e684021b5e8cb74c0c591e05",
         "gate1_exit": 1,
@@ -363,7 +363,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.23 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s3/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (/home/yashvant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at /home/yashvant/visiopatch/runs/k950/repair/src/work_s3/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
+        "playwright_tail": "ant/visiopatch/runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s3/tests/auto/plugin.spec.ts:4:1\nError: Vitest failed to find the current suite. One of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n\n   at tests/auto/vec2.spec.ts:5\n\n  3 | import { Vec2 } from \"../../src/math/Vec2\";\n  4 |\n> 5 | test(\"vec2(0, 0).set(1, 2) should return Vec2(1, 2)\", () => {\n    | ^\n  6 |     const v = vec2(0, 0);\n  7 |     v.set(1, 2);\n  8 |     expect(v.x).toEqual(1);\n    at assert (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1631:9)\n    at getCurrentSuite (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1666:2)\n    at Object.<anonymous> (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:1563:2)\n    at test (runs/k950/repair/src/node_modules/@vitest/runner/dist/chunk-artifact.js:599:14)\n    at runs/k950/repair/src/work_s3/tests/auto/vec2.spec.ts:5:1\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "17979afa7d647cba4eed9f00504da98d099b7d6b587415fb561b2ebeddce8099",

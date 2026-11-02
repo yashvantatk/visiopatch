@@ -59,11 +59,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "runs/k864/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s1",
+        "runs/k864/repair/src/work_s1",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k864_s1.txt"
+        "prompts/repair_k864_s1.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -76,7 +76,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s1",
+      "worktree": "runs/k864/repair/src/work_s1",
       "guard": {
         "files": [
           "src/ecs/components/draw/sprite.ts"
@@ -132,7 +132,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
@@ -159,11 +159,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "runs/k864/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s2",
+        "runs/k864/repair/src/work_s2",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k864_s2.txt"
+        "prompts/repair_k864_s2.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -176,7 +176,7 @@
           "substrings": []
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s2",
+      "worktree": "runs/k864/repair/src/work_s2",
       "guard": {
         "files": [
           "src/assets/sprite.ts",
@@ -242,7 +242,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",
@@ -269,11 +269,11 @@
         "-w",
         "existing",
         "--workspace",
-        "/home/yashvant/visiopatch/runs/k864/repair/src",
+        "runs/k864/repair/src",
         "--worktree-existing",
-        "/home/yashvant/visiopatch/runs/k864/repair/src/work_s3",
+        "runs/k864/repair/src/work_s3",
         "--prompt-file",
-        "/home/yashvant/visiopatch/prompts/repair_k864_s3.txt"
+        "prompts/repair_k864_s3.txt"
       ],
       "contamination": {
         "contaminated": false,
@@ -290,7 +290,7 @@
           ]
         }
       },
-      "worktree": "/home/yashvant/visiopatch/runs/k864/repair/src/work_s3",
+      "worktree": "runs/k864/repair/src/work_s3",
       "guard": {
         "files": [
           "src/ecs/components/draw/sprite.ts",
@@ -356,7 +356,7 @@
         "tsc_exit": 0,
         "tsc_tail": "\n> kaplay@4000.0.0-alpha.20 check\n> tsc\n\n",
         "playwright_exit": 1,
-        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (/home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at /home/yashvant/visiopatch/runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
+        "playwright_tail": "it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: Vitest failed to access its internal state.\n\nOne of the following is possible:\n- \"vitest\" is imported directly without running \"vitest\" command\n- \"vitest\" is imported inside \"globalSetup\" (to fix this, use \"setupFiles\" instead, because \"globalSetup\" runs in a different context)\n- \"vitest\" is imported inside Vite / Vitest config file\n- Otherwise, it might be a Vitest bug. Please report it to https://github.com/vitest-dev/vitest/issues\n\n    at getWorkerState (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:9:9)\n    at getCurrentEnvironment (runs/k864/repair/src/node_modules/vitest/dist/chunks/utils.XdZDrNZV.js:23:16)\n    at createExpect (runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:426:16)\n    at runs/k864/repair/src/node_modules/vitest/dist/chunks/vi.bdSIJ99Y.js:464:22\nError: No tests found\n\n",
         "playwright_failures": [],
         "playwright_new_failures": [],
         "restored_sha": "e7fdb2e416eaa3714c4bc0a9b1be51dd84d97a2adc3ab4fd3ae7c046618556c6",

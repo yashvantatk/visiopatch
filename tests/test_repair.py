@@ -184,3 +184,33 @@ def test_playwright_failures_only_failure_list():
            "    [chromium] › tests/integration/b.spec.ts:7:1 › blows up \n"
            "  72 passed\n")
     assert playwright_failures(out) == ["tests/integration/b.spec.ts:7:1 › blows up"]
+
+
+def test_rel_str_makes_repo_paths_relative():
+    from visiopatch.bench import REPO_ROOT
+    from visiopatch.repair import rel_str
+    assert rel_str(str(REPO_ROOT / "runs" / "x" / "gate2.json")) == "runs/x/gate2.json"
+    assert rel_str("/usr/lib/python3.10/os.py") == "/usr/lib/python3.10/os.py"
+    assert rel_str("already/relative") == "already/relative"
+
+
+def test_sanitize_record_strips_repo_root_everywhere():
+    from visiopatch.bench import REPO_ROOT
+    from visiopatch.repair import sanitize_record
+    doc = {"worktree": str(REPO_ROOT / "runs" / "x"),
+           "tail": f"from {REPO_ROOT}/runs/x/src/a.ts",
+           "n": 3, "items": [str(REPO_ROOT / "p.txt")]}
+    out = sanitize_record(doc)
+    assert out == {"worktree": "runs/x",
+                   "tail": "from runs/x/src/a.ts",
+                   "n": 3, "items": ["p.txt"]}
+    assert str(REPO_ROOT) not in json.dumps(out)
+
+
+def test_committed_run_jsons_hold_no_absolute_repo_paths():
+    from visiopatch.bench import REPO_ROOT
+    for path in sorted((REPO_ROOT / "runs").glob("*/gate1.json")) + \
+            sorted((REPO_ROOT / "runs").glob("*/gate2.json")) + \
+            sorted((REPO_ROOT / "runs").glob("*/rootcause.json")):
+        text = path.read_text(encoding="utf-8")
+        assert str(REPO_ROOT) + "/" not in text, path

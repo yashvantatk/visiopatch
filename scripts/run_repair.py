@@ -245,7 +245,7 @@ def _record_from_log(case_id: str, tag: str, strategy: dict,
                       prompt: Path, log: Path, workdir: Path) -> dict:
     """Rebuild a candidate record from an existing run (gate2-only mode)."""
     run = {"exit": 0, "model": R.model_of_log(log), "elapsed_s": None,
-           "flags": R.MUSE_EXEC_FLAGS, "worktree": str(workdir),
+           "flags": R.MUSE_EXEC_FLAGS, "worktree": R.rel_str(str(workdir)),
            "contamination": R.scan_contamination(log)}
     return {"strategy": strategy["name"], "tag": tag,
             "prompt": str(prompt.relative_to(REPO_ROOT)),
@@ -323,7 +323,7 @@ def run_case(case_id: str, gate2_only: bool = False) -> dict:
             rec = {"strategy": strategy["name"], "tag": tag,
                    "prompt": str(prompt.relative_to(REPO_ROOT)),
                    "log": str(log.relative_to(REPO_ROOT)), **run}
-            worktree = Path(run["worktree"]) if run["worktree"] else None
+            worktree = workdir
             if run["exit"] != 0 or worktree is None:
                 rec.update({"eligible": False,
                             "reason": "muse exec failed or worktree lost"})
@@ -350,7 +350,8 @@ def run_case(case_id: str, gate2_only: bool = False) -> dict:
         "picked": None,
     }
     if picked is not None:
-        worktree = Path(picked["worktree"])
+        picked_wt = Path(picked["worktree"])
+        worktree = picked_wt if picked_wt.is_absolute() else REPO_ROOT / picked_wt
         diff = subprocess.run(
             ["git", "diff", "HEAD", "--"], cwd=worktree, capture_output=True,
             text=True, check=True).stdout
@@ -364,6 +365,7 @@ def run_case(case_id: str, gate2_only: bool = False) -> dict:
             "model": picked.get("model"),
         }
         doc["overlap"] = overlap
+    doc = R.sanitize_record(doc)
     (REPO_ROOT / "runs" / case_id / "gate2.json").write_text(
         json.dumps(doc, indent=2) + "\n", encoding="utf-8")
     return doc

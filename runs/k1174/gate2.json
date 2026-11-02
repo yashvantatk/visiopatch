@@ -8,14 +8,14 @@
   "deps": {
     "exit": 0,
     "ok": true,
-    "tail": "-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 288 packages in 7s\nnpm warn EBADENGINE Unsupported engine {\nnpm warn EBADENGINE   package: 'kaplay@4000.0.0-alpha.27.1',\nnpm warn EBADENGINE   required: { node: '>=24.0.0' },\nnpm warn EBADENGINE   current: { node: 'v22.23.2', npm: '10.9.8' }\nnpm warn EBADENGINE }\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+    "tail": "-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\nadded 288 packages in 7s\nnpm warn EBADENGINE Unsupported engine {\nnpm warn EBADENGINE   package: 'kaplay@4000.0.0-alpha.27.1',\nnpm warn EBADENGINE   required: { node: '>=24.0.0' },\nnpm warn EBADENGINE   current: { node: 'v22.23.2', npm: '10.9.8' }\nnpm warn EBADENGINE }\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
   },
   "baseline_build_gate1": {
     "kind": "baseline",
     "build": {
       "exit": 0,
       "exists": true,
-      "tail": "erator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.58s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+      "tail": "erator -o dist/doc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.58s\n-> dist/kaboom.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k1174/repair/src/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k1174/repair/src/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
     },
     "restore_ok": true,
     "gate1_exit": 1,
@@ -78,7 +78,7 @@
         "-w",
         "existing"
       ],
-      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s1",
+      "worktree": "runs/k1174/repair/src/work_s1",
       "contamination": {
         "contaminated": false,
         "hits": [],
@@ -110,7 +110,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.68s\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s1/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s1/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.68s\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/kaplay.mjs\n-> dist/kaboom.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k1174/repair/src/work_s1/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k1174/repair/src/work_s1/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "76e56006ea65042a264fd690300294e59a2167a715af527cda27408a1b489621",
         "gate1_exit": 0,
@@ -182,7 +182,7 @@
         "-w",
         "existing"
       ],
-      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s2",
+      "worktree": "runs/k1174/repair/src/work_s2",
       "contamination": {
         "contaminated": false,
         "hits": [],
@@ -216,7 +216,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.66s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s2/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s2/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.66s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.cjs\n-> dist/kaplay.js\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k1174/repair/src/work_s2/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k1174/repair/src/work_s2/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "12cd2c44d4ce2ec13a776cb116327a74b1591e55442bb218910ff90ae11f298b",
         "gate1_exit": 0,
@@ -288,7 +288,7 @@
         "-w",
         "existing"
       ],
-      "worktree": "/home/yashvant/visiopatch/runs/k1174/repair/src/work_s3",
+      "worktree": "runs/k1174/repair/src/work_s3",
       "contamination": {
         "contaminated": false,
         "hits": [],
@@ -328,7 +328,7 @@
         "build": {
           "exit": 0,
           "exists": true,
-          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.64s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s3/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from /home/yashvant/visiopatch/runs/k1174/repair/src/work_s3/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
+          "tail": "oc.d.ts src/index.ts\n\nCompiling input files...\nProcessing src/index.ts\nWriting src/index.ts -> dist/doc.d.ts\nChecking generated files...\nDone in 3.64s\n-> dist/kaboom.js\n-> dist/kaplay.mjs\n-> dist/kaplay.js\n-> dist/kaplay.cjs\n-> dist/declaration/global.js\n-> dist/declaration/global.d.ts\n-> dist/types.d.ts\n\u001b[1;33mThe following type nodes were renamed because of the name collisions and will not be exported from the generated bundle:\n- Predicate (from runs/k1174/repair/src/work_s3/src/math/ai/rulesystem.d.ts)\n- UpdateCallback (from runs/k1174/repair/src/work_s3/src/math/ai/statemachine.d.ts)\nThis might lead to unpredictable and unexpected output, and possible breaking changes to your API.\nConsider either (re-)exporting them explicitly from the entry point, or disable --export-referenced-types option ('output.exportReferencedTypes' in the config).\u001b[0m\n\u001b[1;33mCompiler option \"skipLibCheck\" is disabled to properly check generated output\u001b[0m\n"
         },
         "staged_sha": "375421b740f5d4aa12d067e5d125c3e74d723895b6a9f5e9332208595e0779b5",
         "gate1_exit": 0,

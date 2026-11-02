@@ -109,6 +109,32 @@ _REJECT_NAMES = {
 }
 
 
+def rel_str(value: str) -> str:
+    """Render a path repo-relative for records; other text untouched."""
+    prefix = str(REPO_ROOT) + "/"
+    if value == str(REPO_ROOT):
+        return "."
+    if value.startswith(prefix):
+        return value[len(prefix):]
+    return value
+
+
+def rel_text(text: str) -> str:
+    """Strip the repo-root prefix from recorded text (e.g. tool tails)."""
+    return text.replace(str(REPO_ROOT) + "/", "")
+
+
+def sanitize_record(doc: Any) -> Any:
+    """Walk a JSON-able record, making every repo-root path relative."""
+    if isinstance(doc, dict):
+        return {k: sanitize_record(v) for k, v in doc.items()}
+    if isinstance(doc, list):
+        return [sanitize_record(v) for v in doc]
+    if isinstance(doc, str):
+        return rel_text(doc)
+    return doc
+
+
 def is_kaplay_case(case_id: str) -> bool:
     return not (BENCH / case_id / "app").exists() and not (
         BENCH / case_id / "app.bundle").exists()
@@ -341,9 +367,10 @@ def run_candidate(prompt_path: Path, snapshot: Path, workdir: Path,
     elapsed_s = round(time.monotonic() - started, 1)
     contamination = scan_contamination(log_path)
     return {"exit": proc.returncode, "model": model_of_log(log_path),
-            "elapsed_s": elapsed_s, "flags": cmd[1:],
+            "elapsed_s": elapsed_s,
+            "flags": [rel_str(f) for f in cmd[1:]],
             "contamination": contamination,
-            "worktree": str(workdir)}
+            "worktree": rel_str(str(workdir))}
 
 
 def guard_diff(workdir: Path, case_id: str) -> dict[str, Any]:
