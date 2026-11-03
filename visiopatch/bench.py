@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import socket
 import subprocess
@@ -17,6 +18,18 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parent.parent
 BENCH = REPO_ROOT / "bench"
 KAPLAY = REPO_ROOT.parent / "kaplay"
+
+
+def spawn_env(extra: dict[str, str] | None = None) -> dict[str, str]:
+    """Environment for harness-spawned subprocesses (pytest, muse exec,
+    browsers): the parent env minus ``PYTHONPATH``. A terminal-inherited
+    ``PYTHONPATH`` (e.g. a ROS plugin path) breaks pytest collection
+    inside served and candidate runs."""
+    env = dict(os.environ)
+    env.pop("PYTHONPATH", None)
+    if extra:
+        env.update(extra)
+    return env
 
 
 def sh(*cmd: str, cwd: Path | None = None) -> str:

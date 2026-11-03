@@ -56,7 +56,8 @@ FEEDBACK_CHARS = 4000
 
 
 def _run_pytest(test_path: Path, url: str) -> tuple[int, str]:
-    env = dict(os.environ, VISIOPATCH_CASE_URL=url)
+    from visiopatch.bench import spawn_env
+    env = spawn_env({"VISIOPATCH_CASE_URL": url})
     try:
         proc = subprocess.run(
             [sys.executable, "-m", "pytest", "-q", str(test_path)],

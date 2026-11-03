@@ -10,7 +10,9 @@ SKILL = (Path(__file__).resolve().parent.parent
 
 
 def _body() -> str:
-    return SKILL.read_text(encoding="utf-8").lower().replace("`", "")
+    import re
+    text = SKILL.read_text(encoding="utf-8").lower().replace("`", "")
+    return re.sub(r"\s+", " ", text)
 
 
 def test_skill_exists_and_fires_on_plain_reports() -> None:
@@ -63,3 +65,12 @@ def test_skill_hard_stop_no_manual_fallback() -> None:
     assert "end the turn" in body
     assert "manual fallback" in body
     assert "by hand" in body
+
+
+def test_skill_bans_tooling_workarounds() -> None:
+    body = _body()
+    assert "errors twice" in body
+    assert "never edit visiopatch's own code" in body
+    assert "never stop or restart the mcp server" in body
+    assert "never call its python functions directly" in body
+    assert "never write driver scripts" in body

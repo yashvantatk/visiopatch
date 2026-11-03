@@ -78,6 +78,9 @@ def launch_chromium(pw: Playwright, **overrides) -> Browser:
     exe = os.environ.get("VISIOPATCH_CHROMIUM_EXE")
     if exe:
         overrides["executable_path"] = exe
+    if "env" not in overrides:
+        from visiopatch.bench import spawn_env
+        overrides["env"] = spawn_env()
     candidates = [list(pinned)] if pinned is not None else _ordered_backends()
     failures: list[str] = []
     for backend in candidates:

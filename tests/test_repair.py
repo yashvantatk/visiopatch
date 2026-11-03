@@ -214,3 +214,66 @@ def test_committed_run_jsons_hold_no_absolute_repo_paths():
             sorted((REPO_ROOT / "runs").glob("*/rootcause.json")):
         text = path.read_text(encoding="utf-8")
         assert str(REPO_ROOT) + "/" not in text, path
+
+
+def test_spawn_env_drops_pythonpath(monkeypatch):
+    from visiopatch.bench import spawn_env
+    monkeypatch.setenv("PYTHONPATH", "/ros/plugin:/x")
+    monkeypatch.setenv("PATH", "/usr/bin")
+    env = spawn_env()
+    assert "PYTHONPATH" not in env
+    assert env["PATH"] == "/usr/bin"
+    assert spawn_env({"A": "b"})["A"] == "b"
+
+
+def test_run_candidate_records_real_pid_and_clean_env(monkeypatch, tmp_path):
+    """Popen (not run) exposes .pid; the child env has no PYTHONPATH."""
+    import subprocess as sp_mod
+    seen: dict = {}
+
+    class FakePopen:
+        def __init__(self, cmd, **kwargs):
+            seen["cmd"] = cmd
+            seen["env"] = kwargs.get("env")
+            self.pid = 4242
+            self.returncode = 0
+
+        def wait(self):
+            return 0
+
+    snap = _mini_repo(tmp_path)
+    monkeypatch.setattr(sp_mod, "Popen", FakePopen)
+    monkeypatch.setenv("PYTHONPATH", "/ros/plugin")
+    prompt = tmp_path / "p.txt"
+    prompt.write_text("prompt\n", encoding="utf-8")
+    log = tmp_path / "cand.jsonl"
+    out = repair.run_candidate(prompt, snap, snap, log, muse_bin="muse")
+    assert out["pid"] == 4242
+    assert isinstance(out["pid"], int)
+    assert "PYTHONPATH" not in seen["env"]
+    assert seen["cmd"][0] == "muse"
+
+
+def test_make_worktree_retry_after_crash(tmp_path):
+    """A crashed run leaves work_s1 + cand-s1 behind; the next fan-out
+    must still succeed (this exact retry failed in attempt 5)."""
+    snap = _mini_repo(tmp_path)
+    wt1 = repair.make_worktree(snap, "s1")
+    assert wt1.is_dir()
+    # crash leftover with the worktree entry gone but the branch kept,
+    # plus the plain double-create path:
+    subprocess.run(["git", "worktree", "remove", "--force", str(wt1)],
+                   cwd=snap, check=True)
+    wt2 = repair.make_worktree(snap, "s1")
+    assert wt2.is_dir()
+    wt3 = repair.make_worktree(snap, "s1")
+    assert wt3.is_dir()
+    repair.prune_worktrees(snap, ["s1"])
+    branches = subprocess.run(
+        ["git", "branch", "--list", "cand-s1"], cwd=snap,
+        capture_output=True, text=True, check=True).stdout
+    assert branches.strip() == ""
+    listed = subprocess.run(
+        ["git", "worktree", "list", "--porcelain"], cwd=snap,
+        capture_output=True, text=True, check=True).stdout
+    assert "work_s1" not in listed

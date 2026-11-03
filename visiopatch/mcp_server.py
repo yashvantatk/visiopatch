@@ -680,7 +680,8 @@ def _free_port() -> int:
 
 def _run_pytest_file(test_path: Path, url: str,
                      timeout_s: int = 180) -> tuple[int, str]:
-    env = dict(os.environ, VISIOPATCH_CASE_URL=url)
+    from visiopatch.bench import spawn_env
+    env = spawn_env({"VISIOPATCH_CASE_URL": url})
     try:
         proc = subprocess.run(
             [sys.executable, "-m", "pytest", "-q", str(test_path)],
@@ -940,89 +941,94 @@ def _repair_repo(resolved: dict[str, Any],
     deps = R.install_snapshot_deps(snap)
     prompts_dir = repair_dir / "prompts"
     prompts_dir.mkdir(exist_ok=True)
-    candidates: list[dict[str, Any]] = []
-    pids: list[int] = []
-    for i, strategy in enumerate(strategies, 1):
-        tag = f"s{i}"
-        text = R.build_repair_prompt(report, diagnosis, strategy)
-        text += ("\n- Do not use any network tool, and do not call any "
-                 "VisioPatch MCP tools; work with local files only.\n")
-        errs = R.validate_repair_prompt(text)
-        if errs:
-            raise ValueError(f"strategy {i}: " + "; ".join(errs))
-        prompt_path = prompts_dir / f"repair_{tag}.txt"
-        prompt_path.write_text(text, encoding="utf-8")
-        workdir = R.make_worktree(snap, tag)
-        R.link_worktree_deps(workdir, snap)
-        log = repair_dir / f"cand_{tag}.jsonl"
-        run = R.run_candidate(prompt_path, snap, workdir, log,
-                              extra_args=_child_extra_args())
-        if isinstance(run.get("pid"), int):
-            pids.append(run["pid"])
-        rec = {"strategy": strategy.get("name"), "tag": tag,
-               "prompt": rel_str(str(prompt_path)),
-               "log": rel_str(str(log)), **run}
-        if run["exit"] != 0:
-            rec.update({"eligible": False,
-                        "reason": "muse exec failed or worktree lost"})
+    tags = [f"s{i}" for i in range(1, len(strategies) + 1)]
+    R.prune_worktrees(snap, tags)  # leftovers from a crashed run
+    try:
+        candidates: list[dict[str, Any]] = []
+        pids: list[int] = []
+        for i, strategy in enumerate(strategies, 1):
+            tag = f"s{i}"
+            text = R.build_repair_prompt(report, diagnosis, strategy)
+            text += ("\n- Do not use any network tool, and do not call any "
+                     "VisioPatch MCP tools; work with local files only.\n")
+            errs = R.validate_repair_prompt(text)
+            if errs:
+                raise ValueError(f"strategy {i}: " + "; ".join(errs))
+            prompt_path = prompts_dir / f"repair_{tag}.txt"
+            prompt_path.write_text(text, encoding="utf-8")
+            workdir = R.make_worktree(snap, tag)
+            R.link_worktree_deps(workdir, snap)
+            log = repair_dir / f"cand_{tag}.jsonl"
+            run = R.run_candidate(prompt_path, snap, workdir, log,
+                                  extra_args=_child_extra_args())
+            if isinstance(run.get("pid"), int):
+                pids.append(run["pid"])
+            rec = {"strategy": strategy.get("name"), "tag": tag,
+                   "prompt": rel_str(str(prompt_path)),
+                   "log": rel_str(str(log)), **run}
+            if run["exit"] != 0:
+                rec.update({"eligible": False,
+                            "reason": "muse exec failed or worktree lost"})
+                candidates.append(rec)
+                continue
+            guard = R.guard_diff(workdir, _pseudo_case(run_id, snap))
+            rec["guard"] = guard
+            if rec.get("contamination", {}).get("contaminated"):
+                rec.update({"eligible": False, "reason": "contaminated log"})
+            elif not guard["ok"]:
+                rec.update({"eligible": False, "reason": (
+                    f"guard rejected: {guard['rejected']}")})
+            else:
+                gate = _gate2_repo(run_id, tag, workdir, guard["allowed"],
+                                   test_path)
+                rec["gate2"] = gate
+                rec["eligible"] = bool(gate.get("gate_ok"))
+                if not gate.get("gate_ok"):
+                    rec["reason"] = "gate 2 failed"
             candidates.append(rec)
-            continue
-        guard = R.guard_diff(workdir, _pseudo_case(run_id, snap))
-        rec["guard"] = guard
-        if rec.get("contamination", {}).get("contaminated"):
-            rec.update({"eligible": False, "reason": "contaminated log"})
-        elif not guard["ok"]:
-            rec.update({"eligible": False, "reason": (
-                f"guard rejected: {guard['rejected']}")})
+        if job_record is not None and pids:
+            JOB.add_pids(job_record, pids)
+        eligible = [c for c in candidates if c.get("eligible")]
+        picked = min(eligible, key=lambda c: c["guard"]["lines_changed"],
+                     default=None)
+        patch_path = REPO_ROOT / "runs" / run_id / "fix.patch"
+        table = [{"strategy": c.get("strategy"), "tag": c.get("tag"),
+                  "eligible": bool(c.get("eligible")),
+                  "reason": c.get("reason"),
+                  "gate1_exit": (c.get("gate2") or {}).get("gate1_exit"),
+                  "lines_changed": (c.get("guard") or {}).get("lines_changed")}
+                 for c in candidates]
+        out: dict[str, Any] = {"run_id": run_id, "gate2_table": table,
+                               "picked": None, "fix_patch": None,
+                               "apply_command": None, "deps": deps}
+        if picked is not None:
+            picked_wt = Path(picked["worktree"])
+            workdir = (picked_wt if picked_wt.is_absolute()
+                       else REPO_ROOT / picked_wt)
+            diff = subprocess.run(
+                ["git", "diff", "HEAD", "--"], cwd=workdir, capture_output=True,
+                text=True, check=True).stdout
+            patch_path.write_text(diff, encoding="utf-8")
+            out.update({
+                "picked": {"strategy": picked["strategy"], "tag": picked["tag"],
+                           "files": picked["guard"]["allowed"],
+                           "lines_changed": picked["guard"]["lines_changed"],
+                           "model": picked.get("model")},
+                "fix_patch": rel_str(str(patch_path)),
+                "apply_command": f"git -C {repo_path} apply {patch_path}",
+                "note": ("Picked patch is Gate-2-verified. It is NOT applied; "
+                         "run apply_command in the target repo yourself.")})
         else:
-            gate = _gate2_repo(run_id, tag, workdir, guard["allowed"],
-                               test_path)
-            rec["gate2"] = gate
-            rec["eligible"] = bool(gate.get("gate_ok"))
-            if not gate.get("gate_ok"):
-                rec["reason"] = "gate 2 failed"
-        candidates.append(rec)
-    if job_record is not None and pids:
-        JOB.add_pids(job_record, pids)
-    eligible = [c for c in candidates if c.get("eligible")]
-    picked = min(eligible, key=lambda c: c["guard"]["lines_changed"],
-                 default=None)
-    patch_path = REPO_ROOT / "runs" / run_id / "fix.patch"
-    table = [{"strategy": c.get("strategy"), "tag": c.get("tag"),
-              "eligible": bool(c.get("eligible")),
-              "reason": c.get("reason"),
-              "gate1_exit": (c.get("gate2") or {}).get("gate1_exit"),
-              "lines_changed": (c.get("guard") or {}).get("lines_changed")}
-             for c in candidates]
-    out: dict[str, Any] = {"run_id": run_id, "gate2_table": table,
-                           "picked": None, "fix_patch": None,
-                           "apply_command": None, "deps": deps}
-    if picked is not None:
-        picked_wt = Path(picked["worktree"])
-        workdir = (picked_wt if picked_wt.is_absolute()
-                   else REPO_ROOT / picked_wt)
-        diff = subprocess.run(
-            ["git", "diff", "HEAD", "--"], cwd=workdir, capture_output=True,
-            text=True, check=True).stdout
-        patch_path.write_text(diff, encoding="utf-8")
-        out.update({
-            "picked": {"strategy": picked["strategy"], "tag": picked["tag"],
-                       "files": picked["guard"]["allowed"],
-                       "lines_changed": picked["guard"]["lines_changed"],
-                       "model": picked.get("model")},
-            "fix_patch": rel_str(str(patch_path)),
-            "apply_command": f"git -C {repo_path} apply {patch_path}",
-            "note": ("Picked patch is Gate-2-verified. It is NOT applied; "
-                     "run apply_command in the target repo yourself.")})
-    else:
-        out["note"] = "No candidate passed Gate 2."
-    doc = sanitize_record({**out, "candidates": candidates,
-                           "snapshot_tree": tree})
-    (REPO_ROOT / "runs" / run_id / "gate2.json").write_text(
-        json.dumps(doc, indent=2) + "\n", encoding="utf-8")
-    result = {**out, "gate2": rel_str(f"runs/{run_id}/gate2.json")}
-    cache_put(run_id, key, result)
-    return {**result, "cache": "live"}
+            out["note"] = "No candidate passed Gate 2."
+        doc = sanitize_record({**out, "candidates": candidates,
+                               "snapshot_tree": tree})
+        (REPO_ROOT / "runs" / run_id / "gate2.json").write_text(
+            json.dumps(doc, indent=2) + "\n", encoding="utf-8")
+        result = {**out, "gate2": rel_str(f"runs/{run_id}/gate2.json")}
+        cache_put(run_id, key, result)
+        return {**result, "cache": "live"}
+    finally:
+        R.prune_worktrees(snap, tags)
 
 
 def _pseudo_case(run_id: str, snap: Path) -> str:

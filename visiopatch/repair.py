@@ -40,7 +40,9 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from visiopatch.bench import BENCH, KAPLAY, REPO_ROOT, case_git_dir, read_meta, sh
+from visiopatch.bench import (
+    BENCH, KAPLAY, REPO_ROOT, case_git_dir, read_meta, sh, spawn_env,
+)
 
 REPAIR_PROMPT_VERSION = 1
 MAX_MODEL_STEPS = 40
@@ -60,11 +62,38 @@ MUSE_EXEC_FLAGS = [
 ]
 
 
+def prune_worktrees(snapshot: Path, tags: list[str]) -> None:
+    """Remove leftover candidate worktrees/branches in a scratch copy.
+
+    A crashed run leaves ``work_<tag>`` checkouts and ``cand-<tag>``
+    branches behind, and a bare ``worktree add -b`` then fails on every
+    retry. Pruning first makes fan-out idempotent; failures are ignored
+    because there may simply be nothing to remove.
+    """
+    for tag in tags:
+        dest = snapshot / f"work_{tag}"
+        try:
+            sh("git", "worktree", "remove", "--force", str(dest),
+               cwd=snapshot)
+        except subprocess.CalledProcessError:
+            pass
+        try:
+            sh("git", "branch", "-D", f"cand-{tag}", cwd=snapshot)
+        except subprocess.CalledProcessError:
+            pass
+    try:
+        sh("git", "worktree", "prune", cwd=snapshot)
+    except subprocess.CalledProcessError:
+        pass
+
+
 def make_worktree(snapshot: Path, tag: str) -> Path:
-    """Create a caller-owned candidate worktree nested in the snapshot."""
+    """Create a caller-owned candidate worktree nested in the snapshot.
+
+    Idempotent: leftovers from a crashed run are pruned first.
+    """
+    prune_worktrees(snapshot, [tag])
     dest = snapshot / f"work_{tag}"
-    if dest.exists():
-        sh("git", "worktree", "remove", "--force", str(dest), cwd=snapshot)
     sh("git", "worktree", "add", str(dest), "-b", f"cand-{tag}",
        cwd=snapshot)
     return dest
@@ -358,7 +387,8 @@ def run_candidate(prompt_path: Path, snapshot: Path, workdir: Path,
 
     ``extra_args`` are appended to the muse command (the MCP server
     passes ``--model``/``--reasoning-effort`` and MCP isolation flags).
-    The child PID is recorded so jobs can log it.
+    The child PID is recorded so jobs can log it; ``Popen`` (not
+    ``run``) is used because only ``Popen`` exposes ``.pid``.
     """
     import time
     cmd = ([muse_bin] + MUSE_EXEC_FLAGS
@@ -369,12 +399,15 @@ def run_candidate(prompt_path: Path, snapshot: Path, workdir: Path,
     log_path.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     with log_path.open("w", encoding="utf-8") as fh:
-        proc = subprocess.run(cmd, cwd=workdir, stdout=fh,
-                              stderr=subprocess.STDOUT, text=True)
+        proc = subprocess.Popen(cmd, cwd=workdir, stdout=fh,
+                                stderr=subprocess.STDOUT, text=True,
+                                env=spawn_env())
+        pid = proc.pid
+        proc.wait()
     elapsed_s = round(time.monotonic() - started, 1)
     contamination = scan_contamination(log_path)
     return {"exit": proc.returncode, "model": model_of_log(log_path),
-            "elapsed_s": elapsed_s, "pid": proc.pid,
+            "elapsed_s": elapsed_s, "pid": pid,
             "flags": [rel_str(f) for f in cmd[1:]],
             "contamination": contamination,
             "worktree": rel_str(str(workdir))}

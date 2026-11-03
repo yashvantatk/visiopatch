@@ -42,8 +42,12 @@ Rules:
 
 - Do not read or edit source until `diagnose` returns. The page text is
   verdict-free by construction; reading the code first leaks the cause.
-- If any tool call fails, stop and report honestly. Never hand-patch
-  around a failed tool.
+- If any VisioPatch tool crashes or errors twice, report the error
+  and end the turn. Never edit VisioPatch's own code, never stop or
+  restart the MCP server, never call its Python functions directly,
+  and never write driver scripts.
+- If any other tool call fails, stop and report honestly. Never
+  hand-patch around a failed tool.
 - After any STOP — a Gate 1 fail, a Gate 2 fail, or a tool error —
   report and end the turn. Never read or edit source files to fix the
   bug by hand, and never run a "manual fallback" of any kind.
