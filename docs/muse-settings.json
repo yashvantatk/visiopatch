@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "visiopatch": {
+      "command": "/absolute/path/to/visiopatch/.venv/bin/python",
+      "args": ["-m", "visiopatch.mcp_server"],
+      "cwd": "/absolute/path/to/visiopatch",
+      "env": {
+        "VISIOPATCH_ANALYZE_MODEL": "muse-spark-1.3",
+        "VISIOPATCH_DIAGNOSE_MODEL": "muse-wonder-1.0",
+        "VISIOPATCH_REPAIR_MODEL": "muse-spark-1.3",
+        "VISIOPATCH_REPAIR_EFFORT": "medium"
+      }
+    }
+  }
+}

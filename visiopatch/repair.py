@@ -352,13 +352,20 @@ def candidate_worktree_from_log(log_path: Path) -> Path | None:
 
 
 def run_candidate(prompt_path: Path, snapshot: Path, workdir: Path,
-                  log_path: Path, muse_bin: str = "muse") -> dict[str, Any]:
-    """Run one muse exec candidate in its own snapshot worktree."""
+                  log_path: Path, muse_bin: str = "muse",
+                  extra_args: list[str] | None = None) -> dict[str, Any]:
+    """Run one muse exec candidate in its own snapshot worktree.
+
+    ``extra_args`` are appended to the muse command (the MCP server
+    passes ``--model``/``--reasoning-effort`` and MCP isolation flags).
+    The child PID is recorded so jobs can log it.
+    """
     import time
     cmd = ([muse_bin] + MUSE_EXEC_FLAGS
            + ["--workspace", str(snapshot),
               "--worktree-existing", str(workdir),
-              "--prompt-file", str(prompt_path)])
+              "--prompt-file", str(prompt_path)]
+           + list(extra_args or []))
     log_path.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     with log_path.open("w", encoding="utf-8") as fh:
@@ -367,7 +374,7 @@ def run_candidate(prompt_path: Path, snapshot: Path, workdir: Path,
     elapsed_s = round(time.monotonic() - started, 1)
     contamination = scan_contamination(log_path)
     return {"exit": proc.returncode, "model": model_of_log(log_path),
-            "elapsed_s": elapsed_s,
+            "elapsed_s": elapsed_s, "pid": proc.pid,
             "flags": [rel_str(f) for f in cmd[1:]],
             "contamination": contamination,
             "worktree": rel_str(str(workdir))}

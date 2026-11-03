@@ -9,6 +9,11 @@ runs/*
 !runs/*/gate2.json
 !runs/*/fix.patch
 runs/*/repair/*
+runs/testprobe-*/
+runs/repo-*/
+runs/adhoc/
+runs/*/jobs/
+runs/*/mcp_cache/
 smoke_out/
 render_out/
 __pycache__/

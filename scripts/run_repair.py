@@ -253,7 +253,8 @@ def _record_from_log(case_id: str, tag: str, strategy: dict,
             "rerun": "gate2-only (no new model run)", **run}
 
 
-def run_case(case_id: str, gate2_only: bool = False) -> dict:
+def run_case(case_id: str, gate2_only: bool = False,
+             extra_args: list[str] | None = None) -> dict:
     print(f"[repair] snapshot {case_id}", flush=True)
     if gate2_only:
         snapshot = R.snapshot_dir(case_id)
@@ -316,7 +317,8 @@ def run_case(case_id: str, gate2_only: bool = False) -> dict:
                   f"{strategy['name']}", flush=True)
             workdir = R.make_worktree(snapshot, tag)
             R.link_worktree_deps(workdir, snapshot)
-            run = R.run_candidate(prompt, snapshot, workdir, log)
+            run = R.run_candidate(prompt, snapshot, workdir, log,
+                                  extra_args=extra_args)
             print(f"[repair] {tag} exit={run['exit']} model={run['model']} "
                   f"contaminated={run['contamination']['contaminated']} "
                   f"worktree={run['worktree']!r}", flush=True)

@@ -1,8 +1,8 @@
 {
   "actions": [],
-  "buggy_sha": "a977c41b89d987bb1e0b24e2e9978cacb8a007c8",
+  "buggy_sha": "aa9be837736d6d67a46b18af13c8d8b11069ca06",
   "duration_s": 5,
-  "fix_sha": "fa7acf52e03e392acc7662a6b03dbde405f42351",
+  "fix_sha": "169a9805efbd8235bc2cbe464c4ec4a729b8986e",
   "noun_phrases": [
     "card"
   ],

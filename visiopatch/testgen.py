@@ -38,10 +38,17 @@ from visiopatch.rootcause import (
     token_cost_usd,
 )
 
-TESTGEN_PROMPT_VERSION = 5
+TESTGEN_PROMPT_VERSION = 6
 TESTGEN_EFFORT = "high"
 
 GENERATED_DIR = REPO_ROOT / "tests_generated"
+
+# Two-phase Gate 1 markers. Phase A proves the test exercises the right
+# page (boot + target selector present); Phase B asserts the correct
+# visual behaviour. Gate 1 passes only when A prints and B raises
+# AssertionError — a TimeoutError is flakiness, never a pass.
+PHASE_A_MARKER = "VISIOPATCH_PHASE_A_OK"
+PHASE_B_MARKER = "VISIOPATCH_PHASE_B"
 
 _BANNED_IMPORTS = {"openai", "requests", "urllib", "socket", "subprocess",
                    "httpx", "aiohttp"}
@@ -122,6 +129,14 @@ def build_testgen_prompt(report: str, reported: dict[str, Any],
         "Prefer polling page state with page.evaluate in a short loop "
         "over long waits.\n"
         "- Close the browser in a finally block.\n"
+        "- Structure the test in two phases. Phase A: load the page, "
+        "assert it booted (body or the reported element exists) and "
+        "assert the target selector the report is about exists; then "
+        "print exactly VISIOPATCH_PHASE_A_OK. Phase B: assert the "
+        "correct visual behaviour with one or two numeric checks whose "
+        "failure messages start with exactly VISIOPATCH_PHASE_B:. "
+        "Never catch AssertionError; never assert inside a retry loop "
+        "that could time out instead of failing.\n"
     )
     if feedback:
         prompt += (
@@ -141,6 +156,49 @@ def extract_code(text: str) -> str:
         t = re.sub(r"^```[a-zA-Z]*\n?", "", t)
         t = re.sub(r"\n?```$", "", t.strip())
     return t.strip() + "\n"
+
+
+def _phase_b_asserts(tree: ast.AST, code: str) -> int:
+    """Count asserts carrying the Phase B marker in their message."""
+    count = 0
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Assert):
+            continue
+        segment = ast.get_source_segment(code, node) or ""
+        if PHASE_B_MARKER in segment:
+            count += 1
+    return count
+
+
+def gate1_verdict(exit_code: int, output: str) -> dict[str, Any]:
+    """Two-phase Gate 1 verdict for one run on the current (buggy) build.
+
+    Pure (offline-testable): Phase A must have passed (marker printed)
+    and Phase B must have failed with AssertionError. A pass, a missing
+    Phase A, a TimeoutError, or any other error all fail the gate —
+    each with a retryable reason, never a bare boolean.
+    """
+    out = output or ""
+    if exit_code == 0:
+        return {"gate_pass": False,
+                "reason": "test passed on the current build: Phase B did "
+                          "not fail, so no bug is demonstrated"}
+    if PHASE_A_MARKER not in out:
+        return {"gate_pass": False,
+                "reason": "Phase A did not pass (no "
+                          f"{PHASE_A_MARKER} in output): the test never "
+                          "proved it found the page and target selector"}
+    if "TimeoutError" in out:
+        return {"gate_pass": False,
+                "reason": "Phase B timed out (TimeoutError), which is "
+                          "flakiness rather than a visual assertion failure"}
+    if "AssertionError" not in out:
+        return {"gate_pass": False,
+                "reason": "Phase B did not raise AssertionError: "
+                          "no visual assertion failed"}
+    return {"gate_pass": True,
+            "reason": "Phase A passed and Phase B failed with "
+                      "AssertionError as required"}
 
 
 def validate_generated_code(code: str, duration_s: float) -> list[str]:
@@ -164,6 +222,14 @@ def validate_generated_code(code: str, duration_s: float) -> list[str]:
                 and n.name.startswith("test_")]
     if test_fns != ["test_reported_symptom"]:
         errs.append("must define exactly one test: test_reported_symptom")
+    if PHASE_A_MARKER not in code:
+        errs.append(f"must print {PHASE_A_MARKER} after the Phase A checks")
+    asserts = sum(isinstance(n, ast.Assert) for n in ast.walk(tree))
+    if asserts < 2:
+        errs.append("must have at least two asserts (Phase A boot/selector "
+                    "plus Phase B visual)")
+    elif _phase_b_asserts(tree, code) < 1:
+        errs.append(f"must have a Phase B assert messaging {PHASE_B_MARKER}")
     calls_launch = any(
         isinstance(n, ast.Call) and (
             (isinstance(n.func, ast.Name) and n.func.id == "launch_chromium")
@@ -278,3 +344,78 @@ def write_generated_test(case_id: str, code: str) -> Path:
     dest = GENERATED_DIR / f"test_{case_id}.py"
     dest.write_text(code, encoding="utf-8")
     return dest
+
+
+def scrub_secrets(text: str) -> str:
+    """Redact key material before a reply is logged."""
+    import os
+    out = text or ""
+    key = os.environ.get("MODEL_API_KEY")
+    if key and len(key) >= 4:
+        out = out.replace(key, "[redacted-api-key]")
+    out = re.sub(r"(?i)\bmodel_api_key\b", "[redacted-key-name]", out)
+    out = re.sub(r"(?i)\b(bearer|api[_-]?key)\s*[:=]\s*\S+",
+                 r"\1=[redacted]", out)
+    return out
+
+
+def generate_repo_test(report: str, reported: dict[str, Any],
+                       diagnosis: dict[str, Any], url: str,
+                       duration_s: float, strategy: str,
+                       feedback: str | None,
+                       wonder_fn: WonderFn = _call_wonder,
+                       budget_check: Callable[[float], None] | None = None,
+                       raw_dir: Path | None = None) -> dict[str, Any]:
+    """Step-5-shaped testgen for an arbitrary repo (the live MCP path).
+
+    Same code-shaped call as :func:`generate_test` (prompt asks for
+    Python code only; parsed with :func:`extract_code`, never as JSON —
+    the old repo path sent that prompt but parsed ``{"code": ...}`` JSON
+    and failed every live run with "testgen-repo reply is not JSON").
+    The first 500 chars of the scrubbed raw reply are written to
+    ``raw_dir`` (the job dir) so a failed call can be diagnosed offline.
+    """
+    diag = {k: diagnosis.get(k) for k in
+            ("root_cause", "file", "line_range",
+             "suspect_function", "mechanism", "test_spec",
+             "confidence")}
+    prompt = build_testgen_prompt(report, reported, diagnosis, url,
+                                  duration_s, strategy, feedback)
+    payload = {"kind": "testgen-repo", "report": report,
+               "reported": reported, "diagnosis": diag, "url": url,
+               "duration_s": duration_s, "feedback": feedback}
+    path = _cache_path(payload)
+    if path.exists():
+        try:
+            doc = json.loads(path.read_text(encoding="utf-8"))
+            code = doc["code"]
+            if not validate_generated_code(code, duration_s):
+                return {"code": code, "cost_usd": 0.0, "cached": True,
+                        "usage": None, "model": WONDER_MODEL,
+                        "prompt_version": TESTGEN_PROMPT_VERSION,
+                        "effort": TESTGEN_EFFORT}
+        except (json.JSONDecodeError, OSError, KeyError):
+            pass
+    if budget_check is not None:
+        budget_check(0.75)
+    text, usage = wonder_fn(prompt, TESTGEN_EFFORT)
+    CACHE_DIR.mkdir(parents=True, exist_ok=True)
+    (CACHE_DIR / f"{path.stem}_raw.txt").write_text(
+        (text or "") + "\n", encoding="utf-8")
+    if raw_dir is not None:
+        raw_dir.mkdir(parents=True, exist_ok=True)
+        seed = ("first" if feedback is None
+                else f"retry:{feedback[:200]}")
+        tag = hashlib.sha256(seed.encode()).hexdigest()[:8]
+        (raw_dir / f"testgen_{tag}_raw500.txt").write_text(
+            scrub_secrets(text or "")[:500], encoding="utf-8")
+    code = extract_code(text)
+    errs = validate_generated_code(code, duration_s)
+    if errs:
+        raise ValueError("invalid generated test: " + "; ".join(errs))
+    path.write_text(json.dumps({"code": code}, indent=2) + "\n",
+                    encoding="utf-8")
+    return {"code": code, "cost_usd": token_cost_usd(usage),
+            "cached": False, "usage": usage, "model": WONDER_MODEL,
+            "prompt_version": TESTGEN_PROMPT_VERSION,
+            "effort": TESTGEN_EFFORT}

@@ -89,3 +89,64 @@ def test_bench_pages_have_no_verdict_words(tmp_path) -> None:
         cleaned = text.replace("position: fixed", "")
         hit = BANNED.search(cleaned)
         assert hit is None, f"{name}: verdict word {hit.group(0)!r} leaks"
+
+
+def _visible_text(html: str) -> str:
+    """What a viewer (or a model watching the clip) can read: markup,
+    styles and scripts stripped, leaving rendered text only. Functional
+    CSS/JS (``transform: translateZ(0)`` in a stylesheet, ``Math.round``
+    in code) is not visible text and is not checked here."""
+    text = re.sub(r"(?is)<style.*?</style>", " ", html)
+    text = re.sub(r"(?is)<script.*?</script>", " ", text)
+    text = re.sub(r"<[^>]+>", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _js_comments(html: str) -> list[str]:
+    """``//`` and ``/* */`` comments inside inline scripts: an agent
+    reading the source sees these, so cause/verdict words are banned
+    there too (code identifiers themselves are the mechanism and stay)."""
+    comments: list[str] = []
+    for block in re.findall(r"(?is)<script.*?>(.*?)</script>", html):
+        comments += re.findall(r"//[^\n]*", block)
+        comments += re.findall(r"(?s)/\*.*?\*/", block)
+    return comments
+
+
+# A comment may explain timing but never the mechanism ("loses",
+# "cumulative") — same raw-values-only rule as the k1174 HUD.
+COMMENT_BANNED = ["cumulative", "loses"]
+
+
+def test_bench_visible_text_names_no_cause(tmp_path) -> None:
+    """Rendered page text must not name the cause (k1174 HUD rule:
+    raw values only). Fails on the d1 leak
+    ("creates stacking context") until the pages are cleaned."""
+    pages = _page_texts(tmp_path)
+    assert len(pages) >= 6
+    for name, text in pages:
+        if not name.endswith(".html") and "/app" not in name:
+            continue
+        visible = _visible_text(text)
+        for word in CAUSE_WORDS:
+            assert not re.search(rf"\b{re.escape(word)}\b", visible,
+                                 re.IGNORECASE), \
+                f"{name}: visible text names cause {word!r}"
+
+
+def test_d1_d2_comments_name_no_cause(tmp_path) -> None:
+    """d1/d2 inline-script comments must not explain the mechanism."""
+    pages = _page_texts(tmp_path)
+    probed = 0
+    for name, text in pages:
+        if "/app" not in name and not name.startswith(("d1-", "d2-")):
+            continue
+        if not text.lstrip().startswith("<!DOCTYPE"):
+            continue
+        probed += 1
+        for comment in _js_comments(text):
+            for word in CAUSE_WORDS + COMMENT_BANNED:
+                assert not re.search(rf"\b{re.escape(word)}\b", comment,
+                                     re.IGNORECASE), \
+                    f"{name}: comment names {word!r}: {comment.strip()[:80]}"
+    assert probed >= 4

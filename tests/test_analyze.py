@@ -71,6 +71,21 @@ def test_extract_json_tolerates_fences() -> None:
         extract_json("not json at all")
 
 
+def test_extract_json_finds_fenced_block_in_prose() -> None:
+    """Live replies often wrap the JSON in prose ("Here is..."). The
+    parser must find the fenced block anywhere, not only when the whole
+    reply is the fence (Step 7 live-path failure)."""
+    reply = ("Here is the result:\n```json\n{\"nouns\": [\"a\"]}\n```\n"
+             "Hope this helps.")
+    assert extract_json(reply) == {"nouns": ["a"]}
+
+
+def test_extract_json_empty_reply_raises() -> None:
+    for bad in ("", "   ", "```\n```"):
+        with pytest.raises(ValueError):
+            extract_json(bad)
+
+
 # --- prompts: no leakage, explicit negative control -------------------------
 
 def _assert_no_leak(prompt: str) -> None:

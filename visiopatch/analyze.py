@@ -94,11 +94,18 @@ def _call_spark(mp4: Path, prompt: str) -> tuple[str, dict[str, Any] | None]:
 
 
 def extract_json(text: str) -> Any:
-    """Parse a model reply that must be one JSON value (fences allowed)."""
-    t = text.strip()
-    if t.startswith("```"):
-        t = re.sub(r"^```[a-zA-Z]*\n?", "", t)
-        t = re.sub(r"\n?```$", "", t.strip())
+    """Parse a model reply that must be one JSON value (fences allowed).
+
+    Live replies often wrap the payload in prose ("Here is ..."), so the
+    first fenced block is found anywhere in the reply, not only when the
+    whole reply is the fence. Empty replies raise ValueError (never
+    return None into a schema validator)."""
+    t = (text or "").strip()
+    if not t or t.strip("`").strip() == "":
+        raise ValueError("model reply is empty (expected one JSON value)")
+    fenced = re.search(r"```[a-zA-Z]*\n?(.*?)```", t, re.DOTALL)
+    if fenced is not None:
+        t = fenced.group(1).strip()
     return json.loads(t)
 
 

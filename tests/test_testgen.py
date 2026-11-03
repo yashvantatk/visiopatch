@@ -29,9 +29,11 @@ def test_reported_symptom():
         try:
             page = browser.new_page(viewport={"width": 1280, "height": 720})
             page.goto(url)
-            page.wait_for_timeout(500)
+            assert page.evaluate("() => !!document.body")
             box = page.evaluate("() => document.body.getBoundingClientRect().x")
-            assert box >= 0
+            assert box is not None
+            print("VISIOPATCH_PHASE_A_OK")
+            assert box >= 0, "VISIOPATCH_PHASE_B: body left edge moved"
         finally:
             browser.close()
 '''
@@ -92,12 +94,21 @@ def test_validate_generated_code_accepts_good() -> None:
 def test_validate_generated_code_rejects_bad() -> None:
     assert validate_generated_code("def test_reported_symptom(:", 5) != []
     assert validate_generated_code(
-        GOOD_CODE.replace("assert box >= 0", "pass"), 5) != []
+        GOOD_CODE.replace('assert box >= 0, "VISIOPATCH_PHASE_B',
+                          'pass  # VISIOPATCH_PHASE_B'), 5) != []
+    assert validate_generated_code(
+        GOOD_CODE.replace('print("VISIOPATCH_PHASE_A_OK")', "pass"), 5) != []
+    one_assert = ("import os\n"
+                  "URL = os.environ['VISIOPATCH_CASE_URL']\n"
+                  "def test_reported_symptom():\n"
+                  "    assert URL.startswith('http')\n")
+    assert validate_generated_code(one_assert, 5) != []
     assert validate_generated_code(
         GOOD_CODE + "\nimport requests\n", 5) != []
     assert validate_generated_code(
-        GOOD_CODE.replace("page.wait_for_timeout(500)",
-                          "page.wait_for_timeout(99999)"), 5) != []
+        GOOD_CODE.replace('page.goto(url)',
+                          'page.goto(url)\n            page.wait_for_timeout(99999)'),
+        5) != []
     assert validate_generated_code(
         GOOD_CODE.replace("launch_chromium(pw)", "pw.chromium.launch()"),
         5) != []
@@ -154,3 +165,77 @@ def test_generate_test_rejects_invalid_code(tmp_path, monkeypatch) -> None:
     with pytest.raises(ValueError):
         generate_test("k1174", DIAGNOSIS,
                       wonder_fn=lambda p, e: ("assert True\n", None))
+
+
+# --- two-phase Gate 1 --------------------------------------------------------
+
+def test_gate1_verdict_needs_phase_a_then_assertion_error() -> None:
+    from visiopatch.testgen import gate1_verdict
+    passing = "VISIOPATCH_PHASE_A_OK\n1 passed"
+    assert gate1_verdict(0, passing)["gate_pass"] is False
+    no_a = ("FAILED - AssertionError: VISIOPATCH_PHASE_B: x\n"
+            "1 failed")
+    assert gate1_verdict(1, no_a)["gate_pass"] is False
+    timeout = ("VISIOPATCH_PHASE_A_OK\n"
+               "E TimeoutError: waiting for selector\n"
+               "1 failed")
+    assert gate1_verdict(1, timeout)["gate_pass"] is False
+    wrong_err = ("VISIOPATCH_PHASE_A_OK\n"
+                 "E RuntimeError: boom\n"
+                 "1 failed")
+    assert gate1_verdict(1, wrong_err)["gate_pass"] is False
+    good = ("VISIOPATCH_PHASE_A_OK\n"
+            "E AssertionError: VISIOPATCH_PHASE_B: title hidden\n"
+            "1 failed")
+    verdict = gate1_verdict(1, good)
+    assert verdict["gate_pass"] is True
+
+
+def test_generate_repo_test_matches_step5_shape(tmp_path, monkeypatch) -> None:
+    """The live MCP repo path must ask for Python code exactly like Step 5
+    (code-shaped reply + extract_code), not a {"code": ...} JSON doc: the
+    old _wonder_test raised "testgen-repo reply is not JSON" on the valid
+    code reply every live run produced."""
+    from visiopatch.testgen import generate_repo_test
+    monkeypatch.setattr(testgen, "CACHE_DIR", tmp_path / "cache")
+    log: list = []
+
+    def fake(prompt: str, effort: str):
+        log.append((prompt, effort))
+        return "```python\n" + GOOD_CODE + "```", {
+            "input_tokens": 100, "output_tokens": 50}
+
+    doc = generate_repo_test(
+        "the popup covers the button", {}, DIAGNOSIS,
+        "http://localhost:9/", 5.0, "strategy", None,
+        wonder_fn=fake, raw_dir=tmp_path / "jobs")
+    assert doc["code"].startswith("import os")
+    assert log[0][1] == "high"
+    assert "VISIOPATCH_CASE_URL" in log[0][0]
+    again = generate_repo_test(
+        "the popup covers the button", {}, DIAGNOSIS,
+        "http://localhost:9/", 5.0, "strategy", None,
+        wonder_fn=lambda p, e: ("garbage", None),
+        raw_dir=tmp_path / "jobs")
+    assert again["cached"] is True and len(log) == 1
+
+
+def test_generate_repo_test_logs_scrubbed_raw500(tmp_path, monkeypatch) -> None:
+    """The first 500 chars of the raw reply land in the job dir with any
+    secret redacted, so a failed live call can be diagnosed offline."""
+    from visiopatch.testgen import generate_repo_test
+    monkeypatch.setattr(testgen, "CACHE_DIR", tmp_path / "cache")
+    secret = "MODEL_API_KEY=TOPSECRET123"
+    reply = "```python\n" + GOOD_CODE.replace(
+        "box >= 0", f"box >= 0  # {secret}") + "\n```"
+    raw_dir = tmp_path / "jobs"
+    with pytest.raises(ValueError):
+        generate_repo_test(
+            "rep", {}, DIAGNOSIS, "http://localhost:9/", 5.0, "s", None,
+            wonder_fn=lambda p, e: (reply, None), raw_dir=raw_dir)
+    raws = list(raw_dir.glob("*_raw500.txt"))
+    assert len(raws) == 1
+    body = raws[0].read_text(encoding="utf-8")
+    assert len(body) <= 500
+    assert "TOPSECRET123" not in body
+    assert "MODEL_API_KEY" not in body
