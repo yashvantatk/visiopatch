@@ -2,7 +2,7 @@
   "mcpServers": {
     "visiopatch": {
       "command": "/bin/bash",
-      "args": ["-c", "env -u PYTHONPATH exec /absolute/path/to/visiopatch/.venv/bin/python -m visiopatch.mcp_server"],
+      "args": ["-c", "cd /absolute/path/to/visiopatch && exec env -u PYTHONPATH /absolute/path/to/visiopatch/.venv/bin/python -m visiopatch.mcp_server"],
       "cwd": "/absolute/path/to/visiopatch",
       "env": {
         "VISIOPATCH_ANALYZE_MODEL": "muse-spark-1.3",
