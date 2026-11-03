@@ -1,0 +1,7 @@
+case,source,diagnosis match,suspect-file hit,Gate 1,Gate 2,picked strategy,lines changed
+k1174,kaplayjs/kaplay PR 1174,yes,yes,pass,pass,Momentum impulse in physics-resolve handler,35
+k950,kaplayjs/kaplay PR 950,yes,yes,pass,pass,Pad and offset atlas rasterization,69
+k864,kaplayjs/kaplay PR 864,yes,yes,pass,pass,Skip only the degenerate slice,2
+k658,kaplayjs/kaplay PR 658,yes,yes,fail,n/a,none,0
+d1-modal-zindex,hand-written DOM,yes,yes,pass,pass,Remove the stacking context from main,2
+d2-carousel-drift,hand-written DOM,yes,yes,fail,n/a,none,0

@@ -12,6 +12,7 @@ runs/*/repair/*
 runs/testprobe-*/
 runs/repo-*/
 runs/adhoc/
+runs/demo/
 runs/*/jobs/
 runs/*/mcp_cache/
 smoke_out/
