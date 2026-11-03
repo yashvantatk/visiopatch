@@ -1141,20 +1141,41 @@ def _start_job(tool: str, run_id: str, args: dict[str, Any],
             "poll": "job_status(job_id), then job_result(job_id)"}
 
 
+def _guarded(fn):
+    """Never raise out of a tool entry point: an input or serving error
+    returns ``status: failed`` JSON so the caller can handle it like any
+    other tool result instead of seeing a transport error."""
+    import functools
+
+    @functools.wraps(fn)
+    def _inner(*args, **kwargs):
+        try:
+            return fn(*args, **kwargs)
+        except Exception as exc:
+            return {"status": "failed",
+                    "error": f"{type(exc).__name__}: {exc}"}
+
+    return _inner
+
+
+@_guarded
 def tool_capture_bug(target: str, report: str) -> dict[str, Any]:
     return do_capture_bug(target, report)
 
 
+@_guarded
 def tool_track_objects(video: str, nouns: list[str] | None = None,
                        target: str | None = None) -> dict[str, Any]:
     return do_track_objects(video, nouns, target)
 
 
+@_guarded
 def tool_find_anomaly(video: str, report: str,
                       target: str | None = None) -> dict[str, Any]:
     return do_find_anomaly(video, report, target)
 
 
+@_guarded
 def tool_diagnose(target: str, report: str,
                   analysis: dict[str, Any]) -> dict[str, Any]:
     resolved = parse_target(target)
@@ -1164,6 +1185,7 @@ def tool_diagnose(target: str, report: str,
                       lambda: do_diagnose_impl(target, report, analysis))
 
 
+@_guarded
 def tool_generate_visual_test(diagnosis: dict[str, Any]) -> dict[str, Any]:
     run_id = str(diagnosis.get("run_id", "adhoc"))
     return _start_job("generate_visual_test", run_id,
@@ -1172,6 +1194,7 @@ def tool_generate_visual_test(diagnosis: dict[str, Any]) -> dict[str, Any]:
                       lambda: do_generate_impl(diagnosis))
 
 
+@_guarded
 def tool_repair_and_verify(target: str) -> dict[str, Any]:
     resolved = parse_target(target)
     run_id = run_id_for(resolved)

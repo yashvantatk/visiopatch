@@ -5,6 +5,9 @@ description: Use when the user reports something looks wrong on a page — cover
 
 # Visual debug with VisioPatch
 
+Do not read or edit any source file before `diagnose` returns — work
+only through the MCP tools below until then.
+
 When the user reports a visual / UI / animation / physics / layout bug,
 work through the VisioPatch MCP tools **in order**. Do not skip steps.
 

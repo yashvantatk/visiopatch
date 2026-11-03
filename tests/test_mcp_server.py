@@ -445,6 +445,19 @@ def test_generate_stops_when_gen_raises_twice(monkeypatch):
     assert calls[0] is None and "sleep" in (calls[1] or "")
 
 
+# --- tool entry points never raise -------------------------------------------
+
+def test_tool_entry_points_return_failed_json_instead_of_raising():
+    out = MCP.tool_capture_bug('{"repo_path": "/nonexistent-dir-xyz"}', "r")
+    assert out["status"] == "failed" and out["error"]
+    out = MCP.tool_generate_visual_test(None)
+    assert out["status"] == "failed" and out["error"]
+    out = MCP.tool_diagnose("no-such-case", "r", {})
+    assert out["status"] == "failed" and out["error"]
+    out = MCP.tool_repair_and_verify("no-such-case")
+    assert out["status"] == "failed" and out["error"]
+
+
 # --- job_status / job_result: always JSON, with wait --------------------------
 
 def test_job_status_unknown_is_failed_json():

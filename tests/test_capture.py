@@ -101,6 +101,7 @@ def test_run_actions_applies_generic_steps_in_order() -> None:
     kinds = [c[0] for c in page.calls]
     assert kinds == ["evaluate", "evaluate", "click", "wait"]
     assert "scrollIntoView" in page.calls[0][1]
+    assert "block" in page.calls[0][1] and "start" in page.calls[0][1]
     assert "#modalTitle" in page.calls[0][1]
     assert "scrollBy" in page.calls[1][1]
 

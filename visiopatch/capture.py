@@ -88,7 +88,7 @@ def run_actions(page: Any, actions: Any) -> None:
             sel = _json.dumps(step["scroll_to"])
             page.evaluate(
                 f"() => {{ const el = document.querySelector({sel}); "
-                f"if (el) el.scrollIntoView({{block: 'center'}}); }}")
+                f"if (el) el.scrollIntoView({{block: 'start'}}); }}")
         elif "scroll_by" in step:
             dx, dy = step["scroll_by"]
             page.evaluate(f"() => window.scrollBy({dx}, {dy})")

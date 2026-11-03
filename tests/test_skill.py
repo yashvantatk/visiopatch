@@ -22,13 +22,22 @@ def test_skill_exists_and_fires_on_plain_reports() -> None:
 def test_skill_orders_capture_bug_first() -> None:
     body = _body()
     assert "capture_bug" in body
-    assert body.index("capture_bug") < body.index("diagnose")
+    first = body.index("1. capture_bug")
+    assert first < body.index("2. track_objects")
+    assert first < body.index("4. diagnose")
 
 
 def test_skill_bans_source_access_before_diagnose() -> None:
     body = _body()
     assert "until diagnose" in body
     assert "do not read" in body or "don't read" in body
+
+
+def test_skill_first_lines_ban_source_access() -> None:
+    lines = SKILL.read_text(encoding="utf-8").splitlines()
+    head = "\n".join(lines[:12]).lower().replace("`", "")
+    assert "do not read or edit any source file" in head
+    assert "before diagnose returns" in head
 
 
 def test_skill_bans_hand_patch_on_tool_failure() -> None:
