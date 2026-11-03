@@ -38,7 +38,7 @@ from visiopatch.rootcause import (
     token_cost_usd,
 )
 
-TESTGEN_PROMPT_VERSION = 6
+TESTGEN_PROMPT_VERSION = 7
 TESTGEN_EFFORT = "high"
 
 GENERATED_DIR = REPO_ROOT / "tests_generated"
@@ -76,7 +76,8 @@ def assertion_strategy(case_id: str) -> str:
 def build_testgen_prompt(report: str, reported: dict[str, Any],
                          diagnosis: dict[str, Any], url: str,
                          duration_s: float, strategy: str,
-                         feedback: str | None = None) -> str:
+                         feedback: str | None = None,
+                         steps: list[dict[str, Any]] | None = None) -> str:
     diag = {k: diagnosis.get(k) for k in
             ("root_cause", "file", "line_range", "suspect_function",
              "mechanism", "test_spec", "confidence")}
@@ -123,6 +124,13 @@ def build_testgen_prompt(report: str, reported: dict[str, Any],
         "motion (such as a moving object stopping, slowing, or "
         "rebounding by a specific amount) unless the inputs numerically "
         "establish that exact motion.\n"
+        "- First reproduce the reported behaviour through page "
+        "interaction when it is not present at load (scroll the "
+        "reported element into the relevant region, open the popup, "
+        "hover): drive the page with page.evaluate (scroll, "
+        "scrollIntoView), mouse, or keyboard, then assert the measured "
+        "quantities. Never call time.sleep or asyncio.sleep; poll page "
+        "state in a short loop instead.\n"
         "- Be deterministic: no randomness, no current-time or date "
         "dependence, no external network requests.\n"
         f"- Do not sleep in total longer than {duration_s} seconds. "
@@ -138,6 +146,12 @@ def build_testgen_prompt(report: str, reported: dict[str, Any],
         "Never catch AssertionError; never assert inside a retry loop "
         "that could time out instead of failing.\n"
     )
+    if steps:
+        prompt += (
+            "Operator-supplied reproduction steps for this page "
+            "(perform in order, before asserting):\n"
+            f"{json.dumps(steps)}\n"
+        )
     if feedback:
         prompt += (
             "A previous version of this test did not behave as required "
@@ -337,19 +351,22 @@ def generate_test(case_id: str, diagnosis: dict[str, Any],
     writes the code to disk; retries pass ``feedback`` (test output from
     the current revision only), which changes the cache key.
     """
+    from visiopatch.capture import validate_actions
     meta = read_meta(case_id)
     report = str(meta["report"])
     duration_s = float(meta["duration_s"])
     reported = load_reported(case_id)
+    steps = validate_actions(meta.get("actions"))
     prompt = build_testgen_prompt(
         report, reported, diagnosis, str(meta["url"]), duration_s,
-        assertion_strategy(case_id), feedback)
+        assertion_strategy(case_id), feedback, steps)
     payload = {"kind": "testgen", "report": report, "reported": reported,
                "diagnosis": {k: diagnosis.get(k) for k in
                              ("root_cause", "file", "line_range",
                               "suspect_function", "mechanism", "test_spec",
                               "confidence")},
                "duration_s": duration_s,
+               "steps": steps,
                "feedback": feedback}
     path = _cache_path(payload)
     if path.exists():
@@ -406,7 +423,9 @@ def generate_repo_test(report: str, reported: dict[str, Any],
                        feedback: str | None,
                        wonder_fn: WonderFn = _call_wonder,
                        budget_check: Callable[[float], None] | None = None,
-                       raw_dir: Path | None = None) -> dict[str, Any]:
+                       raw_dir: Path | None = None,
+                       steps: list[dict[str, Any]] | None = None
+                       ) -> dict[str, Any]:
     """Step-5-shaped testgen for an arbitrary repo (the live MCP path).
 
     Same code-shaped call as :func:`generate_test` (prompt asks for
@@ -420,11 +439,14 @@ def generate_repo_test(report: str, reported: dict[str, Any],
             ("root_cause", "file", "line_range",
              "suspect_function", "mechanism", "test_spec",
              "confidence")}
+    from visiopatch.capture import validate_actions
+    steps = validate_actions(steps)
     prompt = build_testgen_prompt(report, reported, diagnosis, url,
-                                  duration_s, strategy, feedback)
+                                  duration_s, strategy, feedback, steps)
     payload = {"kind": "testgen-repo", "report": report,
                "reported": reported, "diagnosis": diag, "url": url,
-               "duration_s": duration_s, "feedback": feedback}
+               "duration_s": duration_s, "steps": steps,
+               "feedback": feedback}
     path = _cache_path(payload)
     if path.exists():
         try:

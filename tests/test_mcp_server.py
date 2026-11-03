@@ -21,7 +21,7 @@ def test_parse_target_bench_and_repo():
         "kind": "bench", "case_id": "d1-modal-zindex"}
     resolved = MCP.parse_target('{"repo_path": "/tmp/x"}')
     assert resolved == {"kind": "repo", "repo_path": "/tmp/x",
-                        "page": "index.html", "url": None}
+                        "page": "index.html", "url": None, "steps": []}
     with pytest.raises(ValueError):
         MCP.parse_target("no-such-case")
     with pytest.raises(ValueError):
@@ -242,6 +242,19 @@ def test_parse_target_repo_page_defaults_and_rejects_traversal():
                 '{"repo_path": "/tmp/x", "page": %s}' % json.dumps(bad))
 
 
+def test_parse_target_repo_steps_optional_and_validated():
+    resolved = MCP.parse_target('{"repo_path": "/tmp/x"}')
+    assert resolved["steps"] == []
+    resolved = MCP.parse_target(
+        '{"repo_path": "/tmp/x", '
+        '"steps": [{"scroll_to": "#modalTitle"}]}')
+    assert resolved["steps"] == [{"scroll_to": "#modalTitle"}]
+    for bad in ([{"bogus": 1}], [{"scroll_to": ""}], "scroll", [[]]):
+        with pytest.raises(ValueError):
+            MCP.parse_target(
+                '{"repo_path": "/tmp/x", "steps": %s}' % json.dumps(bad))
+
+
 def test_capture_repo_serves_itself_in_process(monkeypatch, tmp_path):
     """No caller URL needed: capture_bug serves repo_path on a free port
     inside the MCP process (the outer agent cannot background a server
@@ -258,7 +271,7 @@ def test_capture_repo_serves_itself_in_process(monkeypatch, tmp_path):
                                      encoding="utf-8")
     seen: dict = {}
 
-    def _fake_record(url: str, record_s: float):
+    def _fake_record(url: str, record_s: float, actions=None):
         import urllib.request
         seen["url"] = url
         body = urllib.request.urlopen(url, timeout=10).read()
@@ -283,6 +296,33 @@ def test_capture_repo_serves_itself_in_process(monkeypatch, tmp_path):
         urllib.request.urlopen(seen["url"], timeout=5).read()
 
 
+def test_capture_repo_forwards_steps_to_recorder(monkeypatch, tmp_path):
+    """Repro steps reach the recorder so the clip shows the reported
+    state (e.g. scrolled), not just the load state."""
+    from visiopatch import capture as CAP
+    monkeypatch.setattr(MCP, "NO_CACHE", True)
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / "index.html").write_text("<html>hi</html>\n", encoding="utf-8")
+    seen: dict = {}
+
+    def _fake_record(url: str, record_s: float, actions=None):
+        seen["actions"] = actions
+        webm = tmp_path / "clip.webm"
+        webm.write_bytes(b"\x00" * 16)
+        return webm, 0.1
+
+    monkeypatch.setattr(CAP, "_record", _fake_record)
+    monkeypatch.setattr(CAP, "transcode",
+                        lambda webm, mp4, rs: mp4.write_bytes(b"\x00" * 8))
+    monkeypatch.setattr(CAP, "probe_frames", lambda mp4, rs: 1)
+    monkeypatch.setattr(CAP, "sha256_of", lambda path: "d")
+    steps = [{"scroll_to": "#modalTitle"}]
+    MCP.do_capture_bug(json.dumps({"repo_path": str(repo), "steps": steps}),
+                       "the popup's top part is hidden when it opens")
+    assert seen["actions"] == steps
+
+
 def test_capture_repo_ignores_caller_url(monkeypatch, tmp_path):
     """Even when the caller passes a (dead) localhost URL, the repo is
     served in-process — the Step 7 "errored 3 of 4" path."""
@@ -293,7 +333,7 @@ def test_capture_repo_ignores_caller_url(monkeypatch, tmp_path):
     (repo / "index.html").write_text("<html>hi</html>\n", encoding="utf-8")
     seen: dict = {}
 
-    def _fake_record(url: str, record_s: float):
+    def _fake_record(url: str, record_s: float, actions=None):
         seen["url"] = url
         webm = tmp_path / "clip.webm"
         webm.write_bytes(b"\x00" * 16)
@@ -369,6 +409,40 @@ def test_generate_stops_after_second_validation_failure(monkeypatch):
     assert all(a["stage"] == "validation" for a in out["attempts"])
     assert "STOP" in out["note"]
     assert calls[0] is None and calls[1]
+
+
+def test_generate_stops_when_gen_raises_twice(monkeypatch):
+    """A gen function that raises (invalid reply, e.g. 'must not call
+    sleep') counts as a validation failure: one retry with the reason,
+    then STOP as a done result — never a raw traceback job error."""
+    import shutil
+    from visiopatch import testgen as TG
+    monkeypatch.setattr(MCP, "NO_CACHE", True)
+    run_id = "repo-testval2"
+    snap = REPO_ROOT / "runs" / run_id / "src"
+    snap.mkdir(parents=True, exist_ok=True)
+    (snap / "index.html").write_text("<html></html>\n", encoding="utf-8")
+    try:
+        calls: list = []
+
+        def _fake_gen(*args, **kwargs):
+            feedback = kwargs.get("feedback",
+                                  args[6] if len(args) > 6 else None)
+            calls.append(feedback)
+            raise ValueError("invalid generated test: must not call sleep")
+
+        monkeypatch.setattr(TG, "generate_repo_test", _fake_gen)
+        monkeypatch.setattr(MCP, "wonder_fn_for", lambda *a, **k: None)
+        out = MCP.do_generate_impl(
+            {"run_id": run_id, "report": "r", "reported": {}})
+    finally:
+        shutil.rmtree(REPO_ROOT / "runs" / run_id, ignore_errors=True)
+    assert out["gate_pass"] is False
+    assert len(out["attempts"]) == 2
+    assert all(a["stage"] == "validation" for a in out["attempts"])
+    assert "sleep" in out["attempts"][0]["error"]
+    assert "STOP" in out["note"] and "do not repair" in out["note"]
+    assert calls[0] is None and "sleep" in (calls[1] or "")
 
 
 # --- job_status / job_result: always JSON, with wait --------------------------

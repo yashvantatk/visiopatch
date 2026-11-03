@@ -111,8 +111,13 @@ def parse_target(target: str) -> dict[str, Any]:
         if (not norm or norm.startswith("/") or norm == "."
                 or norm == ".." or norm.startswith("../")):
             raise ValueError(f"page must stay inside repo_path: {page!r}")
+        from visiopatch.capture import validate_actions
+        try:
+            steps = validate_actions(obj.get("steps"))
+        except ValueError as exc:
+            raise ValueError(f"steps: {exc}") from exc
         return {"kind": "repo", "repo_path": str(obj["repo_path"]),
-                "page": norm, "url": obj.get("url")}
+                "page": norm, "url": obj.get("url"), "steps": steps}
     if not (BENCH / text / "repro.json").is_file():
         raise ValueError(f"unknown bench case: {text!r}")
     return {"kind": "bench", "case_id": text}
@@ -274,28 +279,33 @@ def _capture_repo(resolved: dict[str, Any], run_id: str,
         raise ValueError(f"repo_path is not a directory: {repo_path}")
     tree = snapshot_tree_hash(repo_path)
     page = resolved.get("page", "index.html")
+    steps = resolved.get("steps", [])
     key = content_key("capture_bug", {"tree": tree, "report": report,
-                                      "page": page})
+                                      "page": page, "steps": steps})
     def _live():
         result: dict[str, Any] = {}
         if resolved.get("url"):
             result["note"] = ("caller url ignored: repo served in-process "
                               "on a free port")
         with ServedDir(repo_path) as served:
-            result.update(_record_live(served.url + page, run_id, tree))
+            result.update(_record_live(served.url + page, run_id, tree,
+                                       steps))
         result["served"] = "in-process"
+        if steps:
+            result["steps"] = steps
         return result
     return with_cache(run_id, key, _live)
 
 
-def _record_live(url: str, run_id: str, tree: str) -> dict[str, Any]:
+def _record_live(url: str, run_id: str, tree: str,
+                 steps: list[dict[str, Any]] | None = None) -> dict[str, Any]:
     from visiopatch.capture import (
         _record, build_meta, probe_frames, sha256_of, transcode,
     )
     from visiopatch.capture import FPS, TAIL_S
     duration_s = 5.0
     record_s = duration_s + TAIL_S
-    webm, load_offset_s = _record(url, record_s)
+    webm, load_offset_s = _record(url, record_s, steps)
     dest = REPO_ROOT / "runs" / run_id / "capture"
     dest.mkdir(parents=True, exist_ok=True)
     mp4 = dest / "buggy.mp4"
@@ -716,10 +726,16 @@ def do_generate_impl(diagnosis: dict[str, Any]) -> dict[str, Any]:
     reported = dict(diagnosis.get("reported", {}))
     full = _full_diagnosis(diagnosis)
     diag = full if full.get("fix_strategies") else diagnosis
+    from visiopatch.capture import validate_actions
+    try:
+        diag_steps = validate_actions(diagnosis.get("steps"))
+    except ValueError as exc:
+        raise ValueError(f"diagnosis steps: {exc}") from exc
     duration_s = 5.0
     key = content_key("generate_visual_test",
                       {"run": run_id, "diag": diag, "model": DIAGNOSE_MODEL,
-                       "prompt_version": TESTGEN_PROMPT_VERSION})
+                       "prompt_version": TESTGEN_PROMPT_VERSION,
+                       "steps": diag_steps})
     def _live():
         wonder = wonder_fn_for()
         test_path = _test_path_for(resolved, run_id)
@@ -739,19 +755,36 @@ def do_generate_impl(diagnosis: dict[str, Any]) -> dict[str, Any]:
                         "url": url, "note": note}
             for attempt in range(1, 4):
                 rec: dict[str, Any] = {"attempt": attempt}
-                if resolved["kind"] == "bench":
-                    gen = generate_test(
-                        resolved["case_id"], diag, wonder, None,
-                        feedback)
-                else:
-                    # Code-shaped call, exactly like Step 5 bench testgen:
-                    # the prompt asks for Python code and the reply is
-                    # parsed as code, never as a {"code": ...} JSON doc.
-                    gen = generate_repo_test(
-                        report, reported,
-                        {**diag, "file": diag.get("suspect_file")}, url,
-                        duration_s, _strategy_for(resolved), feedback,
-                        wonder_fn=wonder, raw_dir=raw_dir)
+                try:
+                    if resolved["kind"] == "bench":
+                        gen = generate_test(
+                            resolved["case_id"], diag, wonder, None,
+                            feedback)
+                    else:
+                        # Code-shaped call, exactly like Step 5 bench
+                        # testgen: the prompt asks for Python code and the
+                        # reply is parsed as code, never as JSON.
+                        gen = generate_repo_test(
+                            report, reported,
+                            {**diag, "file": diag.get("suspect_file")}, url,
+                            duration_s, _strategy_for(resolved), feedback,
+                            wonder_fn=wonder, raw_dir=raw_dir,
+                            steps=diag_steps)
+                except ValueError as exc:
+                    # The gen functions raise on an invalid reply before
+                    # returning: count it as a validation failure (one
+                    # retry with the reason fed back, then STOP).
+                    reason = f"{type(exc).__name__}: {exc}"
+                    rec.update({"stage": "validation", "gate_pass": False,
+                                "error": reason})
+                    attempts.append(rec)
+                    validation_failures += 1
+                    if validation_failures >= 2:
+                        return _result(
+                            "STOP: generated test failed validation twice "
+                            f"({reason}) — do not repair.", False)
+                    feedback = reason
+                    continue
                 code = gen["code"]
                 test_path.write_text(code, encoding="utf-8")
                 errs = validate_generated_code(code, duration_s)
@@ -1232,9 +1265,12 @@ def build_server():
                                    "and verified repair.")
 
     @server.tool(description="Capture the buggy clip. target is a bench "
-                             "case id or a JSON {repo_path, page} object "
-                             "(page defaults to index.html). The repo is "
-                             "served in-process; just pass repo_path. "
+                             "case id or a JSON {repo_path, page, steps} "
+                             "object (page defaults to index.html). The "
+                             "repo is served in-process; just pass "
+                             "repo_path. steps (scroll_to, scroll_by, "
+                             "click, wait_ms) reproduces bugs that only "
+                             "appear after interaction. "
                              "Returns the mp4 path + meta.")
     def capture_bug(target: str, report: str) -> str:
         return json.dumps(tool_capture_bug(target, report))
@@ -1263,7 +1299,8 @@ def build_server():
                              "two-phase Gate 1 on the current build "
                              "(Phase A boot/selector must pass, Phase B "
                              "visual assert must fail with AssertionError). "
-                             "Starts a job.")
+                             "Pass repro steps through as "
+                             "diagnosis.steps. Starts a job.")
     def generate_visual_test(diagnosis: dict[str, Any]) -> str:
         return json.dumps(tool_generate_visual_test(diagnosis))
 

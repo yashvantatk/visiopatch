@@ -52,6 +52,16 @@ DIAGNOSIS = {"root_cause": "velocity is not transferred",
              "confidence": 0.8}
 
 
+def test_prompt_carries_steps_and_reproduce_first() -> None:
+    steps = [{"scroll_to": "#modalTitle"}]
+    prompt = build_testgen_prompt(REPORT, REPORTED, DIAGNOSIS,
+                                  "http://localhost:8901/", 5,
+                                  assertion_strategy("d1-modal-zindex"),
+                                  steps=steps)
+    assert '"scroll_to"' in prompt and "#modalTitle" in prompt
+    assert "reproduce" in prompt.lower()
+
+
 def test_prompt_contains_no_leak_terms() -> None:
     prompt = build_testgen_prompt(REPORT, REPORTED, DIAGNOSIS,
                                   "http://localhost:8901/", 5,
@@ -242,6 +252,25 @@ def test_generate_repo_test_matches_step5_shape(tmp_path, monkeypatch) -> None:
         wonder_fn=lambda p, e: ("garbage", None),
         raw_dir=tmp_path / "jobs")
     assert again["cached"] is True and len(log) == 1
+
+
+def test_generate_repo_test_forwards_steps_to_prompt(tmp_path,
+                                                      monkeypatch) -> None:
+    from visiopatch.testgen import generate_repo_test
+    monkeypatch.setattr(testgen, "CACHE_DIR", tmp_path / "cache")
+    seen: dict = {}
+
+    def fake(prompt: str, effort: str):
+        seen["prompt"] = prompt
+        return "```python\n" + GOOD_CODE + "```", {
+            "input_tokens": 1, "output_tokens": 1}
+
+    generate_repo_test("rep", {}, DIAGNOSIS, "http://localhost:9/", 5.0,
+                       "s", None, wonder_fn=fake,
+                       raw_dir=tmp_path / "jobs",
+                       steps=[{"scroll_to": "#modalTitle"}])
+    assert '"scroll_to"' in seen["prompt"]
+    assert "#modalTitle" in seen["prompt"]
 
 
 def test_generate_repo_test_logs_scrubbed_raw500(tmp_path, monkeypatch) -> None:

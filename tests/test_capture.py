@@ -11,6 +11,8 @@ import subprocess
 
 import pytest
 
+from visiopatch.capture import run_actions, validate_actions
+
 from visiopatch.capture import FPS, HEIGHT, WIDTH, build_meta
 
 pytestmark = pytest.mark.skipif(
@@ -64,3 +66,51 @@ def test_build_meta_carries_mapping_fields() -> None:
     assert meta["frames"] == 82
     assert meta["fps"] == 15
     assert 0 <= meta["load_offset_s"] < meta["record_s"]
+
+
+class _FakePage:
+    def __init__(self) -> None:
+        self.calls: list = []
+
+    def evaluate(self, js: str):
+        self.calls.append(("evaluate", js))
+
+    def click(self, selector: str) -> None:
+        self.calls.append(("click", selector))
+
+    def wait_for_timeout(self, ms: int) -> None:
+        self.calls.append(("wait", ms))
+
+
+def test_validate_actions_accepts_generic_steps() -> None:
+    steps = validate_actions([{"scroll_to": "#modalTitle"},
+                              {"scroll_by": [0, 200]},
+                              {"click": "#modal"}, {"wait_ms": 500}])
+    assert [next(iter(s)) for s in steps] == [
+        "scroll_to", "scroll_by", "click", "wait_ms"]
+    assert validate_actions(None) == []
+    assert validate_actions([]) == []
+
+
+def test_run_actions_applies_generic_steps_in_order() -> None:
+    """Generic repro steps (scroll/click/wait): the scroll that reveals
+    the d1 overlap is one instance, but the vocabulary is page-generic."""
+    page = _FakePage()
+    run_actions(page, [{"scroll_to": "#modalTitle"}, {"scroll_by": [0, 200]},
+                       {"click": "#modal"}, {"wait_ms": 500}])
+    kinds = [c[0] for c in page.calls]
+    assert kinds == ["evaluate", "evaluate", "click", "wait"]
+    assert "scrollIntoView" in page.calls[0][1]
+    assert "#modalTitle" in page.calls[0][1]
+    assert "scrollBy" in page.calls[1][1]
+
+
+def test_run_actions_rejects_bad_steps() -> None:
+    page = _FakePage()
+    for bad in ({"nonsense": 1}, {"scroll_to": ""}, {"scroll_to": 42},
+                {"scroll_by": [0]}, {"scroll_by": ["x", 0]},
+                {"click": ""}, {"wait_ms": -1}, {"wait_ms": 99999999},
+                "scroll", [[]], [{"scroll_to": "#a", "click": "#b"}]):
+        with pytest.raises(ValueError):
+            run_actions(page, bad)
+    assert page.calls == []

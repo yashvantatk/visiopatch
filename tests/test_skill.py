@@ -40,3 +40,17 @@ def test_skill_bans_hand_patch_on_tool_failure() -> None:
 def test_skill_never_marks_done_without_tool_ok() -> None:
     body = _body()
     assert "unless" in body and "ok" in body
+
+
+def test_skill_documents_repro_steps() -> None:
+    body = _body()
+    assert "steps" in body
+    assert "scroll_to" in body
+
+
+def test_skill_hard_stop_no_manual_fallback() -> None:
+    body = _body()
+    assert "after any stop" in body
+    assert "end the turn" in body
+    assert "manual fallback" in body
+    assert "by hand" in body
