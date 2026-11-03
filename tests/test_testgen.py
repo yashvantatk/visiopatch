@@ -160,6 +160,30 @@ def test_generate_test_feedback_changes_call(tmp_path, monkeypatch) -> None:
     assert len(log) == 2 and "assert failed" in log[1]
 
 
+def test_state_label_check_ignores_normal_words() -> None:
+    """Acceptance attempt 2 false positive: 'bug' in an ordinary comment
+    and 'fixed' as a CSS value are normal words, not state labels."""
+    code = GOOD_CODE + (
+        '# wait so the bug would appear\n'
+        'pos = page.evaluate(\n'
+        '    "() => getComputedStyle(document.body).position")\n'
+        'assert pos in ("static", "fixed", "sticky"), \\\n'
+        '    "VISIOPATCH_PHASE_B: unexpected position"\n'
+    )
+    assert validate_generated_code(code, 5) == []
+
+
+def test_state_label_check_catches_labels() -> None:
+    """Real leaks still fail, naming the word and its line."""
+    leak_id = GOOD_CODE.replace("box = page.evaluate", "buggy = page.evaluate")
+    errs = validate_generated_code(leak_id, 5)
+    assert any("'buggy'" in e and "line" in e for e in errs), errs
+    leak_phrase = GOOD_CODE.replace(
+        "body left edge moved", "body left edge moved on fix build")
+    errs = validate_generated_code(leak_phrase, 5)
+    assert any("fix build" in e and "line" in e for e in errs), errs
+
+
 def test_generate_test_rejects_invalid_code(tmp_path, monkeypatch) -> None:
     _patch_case(monkeypatch, tmp_path)
     with pytest.raises(ValueError):

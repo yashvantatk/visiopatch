@@ -201,6 +201,48 @@ def gate1_verdict(exit_code: int, output: str) -> dict[str, Any]:
                       "AssertionError as required"}
 
 
+# Identifiers that only ever name the build state under test. Bare
+# "bug"/"fix" and CSS values such as "fixed"/"sticky" are normal words
+# and are never banned on their own.
+_STATE_LABEL_NAMES = {"buggy", "fixed", "patched"}
+_STATE_LABEL_PHRASES = ("fix build", "fixed build", "buggy build",
+                        "before fix", "after fix",
+                        "before the fix", "after the fix")
+
+
+def _state_label_errors(code: str) -> list[str]:
+    """Token-aware state-label check.
+
+    Comments are prose and are ignored entirely; only NAME and STRING
+    tokens are examined. A NAME token counts when it is (or contains)
+    a state label; a STRING counts on whole-word labels or the
+    label phrases above. Each error names the matched word and its
+    line.
+    """
+    import io
+    import tokenize
+    errs: list[str] = []
+    try:
+        tokens = list(tokenize.generate_tokens(io.StringIO(code).readline))
+    except (tokenize.TokenError, SyntaxError, IndentationError):
+        return []  # the compile check already reported; don't pile on
+    for tok_type, tok_str, (srow, _), _, line in tokens:
+        low = tok_str.lower()
+        if tok_type == tokenize.NAME:
+            if low in _STATE_LABEL_NAMES or "buggy" in low:
+                errs.append(f"state label {tok_str!r} at line {srow}: "
+                            f"{line.strip()[:120]}")
+        elif tok_type == tokenize.STRING:
+            hit = next((p for p in _STATE_LABEL_PHRASES if p in low), None)
+            if hit is None:
+                word = re.search(r"\b(buggy|patched)\b", low)
+                hit = word.group(0) if word else None
+            if hit is not None:
+                errs.append(f"state label {hit!r} at line {srow}: "
+                            f"{line.strip()[:120]}")
+    return errs
+
+
 def validate_generated_code(code: str, duration_s: float) -> list[str]:
     """Compile + AST checks. Empty list means the code may run."""
     errs: list[str] = []
@@ -212,8 +254,7 @@ def validate_generated_code(code: str, duration_s: float) -> list[str]:
     for term in _BANNED_TEXT:
         if term.lower() in low:
             errs.append(f"contains banned term: {term}")
-    if re.search(r"\bfix(ed)?\b", low) or re.search(r"\bbug(gy)?\b", low):
-        errs.append("contains a state-label word")
+    errs.extend(_state_label_errors(code))
     if re.search(r"[0-9a-f]{40}", low) is not None:
         errs.append("contains a 40-char hex string")
     tree = ast.parse(code)

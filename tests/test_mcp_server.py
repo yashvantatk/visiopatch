@@ -337,6 +337,40 @@ class _NoClient:
         raise AssertionError("client must not be used in this test")
 
 
+# --- generate stops after a second validation failure -----------------------
+
+def test_generate_stops_after_second_validation_failure(monkeypatch):
+    """Validation gets exactly one retry with the reason fed back, then
+    the tool stops (acceptance attempt 2: don't burn model calls)."""
+    import shutil
+    from visiopatch import testgen as TG
+    monkeypatch.setattr(MCP, "NO_CACHE", True)
+    run_id = "repo-testval"
+    snap = REPO_ROOT / "runs" / run_id / "src"
+    snap.mkdir(parents=True, exist_ok=True)
+    (snap / "index.html").write_text("<html></html>\n", encoding="utf-8")
+    try:
+        calls: list = []
+
+        def _fake_gen(*args, **kwargs):
+            feedback = kwargs.get("feedback",
+                                  args[6] if len(args) > 6 else None)
+            calls.append(feedback)
+            return {"code": "assert True\n"}
+
+        monkeypatch.setattr(TG, "generate_repo_test", _fake_gen)
+        monkeypatch.setattr(MCP, "wonder_fn_for", lambda *a, **k: None)
+        out = MCP.do_generate_impl(
+            {"run_id": run_id, "report": "r", "reported": {}})
+    finally:
+        shutil.rmtree(REPO_ROOT / "runs" / run_id, ignore_errors=True)
+    assert out["gate_pass"] is False
+    assert len(out["attempts"]) == 2
+    assert all(a["stage"] == "validation" for a in out["attempts"])
+    assert "STOP" in out["note"]
+    assert calls[0] is None and calls[1]
+
+
 # --- job_status / job_result: always JSON, with wait --------------------------
 
 def test_job_status_unknown_is_failed_json():

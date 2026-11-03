@@ -729,6 +729,14 @@ def do_generate_impl(diagnosis: dict[str, Any]) -> dict[str, Any]:
             attempts: list[dict[str, Any]] = []
             feedback: str | None = None
             gate_pass = False
+            validation_failures = 0
+
+            def _result(note: str, passed: bool) -> dict[str, Any]:
+                return {"test_file": rel_str(str(test_path)),
+                        "gate": "two-phase (A must pass, B must fail with "
+                                "AssertionError)",
+                        "gate_pass": passed, "attempts": attempts,
+                        "url": url, "note": note}
             for attempt in range(1, 4):
                 rec: dict[str, Any] = {"attempt": attempt}
                 if resolved["kind"] == "bench":
@@ -748,10 +756,16 @@ def do_generate_impl(diagnosis: dict[str, Any]) -> dict[str, Any]:
                 test_path.write_text(code, encoding="utf-8")
                 errs = validate_generated_code(code, duration_s)
                 if errs:
+                    reason = "; ".join(errs)
                     rec.update({"stage": "validation", "gate_pass": False,
-                                "error": "; ".join(errs)})
+                                "error": reason})
                     attempts.append(rec)
-                    feedback = "; ".join(errs)
+                    validation_failures += 1
+                    if validation_failures >= 2:
+                        return _result(
+                            "STOP: generated test failed validation twice "
+                            f"({reason}) — do not repair.", False)
+                    feedback = reason
                     continue
                 exit_code, out = _run_pytest_file(test_path, url)
                 verdict = gate1_verdict(exit_code, out)
@@ -764,15 +778,11 @@ def do_generate_impl(diagnosis: dict[str, Any]) -> dict[str, Any]:
                     gate_pass = True
                     break
                 feedback = verdict["reason"] + "\n" + out[-4000:]
-            return {"test_file": rel_str(str(test_path)),
-                    "gate": "two-phase (A must pass, B must fail with "
-                            "AssertionError)",
-                    "gate_pass": gate_pass, "attempts": attempts,
-                    "url": url,
-                    "note": ("Gate 1 fails on the current build as required."
-                             if gate_pass else
-                             "Gate 1 did not fail as required on the "
-                             "unmodified build — STOP, do not repair.")}
+            return _result(
+                ("Gate 1 fails on the current build as required."
+                 if gate_pass else
+                 "Gate 1 did not fail as required on the "
+                 "unmodified build — STOP, do not repair."), gate_pass)
 
         if resolved["kind"] == "bench":
             from visiopatch.bench import ServedCase
