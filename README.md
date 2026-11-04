@@ -15,6 +15,8 @@
 
 Meta Global AI Developer Hackathon · Indie track · Problem statement: **Push the Frontier**
 
+**[▶ Watch the 90-second demo](https://youtu.be/iCC7jTEfXtA)** · [Launch post on X](https://x.com/Yashvantatk/status/2117895450053525747)
+
 </div>
 
 ![VisioPatch pipeline](demo/pipeline.png)
@@ -46,13 +48,15 @@ From there it works on its own, through the `visual-debug` skill and the VisioPa
 | 3 | `diagnose` | Muse Wonder named the cause: `transform: translateZ(0)` on `<main>` traps the popup under the sticky header |
 | 4 | `generate_visual_test` | **Gate 1:** the generated Playwright test **failed on the current code** (the popup's title was pushed hundreds of pixels up, under the header, on scroll), proving the bug |
 | 5 | `repair_and_verify` | Three Muse Code sub-agents tried three strategies in isolated git worktrees |
-| 6 | **Gate 2** | All three passed; the smallest was applied, and the test now passes |
+| 6 | **Gate 2** | All three passed; the smallest (2 lines) was applied, and the test now passes |
 
-| Candidate | Strategy | Lines | Gate 2 |
-|---|---|---|---|
-| **s1** | Viewport-fixed popup, trapping transform removed | **4** | ✅ pass, **picked** |
-| s2 | Move the popup out of `<main>` into `<body>` | 14 | ✅ pass |
-| s3 | Scroll-synced positioning in JavaScript | 17 | ✅ pass |
+| Candidate | Strategy | Gate 2 |
+|---|---|---|
+| **s1** | Viewport-fixed popup, trapping transform removed (2 lines) | ✅ pass, **picked** |
+| s2 | Move the popup out of `<main>` into `<body>` | ✅ pass |
+| s3 | Scroll-synced positioning in JavaScript | ✅ pass |
+
+This is the run shown in the [demo video](https://youtu.be/iCC7jTEfXtA).
 
 | Before (benchmark screenshot) | After a verified fix (benchmark screenshot) |
 |---|---|
