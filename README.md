@@ -133,7 +133,7 @@ Six visual bugs, each a self-contained repro in `bench/<id>/`. Four are **real m
 | `k1174` | Momentum impulse in the physics resolve handler | `src/ecs/components/physics/body.ts` | 35 |
 | `k950` | Pad and offset atlas rasterization | `src/core/fontCache.ts`, `src/gfx/formatText.ts` | 69 |
 | `k864` | Skip only the degenerate slice | `src/ecs/components/draw/sprite.ts` | 2 |
-| `d1` | Remove the stacking context from `<main>` (byte-identical to the human fix) | `index.html` | 2 |
+| `d1` | Remove the trapping `transform` from `<main>` | `index.html` | 2 |
 
 | k1174 before | k1174 after the verified fix |
 |---|---|
