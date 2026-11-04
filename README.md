@@ -44,7 +44,7 @@ From there it works on its own, through the `visual-debug` skill and the VisioPa
 | 1 | `capture_bug` | Served the repo itself and recorded the page, scrolling the way the report describes |
 | 2 | `track_objects` · `find_anomaly` | SAM 3.1 tracked what it could find; Muse Spark 1.3 compared the clip with the report |
 | 3 | `diagnose` | Muse Wonder named the cause: `transform: translateZ(0)` on `<main>` traps the popup under the sticky header |
-| 4 | `generate_visual_test` | **Gate 1:** the generated Playwright test **failed on the current code** (popup title top moved from 76 px to −224 px at a 300 px scroll), proving the bug |
+| 4 | `generate_visual_test` | **Gate 1:** the generated Playwright test **failed on the current code** (the popup's title was pushed hundreds of pixels up, under the header, on scroll), proving the bug |
 | 5 | `repair_and_verify` | Three Muse Code sub-agents tried three strategies in isolated git worktrees |
 | 6 | **Gate 2** | All three passed; the smallest was applied, and the test now passes |
 
